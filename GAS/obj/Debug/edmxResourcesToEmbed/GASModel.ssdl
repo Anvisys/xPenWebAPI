@@ -1,0 +1,590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GASModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="AccID" />
+    </Key>
+    <Property Name="AccID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Number" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccountDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Activity">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ActivityDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdvanceItem">
+    <Key>
+      <PropertyRef Name="AdvanceID" />
+    </Key>
+    <Property Name="AdvanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="AdvanceName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RequestAmount" Type="int" Nullable="false" />
+    <Property Name="ReceiveAmount" Type="int" Nullable="false" />
+    <Property Name="AdvanceRemarks" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExpenseItem">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ExpenseAmount" Type="int" Nullable="false" />
+    <Property Name="ReceiveAmount" Type="int" Nullable="false" />
+    <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Expenses">
+    <Key>
+      <PropertyRef Name="ExpenseID" />
+    </Key>
+    <Property Name="ExpenseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExpenseType" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ExpenseAmount" Type="int" Nullable="false" />
+    <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Organization">
+    <Key>
+      <PropertyRef Name="OrganizationID" />
+    </Key>
+    <Property Name="OrganizationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrganizationNumber" Type="varchar" MaxLength="20" />
+    <Property Name="OrganizationName" Type="varchar" MaxLength="50" />
+    <Property Name="Employee" Type="int" />
+    <Property Name="Address" Type="varchar" MaxLength="100" />
+    <Property Name="ContactPerson" Type="varchar" MaxLength="20" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ContactEmail" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectValue" Type="int" />
+    <Property Name="ProjectDescription" Type="varchar" MaxLength="50" />
+    <Property Name="ProjectCreationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkCompletion" Type="int" />
+    <Property Name="Remarks" Type="varchar" MaxLength="200" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="TransID" />
+    </Key>
+    <Property Name="TransID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TransName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccountNumber" Type="int" Nullable="false" />
+    <Property Name="Deposit" Type="int" Nullable="false" />
+    <Property Name="Withdraw" Type="int" Nullable="false" />
+    <Property Name="EntryDate" Type="datetime" Nullable="false" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="AccountBalance" Type="int" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="TransactionID" Type="int" Nullable="false" />
+    <Property Name="TransactionRemarks" Type="varchar" MaxLength="50" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserLogin" Type="varchar" MaxLength="50" />
+    <Property Name="OrganizationID" Type="int" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Role" Type="varchar" MaxLength="20" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+    <Property Name="UserMobile" Type="varchar" MaxLength="20" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+    <Property Name="OrgName" Type="varchar" MaxLength="50" />
+    <Property Name="SolutionType" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewAccount">
+    <Key>
+      <PropertyRef Name="AccID" />
+      <PropertyRef Name="AccountNumber" />
+      <PropertyRef Name="AccountName" />
+      <PropertyRef Name="AccountType" />
+      <PropertyRef Name="AccountDescription" />
+      <PropertyRef Name="AccountBalance" />
+      <PropertyRef Name="BalanceOn" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="AccID" Type="int" Nullable="false" />
+    <Property Name="AccountNumber" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccountName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccountType" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccountDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AccountBalance" Type="int" Nullable="false" />
+    <Property Name="BalanceOn" Type="datetime" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewActivity">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="ActivityDescription" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ActivityDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="Employee" Type="varchar" MaxLength="20" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
+    <Property Name="Approver" Type="int" />
+    <Property Name="ApproverName" Type="varchar" MaxLength="20" />
+    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
+    <Property Name="Expenses" Type="int" />
+    <Property Name="Received" Type="int" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="Advance" Type="int" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewActivityDashboard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewActivityDashboard">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="ActivitiesCount" Type="int" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="Spent" Type="int" />
+    <Property Name="Received" Type="int" />
+    <Property Name="Advance" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewActivityNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewActivityNames">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="ActivityDescription" />
+      <PropertyRef Name="CreationDate" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ActivityDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Approver" Type="int" />
+    <Property Name="ApproverName" Type="varchar" MaxLength="20" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="Employee" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewActivityStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewActivityStatus">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewActivitySummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewActivitySummary">
+    <Key>
+      <PropertyRef Name="RowID" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="RowID" Type="bigint" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
+    <Property Name="Expense" Type="int" />
+    <Property Name="Received" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewAdvance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewAdvance">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="Employee" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
+    <Property Name="RequestAmount" Type="int" />
+    <Property Name="ReceivedAmount" Type="int" />
+    <Property Name="AdvanceName" Type="varchar" MaxLength="20" />
+    <Property Name="AdvanceStatus" Type="varchar" MaxLength="20" />
+    <Property Name="AdvanceModifiedDate" Type="datetime" />
+    <Property Name="Approver" Type="int" />
+    <Property Name="ApproverName" Type="varchar" MaxLength="20" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewAdvanceItemNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewAdvanceItemNames">
+    <Key>
+      <PropertyRef Name="AdvanceID" />
+      <PropertyRef Name="AdvanceName" />
+      <PropertyRef Name="RequestAmount" />
+      <PropertyRef Name="ReceiveAmount" />
+      <PropertyRef Name="AdvanceRemarks" />
+      <PropertyRef Name="CreationDate" />
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="Status" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="ProjectName" />
+    </Key>
+    <Property Name="AdvanceID" Type="int" Nullable="false" />
+    <Property Name="AdvanceName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RequestAmount" Type="int" Nullable="false" />
+    <Property Name="ReceiveAmount" Type="int" Nullable="false" />
+    <Property Name="AdvanceRemarks" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Employee" Type="varchar" MaxLength="20" />
+    <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
+    <Property Name="Approver" Type="int" />
+    <Property Name="ApproverName" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewAdvanceStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewAdvanceStatus">
+    <Key>
+      <PropertyRef Name="ActivityNumber" />
+    </Key>
+    <Property Name="ActivityNumber" Type="int" Nullable="false" />
+    <Property Name="AdvanceName" Type="varchar" MaxLength="20" />
+    <Property Name="AdvanceStatus" Type="varchar" MaxLength="20" />
+    <Property Name="AdvanceModifiedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewMonthCumulativeExpense' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewMonthCumulativeExpense">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="year" Type="int" />
+    <Property Name="month" Type="int" />
+    <Property Name="expense" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewProject">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ClientName" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="ProjectCreationDate" />
+      <PropertyRef Name="StatusOn" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectValue" Type="int" />
+    <Property Name="ProjectCreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectDescription" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
+    <Property Name="StatusOn" Type="datetime" Nullable="false" />
+    <Property Name="WorkCompletion" Type="int" />
+    <Property Name="StatusRemark" Type="varchar" MaxLength="200" />
+    <Property Name="Spent" Type="int" />
+    <Property Name="received" Type="int" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewProjectStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewProjectStatus">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="StatusOn" />
+    </Key>
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="StatusOn" Type="datetime" Nullable="false" />
+    <Property Name="WorkCompletion" Type="int" />
+    <Property Name="StatusRemark" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GAS.dbo.ViewTransaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewTransaction">
+    <Key>
+      <PropertyRef Name="TransID" />
+      <PropertyRef Name="TransName" />
+      <PropertyRef Name="AccountNumber" />
+      <PropertyRef Name="Deposit" />
+      <PropertyRef Name="Withdraw" />
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="TransID" Type="int" Nullable="false" />
+    <Property Name="TransName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccountNumber" Type="int" Nullable="false" />
+    <Property Name="Deposit" Type="int" Nullable="false" />
+    <Property Name="Withdraw" Type="int" Nullable="false" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="AccountBalance" Type="int" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="TransactionID" Type="int" Nullable="false" />
+    <Property Name="TransactionRemarks" Type="varchar" MaxLength="50" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="AccountName" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityContainer Name="GASModelStoreContainer">
+    <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdvanceItem" EntityType="Self.AdvanceItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExpenseItem" EntityType="Self.ExpenseItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ViewAccount" EntityType="Self.ViewAccount" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewAccount].[AccID] AS [AccID], 
+    [ViewAccount].[AccountNumber] AS [AccountNumber], 
+    [ViewAccount].[AccountName] AS [AccountName], 
+    [ViewAccount].[AccountType] AS [AccountType], 
+    [ViewAccount].[AccountDescription] AS [AccountDescription], 
+    [ViewAccount].[AccountBalance] AS [AccountBalance], 
+    [ViewAccount].[BalanceOn] AS [BalanceOn], 
+    [ViewAccount].[OrgID] AS [OrgID]
+    FROM [dbo].[ViewAccount] AS [ViewAccount]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewActivity" EntityType="Self.ViewActivity" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewActivity].[ActivityID] AS [ActivityID], 
+    [ViewActivity].[ActivityName] AS [ActivityName], 
+    [ViewActivity].[ActivityDescription] AS [ActivityDescription], 
+    [ViewActivity].[EmployeeID] AS [EmployeeID], 
+    [ViewActivity].[Employee] AS [Employee], 
+    [ViewActivity].[ProjectID] AS [ProjectID], 
+    [ViewActivity].[ProjectName] AS [ProjectName], 
+    [ViewActivity].[CreatedBy] AS [CreatedBy], 
+    [ViewActivity].[CreatedByName] AS [CreatedByName], 
+    [ViewActivity].[Approver] AS [Approver], 
+    [ViewActivity].[ApproverName] AS [ApproverName], 
+    [ViewActivity].[ActivityStatus] AS [ActivityStatus], 
+    [ViewActivity].[Expenses] AS [Expenses], 
+    [ViewActivity].[Received] AS [Received], 
+    [ViewActivity].[Balance] AS [Balance], 
+    [ViewActivity].[UpdatedOn] AS [UpdatedOn], 
+    [ViewActivity].[Advance] AS [Advance], 
+    [ViewActivity].[OrgID] AS [OrgID]
+    FROM [dbo].[ViewActivity] AS [ViewActivity]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewActivityDashboard" EntityType="Self.ViewActivityDashboard" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewActivityDashboard].[ActivitiesCount] AS [ActivitiesCount], 
+    [ViewActivityDashboard].[EmployeeID] AS [EmployeeID], 
+    [ViewActivityDashboard].[Spent] AS [Spent], 
+    [ViewActivityDashboard].[Received] AS [Received], 
+    [ViewActivityDashboard].[Advance] AS [Advance]
+    FROM [dbo].[ViewActivityDashboard] AS [ViewActivityDashboard]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewActivityNames" EntityType="Self.ViewActivityNames" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewActivityNames].[ActivityID] AS [ActivityID], 
+    [ViewActivityNames].[ActivityName] AS [ActivityName], 
+    [ViewActivityNames].[ActivityDescription] AS [ActivityDescription], 
+    [ViewActivityNames].[CreationDate] AS [CreationDate], 
+    [ViewActivityNames].[ProjectID] AS [ProjectID], 
+    [ViewActivityNames].[ProjectName] AS [ProjectName], 
+    [ViewActivityNames].[Approver] AS [Approver], 
+    [ViewActivityNames].[ApproverName] AS [ApproverName], 
+    [ViewActivityNames].[EmployeeID] AS [EmployeeID], 
+    [ViewActivityNames].[Employee] AS [Employee], 
+    [ViewActivityNames].[CreatedBy] AS [CreatedBy], 
+    [ViewActivityNames].[CreatedByName] AS [CreatedByName], 
+    [ViewActivityNames].[OrgID] AS [OrgID]
+    FROM [dbo].[ViewActivityNames] AS [ViewActivityNames]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewActivityStatus" EntityType="Self.ViewActivityStatus" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewActivityStatus].[ActivityID] AS [ActivityID], 
+    [ViewActivityStatus].[ActivityStatus] AS [ActivityStatus], 
+    [ViewActivityStatus].[UpdatedOn] AS [UpdatedOn]
+    FROM [dbo].[ViewActivityStatus] AS [ViewActivityStatus]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewActivitySummary" EntityType="Self.ViewActivitySummary" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewActivitySummary].[RowID] AS [RowID], 
+    [ViewActivitySummary].[OrgID] AS [OrgID], 
+    [ViewActivitySummary].[ActivityStatus] AS [ActivityStatus], 
+    [ViewActivitySummary].[Expense] AS [Expense], 
+    [ViewActivitySummary].[Received] AS [Received]
+    FROM [dbo].[ViewActivitySummary] AS [ViewActivitySummary]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewAdvance" EntityType="Self.ViewAdvance" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewAdvance].[ActivityID] AS [ActivityID], 
+    [ViewAdvance].[ActivityName] AS [ActivityName], 
+    [ViewAdvance].[ProjectID] AS [ProjectID], 
+    [ViewAdvance].[ProjectName] AS [ProjectName], 
+    [ViewAdvance].[EmployeeID] AS [EmployeeID], 
+    [ViewAdvance].[Employee] AS [Employee], 
+    [ViewAdvance].[CreatedBy] AS [CreatedBy], 
+    [ViewAdvance].[CreatedByName] AS [CreatedByName], 
+    [ViewAdvance].[RequestAmount] AS [RequestAmount], 
+    [ViewAdvance].[ReceivedAmount] AS [ReceivedAmount], 
+    [ViewAdvance].[AdvanceName] AS [AdvanceName], 
+    [ViewAdvance].[AdvanceStatus] AS [AdvanceStatus], 
+    [ViewAdvance].[AdvanceModifiedDate] AS [AdvanceModifiedDate], 
+    [ViewAdvance].[Approver] AS [Approver], 
+    [ViewAdvance].[ApproverName] AS [ApproverName], 
+    [ViewAdvance].[OrgID] AS [OrgID]
+    FROM [dbo].[ViewAdvance] AS [ViewAdvance]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewAdvanceItemNames" EntityType="Self.ViewAdvanceItemNames" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewAdvanceItemNames].[AdvanceID] AS [AdvanceID], 
+    [ViewAdvanceItemNames].[AdvanceName] AS [AdvanceName], 
+    [ViewAdvanceItemNames].[RequestAmount] AS [RequestAmount], 
+    [ViewAdvanceItemNames].[ReceiveAmount] AS [ReceiveAmount], 
+    [ViewAdvanceItemNames].[AdvanceRemarks] AS [AdvanceRemarks], 
+    [ViewAdvanceItemNames].[CreationDate] AS [CreationDate], 
+    [ViewAdvanceItemNames].[ActivityID] AS [ActivityID], 
+    [ViewAdvanceItemNames].[Status] AS [Status], 
+    [ViewAdvanceItemNames].[ActivityName] AS [ActivityName], 
+    [ViewAdvanceItemNames].[ProjectName] AS [ProjectName], 
+    [ViewAdvanceItemNames].[Employee] AS [Employee], 
+    [ViewAdvanceItemNames].[CreatedByName] AS [CreatedByName], 
+    [ViewAdvanceItemNames].[Approver] AS [Approver], 
+    [ViewAdvanceItemNames].[ApproverName] AS [ApproverName]
+    FROM [dbo].[ViewAdvanceItemNames] AS [ViewAdvanceItemNames]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewAdvanceStatus" EntityType="Self.ViewAdvanceStatus" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewAdvanceStatus].[ActivityNumber] AS [ActivityNumber], 
+    [ViewAdvanceStatus].[AdvanceName] AS [AdvanceName], 
+    [ViewAdvanceStatus].[AdvanceStatus] AS [AdvanceStatus], 
+    [ViewAdvanceStatus].[AdvanceModifiedDate] AS [AdvanceModifiedDate]
+    FROM [dbo].[ViewAdvanceStatus] AS [ViewAdvanceStatus]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewMonthCumulativeExpense" EntityType="Self.ViewMonthCumulativeExpense" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewMonthCumulativeExpense].[UserID] AS [UserID], 
+    [ViewMonthCumulativeExpense].[year] AS [year], 
+    [ViewMonthCumulativeExpense].[month] AS [month], 
+    [ViewMonthCumulativeExpense].[expense] AS [expense]
+    FROM [dbo].[ViewMonthCumulativeExpense] AS [ViewMonthCumulativeExpense]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewProject" EntityType="Self.ViewProject" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewProject].[ProjectID] AS [ProjectID], 
+    [ViewProject].[ProjectNumber] AS [ProjectNumber], 
+    [ViewProject].[ClientName] AS [ClientName], 
+    [ViewProject].[ProjectName] AS [ProjectName], 
+    [ViewProject].[ProjectValue] AS [ProjectValue], 
+    [ViewProject].[ProjectCreationDate] AS [ProjectCreationDate], 
+    [ViewProject].[ProjectDescription] AS [ProjectDescription], 
+    [ViewProject].[CreatedBy] AS [CreatedBy], 
+    [ViewProject].[CreatedByName] AS [CreatedByName], 
+    [ViewProject].[StatusOn] AS [StatusOn], 
+    [ViewProject].[WorkCompletion] AS [WorkCompletion], 
+    [ViewProject].[StatusRemark] AS [StatusRemark], 
+    [ViewProject].[Spent] AS [Spent], 
+    [ViewProject].[received] AS [received], 
+    [ViewProject].[OrgID] AS [OrgID]
+    FROM [dbo].[ViewProject] AS [ViewProject]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewProjectStatus" EntityType="Self.ViewProjectStatus" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewProjectStatus].[ProjectID] AS [ProjectID], 
+    [ViewProjectStatus].[StatusOn] AS [StatusOn], 
+    [ViewProjectStatus].[WorkCompletion] AS [WorkCompletion], 
+    [ViewProjectStatus].[StatusRemark] AS [StatusRemark]
+    FROM [dbo].[ViewProjectStatus] AS [ViewProjectStatus]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewTransaction" EntityType="Self.ViewTransaction" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewTransaction].[TransID] AS [TransID], 
+    [ViewTransaction].[TransName] AS [TransName], 
+    [ViewTransaction].[AccountNumber] AS [AccountNumber], 
+    [ViewTransaction].[Deposit] AS [Deposit], 
+    [ViewTransaction].[Withdraw] AS [Withdraw], 
+    [ViewTransaction].[Balance] AS [Balance], 
+    [ViewTransaction].[AccountBalance] AS [AccountBalance], 
+    [ViewTransaction].[ProjectID] AS [ProjectID], 
+    [ViewTransaction].[ActivityID] AS [ActivityID], 
+    [ViewTransaction].[TransactionID] AS [TransactionID], 
+    [ViewTransaction].[TransactionRemarks] AS [TransactionRemarks], 
+    [ViewTransaction].[OrgID] AS [OrgID], 
+    [ViewTransaction].[AccountName] AS [AccountName]
+    FROM [dbo].[ViewTransaction] AS [ViewTransaction]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
