@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\aaWork\Projects\Publish\GAService</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Code/myuser.cs">
+      <publishTime>03/15/2018 15:10:58</publishTime>
+    </File>
+    <File Include="bin/App_Code.compiled">
+      <publishTime>04/24/2018 19:52:50</publishTime>
+    </File>
+    <File Include="bin/App_Code.dll">
+      <publishTime>04/24/2018 19:52:50</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.compiled">
+      <publishTime>04/24/2018 19:52:51</publishTime>
+    </File>
+    <File Include="bin/App_global.asax.dll">
+      <publishTime>04/24/2018 19:52:51</publishTime>
+    </File>
+    <File Include="bin/en-US/GAPResources.resources.dll">
+      <publishTime>06/08/2018 17:04:00</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>02/26/2018 12:44:02</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>02/26/2018 12:44:02</publishTime>
+    </File>
+    <File Include="bin/fr-FR/GAPResources.resources.dll">
+      <publishTime>06/08/2018 17:04:00</publishTime>
+    </File>
+    <File Include="bin/GAPResources.dll">
+      <publishTime>06/08/2018 17:04:00</publishTime>
+    </File>
+    <File Include="bin/GAS.dll">
+      <publishTime>02/01/2019 15:29:46</publishTime>
+    </File>
+    <File Include="bin/GAS.pdb">
+      <publishTime>04/24/2018 13:59:05</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>02/26/2018 12:34:28</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>02/26/2018 12:54:26</publishTime>
+    </File>
+    <File Include="bin/System.Web.Cors.dll">
+      <publishTime>02/26/2018 12:54:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.Cors.dll">
+      <publishTime>02/26/2018 12:54:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>02/26/2018 12:54:28</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>02/26/2018 12:34:46</publishTime>
+    </File>
+    <File Include="Content/LogFile.txt">
+      <publishTime>01/24/2019 15:25:19</publishTime>
+    </File>
+    <File Include="GASModel.edmx.diagram">
+      <publishTime>06/02/2018 17:58:26</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>02/26/2018 12:34:24</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>04/25/2018 09:19:42</publishTime>
+    </File>
+    <File Include="PrecompiledApp.config">
+      <publishTime>04/24/2018 19:52:46</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>02/01/2019 11:53:00</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
