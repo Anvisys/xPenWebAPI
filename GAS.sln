@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GASService", "GAS\GASService.csproj", "{3C10115E-B0E1-42DF-885A-456254BEA4E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAPResources", "GAPResources\GAPResources.csproj", "{87624EAA-DD11-451F-B0BB-1C48B51AFEE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		publish|Any CPU = publish|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C10115E-B0E1-42DF-885A-456254BEA4E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C10115E-B0E1-42DF-885A-456254BEA4E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C10115E-B0E1-42DF-885A-456254BEA4E2}.publish|Any CPU.ActiveCfg = publish|Any CPU
+		{3C10115E-B0E1-42DF-885A-456254BEA4E2}.publish|Any CPU.Build.0 = publish|Any CPU
+		{3C10115E-B0E1-42DF-885A-456254BEA4E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C10115E-B0E1-42DF-885A-456254BEA4E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87624EAA-DD11-451F-B0BB-1C48B51AFEE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87624EAA-DD11-451F-B0BB-1C48B51AFEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87624EAA-DD11-451F-B0BB-1C48B51AFEE2}.publish|Any CPU.ActiveCfg = Release|Any CPU
+		{87624EAA-DD11-451F-B0BB-1C48B51AFEE2}.publish|Any CPU.Build.0 = Release|Any CPU
+		{87624EAA-DD11-451F-B0BB-1C48B51AFEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87624EAA-DD11-451F-B0BB-1C48B51AFEE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
