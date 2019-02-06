@@ -21,7 +21,7 @@ namespace GAS.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Image/5
+        // Get Image by User ID
         public Image GetByUserID(int id)
         {
             try
@@ -41,7 +41,7 @@ namespace GAS.Controllers
 
 
 
-        // POST: api/Image
+        // Add User Image
         public HttpResponseMessage Post([FromBody]Image value)
         {
             String resp;

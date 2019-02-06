@@ -26,7 +26,7 @@ namespace GAS.Controllers
             return "value";
         }
 
-        // GET: api/ExpenseItem/5
+        // Get day wise Expenses for an organization
         [Route("Organization/{id}")]
         [HttpGet]
         public IEnumerable<DailyExpense> GetByOrganization(int id)

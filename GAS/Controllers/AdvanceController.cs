@@ -13,7 +13,7 @@ namespace GAS.Controllers
        [RoutePrefix("api/Advance")]
     public class AdvanceController : ApiController
     {
-        // GET: api/Advance/All
+        // get advance request in an Organization by Status
            [Route("Organization/{OrgID}/Status/{Status}")]
            [HttpGet]
            public IEnumerable<ViewAdvance> GetAll(int OrgID, String Status)
@@ -54,7 +54,7 @@ namespace GAS.Controllers
             }
         }
 
-           // GET: api/Advance/ByActivity/5
+           //Get Advance for an Activity
         [Route("Organization/{OrgID}/Activity/{id}")]
         [HttpGet]
            public IEnumerable<ViewAdvanceItemName> GetByActivity(int id)
@@ -73,7 +73,7 @@ namespace GAS.Controllers
             }
         }
 
-           // GET: api/Advance/ByApprover/5
+           // Get Advance by Approver/Manager and status
         [Route("Organization/{OrgID}/Approver/{id}/Status/{Status}")]
         [HttpGet]
         public IEnumerable<ViewAdvance> GetByApprover(int id, int OrgID, String Status)
@@ -115,7 +115,7 @@ namespace GAS.Controllers
         }
 
 
-        // POST: api/Advance/Add
+        // Add Advance request
            [Route("Add")]
            [HttpPost]
         public HttpResponseMessage PostAdd([FromBody]AdvanceItem ai)

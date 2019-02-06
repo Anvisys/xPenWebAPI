@@ -18,7 +18,9 @@ namespace GAS.Controllers
     public class UserController : ApiController
     {
         GASEntities ctx;
-        // GET: api/User/All
+
+
+        // get List of All users
         [Route("All")]
         [HttpGet]
         public IEnumerable<UserInfo> Get()
@@ -47,7 +49,7 @@ namespace GAS.Controllers
             }
         }
 
-        // GET: api/User/5
+        // get List of All users of an organization
         [Route("Organization/{OrgID}")]
         [HttpGet]
         public IEnumerable<UserInfo> GetByOrg(int OrgID)
@@ -77,7 +79,7 @@ namespace GAS.Controllers
         }
 
 
-        // GET: api/User/5
+        // Get user details by mobile number
         [Route("Mobile/{mobile}")]
         [HttpGet]
         public UserInfo GetByMobile(string mobile)
@@ -109,7 +111,7 @@ namespace GAS.Controllers
         }
 
 
-        // GET: api/User/5
+        // check if MObile number of email already used
         [Route("IfExist")]
         [HttpPost]
         public HttpResponseMessage PostIfExist([FromBody]User user)
@@ -136,7 +138,7 @@ namespace GAS.Controllers
 
 
 
-        // POST: api/User
+        // Add new user
         [Route("AddUser")]
         [HttpPost]
         public HttpResponseMessage PostAddUser([FromBody]User user)
@@ -176,6 +178,7 @@ namespace GAS.Controllers
             return response;
         }
 
+        // Validate user
         [Route("Organization/{OrgID}/User/{login}/lock/{password}")]
         [HttpGet]
         public UserInfo GetValidate(int OrgID, String login, String password)
