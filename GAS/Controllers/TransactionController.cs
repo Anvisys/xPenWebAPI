@@ -31,7 +31,7 @@ namespace GAS.Controllers
         }
 
 
-        // GET: api/Transaction
+        // Get Transaction for a Project
         [Route("Organization/{OrgID}/{PrjID}")]
         [HttpGet]
         public IEnumerable<ViewTransaction> GetAllForProject(int OrgID, int PrjID)
@@ -44,7 +44,7 @@ namespace GAS.Controllers
             return expData;
         }
 
-
+        // Get last 20 day wise cumulative Transaction
         [Route("Organization/{OrgID}/Day")]
         [HttpGet]
         public IEnumerable<DailyExpense> GetDaySummary(int OrgID)
@@ -59,7 +59,7 @@ namespace GAS.Controllers
         }
 
 
-
+        // Get last 20 day wise cumulative Transaction for a Account
         [Route("Organization/{OrgID}/Day/Account/{AccID}")]
         [HttpGet]
         public IEnumerable<DailyExpense> GetDailyAccount(int OrgID, int AccID)
@@ -73,8 +73,8 @@ namespace GAS.Controllers
             return expData;
         }
 
-
-        // GET: api/Transaction/5
+        // Get transactions in an organization on specific date
+      
         [Route("Organization/{OrgID}/Date/{date}")]
         [HttpGet]
         public IEnumerable<ViewTransaction> GetByDate(int OrgID, String date)
@@ -95,7 +95,7 @@ namespace GAS.Controllers
             }
         }
 
-        // GET: api/Transaction/5
+        // Get 10 transactions in an organization by index
         [Route("Organization/{OrgID}/Page/{id}")]
         [HttpGet]
         public IEnumerable<ViewTransaction> GetByPage(int OrgID, int id)
@@ -109,7 +109,7 @@ namespace GAS.Controllers
             return expData;
         }
 
-        // GET: api/Transaction/5
+        // Get transactions in an organization by month
         [Route("Organization/{OrgID}/Year/{year}/Month/{month}")]
         [HttpGet]
         public IEnumerable<ViewTransaction> GetByMonth(int OrgID, int year, int month)
@@ -123,6 +123,7 @@ namespace GAS.Controllers
             return expData;
         }
 
+        // Get tax (GST or TDS) transactions in an organization by month
         [Route("Tax/Organization/{OrgID}/Year/{year}/Month/{month}")]
         [HttpGet]
         public IEnumerable<ViewTransaction> GetTaxByMonth(int OrgID, int year, int month)
@@ -137,6 +138,7 @@ namespace GAS.Controllers
             return expData;
         }
 
+        // Add new withdraw
         [Route("Transfer")]
         [HttpPost]
         public HttpResponseMessage PostTransfer([FromBody]Transaction transfer)
@@ -185,7 +187,7 @@ namespace GAS.Controllers
 
         }
 
-
+        // Add new payment
         [Route("Payment")]
         [HttpPost]
         public HttpResponseMessage PostPayment([FromBody]Transaction transaction)
