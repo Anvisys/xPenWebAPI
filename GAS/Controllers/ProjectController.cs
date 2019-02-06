@@ -15,7 +15,7 @@ namespace GAS.Controllers
     [RoutePrefix("api/Project")]
     public class ProjectController : ApiController
     {
-        // GET: api/Project/All
+        // Get List of all projects
 
         [APIAuthorizeAttribute]
         public IEnumerable<ViewProject> GetAll()
@@ -34,6 +34,7 @@ namespace GAS.Controllers
             }
         }
 
+        // Get project details by project id
         [Route("Organization/{OrgID}/Project/{ProjectID}")]
         [HttpGet]
         public IEnumerable<ViewProject> GetProject(int OrgID, int ProjectID)
@@ -54,7 +55,7 @@ namespace GAS.Controllers
         }
 
 
-        // GET: api/Project/5
+        // Get project in an organization by status
         [Route("Organization/{OrgID}/Status/{status}")]
         [HttpGet]
         [APIAuthorizeAttribute]
@@ -105,7 +106,8 @@ namespace GAS.Controllers
         }
 
 
-        // GET: api/Project/5
+        // Get project in an organization by status
+
         [Route("Organization/{OrgID}/Manager/{id}/Status/{status}")]
         [HttpGet]
         [APIAuthorizeAttribute]
@@ -157,11 +159,10 @@ namespace GAS.Controllers
         }
 
 
-
+        // Add new Project
         [Route("New")]
         [HttpPost]
-        // POST: api/Project
-        public HttpResponseMessage PostNew([FromBody]Project prj)
+       public HttpResponseMessage PostNew([FromBody]Project prj)
         {
             String resp = "{\"Response\":\"Undefine\"}";
             var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -203,11 +204,11 @@ namespace GAS.Controllers
             return response;
         }
 
-
+        // Update Project Status
         [Route("Update")]
         [HttpPost]
         [ClosingProjectFilter]
-        // POST: api/Project
+    
         public HttpResponseMessage PostUpdate([FromBody]ProjectStatu prjStatus)
         {
             String resp = "{\"Response\":\"Undefine\"}";
