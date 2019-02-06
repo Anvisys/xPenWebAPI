@@ -315,15 +315,15 @@ namespace GAS.Controllers
 
 
         // GET: api/Activity/5
-        [Route("Organization/{OrgID}/Employee/{id}/time/{synctime}")]
+        [Route("Organization/{OrgID}/Employee/{id}")]
         [HttpGet]
-        public IEnumerable<NewViewActivity> GetNewByEmployee(int id, int OrgID, String synctime)
+        public IEnumerable<NewViewActivity> GetNewByEmployee(int id, int OrgID)
         {
             try
             {
                 
                 var ctx = new GASEntities();
-                DateTime lastSyncTime = DateTime.Parse(synctime);
+         
                 var actData = (from tr in ctx.NewViewActivities
                                where tr.EmployeeID == id && tr.OrgID == OrgID 
                                orderby tr.ActivityID descending
