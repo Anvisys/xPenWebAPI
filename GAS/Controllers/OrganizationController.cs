@@ -13,7 +13,7 @@ namespace GAS.Controllers
       [RoutePrefix("api/Organization")]
     public class OrganizationController : ApiController
     {
-        // GET: api/Organization
+        // Get List of Organizations enrolled
           public IEnumerable<ViewOrganization> Get()
         {
             try
@@ -29,7 +29,7 @@ namespace GAS.Controllers
             }
         }
 
-        // GET: api/Organization/5
+        // Get organization details by Organization Id
           public ViewOrganization Get(int id)
         {
             try
@@ -46,7 +46,7 @@ namespace GAS.Controllers
             }
         }
 
-        // POST: api/Organization
+        // Add new Organization
         [Route("New")]
         [HttpPost]
         public HttpResponseMessage PostNew([FromBody]Organization org)
@@ -77,7 +77,7 @@ namespace GAS.Controllers
         }
 
 
-        // POST: api/Organization
+        // Update Organization Status and Number
         [Route("Update")]
         [HttpPost]
         public HttpResponseMessage PostUpdate([FromBody]Organization org)
