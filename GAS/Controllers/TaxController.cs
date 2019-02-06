@@ -14,7 +14,7 @@ namespace GAS.Controllers
     [RoutePrefix("api/Tax")]
     public class TaxController : ApiController
     {
-
+        // Get latest TDS data for an organization
         [Route("TDS/{OrgID}")]
         [HttpGet]
         public ViewTD GetTDS(int OrgID)
@@ -51,6 +51,7 @@ namespace GAS.Controllers
             }
         }
 
+        // Get latest GST data for an organization
         [Route("GST/{OrgID}")]
         [HttpGet]
         public ViewGST GetGST(int OrgID)
@@ -89,7 +90,7 @@ namespace GAS.Controllers
         }
 
 
-
+        // Get  TDS data of an organization by year and month
         [Route("TDS/{OrgID}/{Year}/{Month}")]
         [HttpGet]
         public ViewTD GetTDS(int OrgID, int Year, int Month)
@@ -128,7 +129,7 @@ namespace GAS.Controllers
             }
         }
 
-
+        // Get  GST data of an organization by year and month
         [Route("GST/{OrgID}/{Year}/{Month}")]
         [HttpGet]
         public ViewGST GetGST(int OrgID, int Year, int Month)
@@ -167,7 +168,7 @@ namespace GAS.Controllers
             }
         }
 
-        // POST: api/Tax
+        // Baseline the TDS Data
 
         [Route("TDSBaseline")]
         [HttpPost]
@@ -190,7 +191,7 @@ namespace GAS.Controllers
             return response;
         }
 
-
+        // Baseline the GST Data
         [Route("GSTBaseline")]
         [HttpPost]
         public HttpResponseMessage PostGST([FromBody]GST gst)

@@ -17,7 +17,7 @@ namespace GAS.Controllers
 
         GASEntities ctx;
 
-        // GET: api/Transaction
+        // Get Transaction for an organization
         [Route("Organization/{OrgID}")]
         [HttpGet]
         public IEnumerable<ViewTransaction> GetAll(int OrgID)
