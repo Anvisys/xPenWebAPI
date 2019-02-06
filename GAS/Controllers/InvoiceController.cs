@@ -25,7 +25,7 @@ namespace GAS.Controllers
             return "value";
         }
 
-
+        // Get all Unpaid sales invoice for an organization
         [Route("Sell/Organization/{OrgID}/Unpaid")]
         [HttpGet]
         public IEnumerable<NewViewSellInvoice> GetUnpaidSellInvoice(int OrgID)
@@ -45,6 +45,7 @@ namespace GAS.Controllers
             }
         }
 
+        // Get all Sales Invoice for a project
         [Route("Sell/Organization/{OrgID}/Project/{ProjectID}")]
         [HttpGet]
         public IEnumerable<NewViewSellInvoice> GetSellInvoice(int OrgID, int ProjectID)
@@ -64,7 +65,7 @@ namespace GAS.Controllers
             }
         }
 
-
+        // Get all purchase Invoice for a project
         [Route("Purchase/Organization/{OrgID}/Project/{ProjectID}")]
         [HttpGet]
         public IEnumerable<NewViewPurchaseInvoice> GetPurchaseInvoice(int OrgID, int ProjectID)
@@ -84,7 +85,7 @@ namespace GAS.Controllers
             }
         }
 
-
+        // Get all purchase Invoice of a Organization by Year and Month
         [Route("Purchase/Organization/{OrgID}/{Year}/{Month}")]
         [HttpGet]
         public IEnumerable<NewViewPurchaseInvoice> GetPurchaseForMonth(int OrgID, int Year, int Month)
@@ -104,7 +105,7 @@ namespace GAS.Controllers
             }
         }
 
-
+        // Get all Sales Invoice of a Organization by Year and Month
         [Route("Sell/Organization/{OrgID}/{Year}/{Month}")]
         [HttpGet]
         public IEnumerable<NewViewSellInvoice> GetSellForMonth(int OrgID, int Year, int Month)
@@ -124,7 +125,7 @@ namespace GAS.Controllers
             }
         }
 
-
+        // Add new Sales Invoice
         [Route("SellInvoice")]
         [HttpPost]
         public HttpResponseMessage Post([FromBody]SellInvoice inv)
@@ -157,7 +158,7 @@ namespace GAS.Controllers
             return response;
         }
 
-
+        // Add Payment Received
         [Route("ReceivePayment")]
         [HttpPost]
         public HttpResponseMessage PostReceive([FromBody]PaymentReceived pr)
@@ -190,6 +191,7 @@ namespace GAS.Controllers
             return response;
         }
 
+        // Add Purchase Invoice
         [Route("PurchaseInvoice")]
         [HttpPost]
         public HttpResponseMessage Post([FromBody]PurchaseInvoice inv)
@@ -222,6 +224,7 @@ namespace GAS.Controllers
             return response;
         }
 
+        // Add Payment given
         [Route("GivePayment")]
         [HttpPost]
         public HttpResponseMessage Post([FromBody]PaymentGiven pg)
