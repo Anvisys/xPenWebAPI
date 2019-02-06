@@ -228,7 +228,7 @@ namespace GAS.Controllers
         }
 
 
-
+        // Update Password
         [Route("Change/UserID/{id}/lock/{pwd}")]
         [HttpGet]
         public HttpResponseMessage GetChange(int id, String pwd)
@@ -260,6 +260,7 @@ namespace GAS.Controllers
 
         }
 
+        // Forgot Password - create new random password
         [Route("Forgot/Email/{Email}/Mobile/{Mobile}")]
         [HttpGet]
         public HttpResponseMessage GetForgot(String Email, String Mobile)
@@ -300,6 +301,7 @@ namespace GAS.Controllers
 
         }
 
+        // validate user
         [Route("Validate")]
         [HttpPost]
         public UserInfo PostValidateUser(Login login)
@@ -353,6 +355,7 @@ namespace GAS.Controllers
             }
         }
 
+        // Add Existing user to organization
         [Route("Existing")]
         [HttpPost]
         public HttpResponseMessage PostExistingUser(User existing)
@@ -384,7 +387,7 @@ namespace GAS.Controllers
             return response;
         }
 
-       
+        // Edit user 
         [Route("Edit")]
         [HttpPost]
         public HttpResponseMessage PostEdit(User edit)
