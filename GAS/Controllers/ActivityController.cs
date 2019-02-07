@@ -428,7 +428,7 @@ namespace GAS.Controllers
                         }
                         );
                     ctx.SaveChanges();
-                    ctx.ExpenseItems.Add(new ExpenseItem
+                    ctx.NewExpenseItems.Add(new NewExpenseItem
                     {
                         ActivityID = e.ActivityID,
                         ExpenseAmount = activity.ExpenseAmount,
@@ -436,7 +436,7 @@ namespace GAS.Controllers
                         ItemName = e.ActivityName,
                         ReceiveAmount = 0,
                         ExpenseDescription = activity.ActivityDescription,
-                        Status = activity.ActivityStatus,
+                        Action = activity.ActivityStatus,
                         SelectedRow = false
                     });
 
