@@ -7,7 +7,7 @@ using System.Web.Http;
 
 using GAS.Models;
 using System.Web.Http.Cors;
-using System.Data.Entity.Core.Objects;
+using System.Data.Entity;
 
 namespace GAS.Controllers
 {
@@ -18,7 +18,7 @@ namespace GAS.Controllers
       
         // Get unpaid Expenses for an Employee
 
-        [Route("Organization/{orgId}/Employee/{employeeID}")]
+        [Route("UnpaidExpense/{orgId}/Employee/{employeeID}")]
         [HttpGet]
         public IEnumerable<Expenses> GetUnpaidByEmployee(int orgId, int employeeID)
         {
@@ -59,7 +59,7 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.EmployeeID == employeeID
-                               && EntityFunctions.TruncateTime(ex.ExpenseDate) == DateTime.Today.Date
+                               && DbFunctions.TruncateTime(ex.ExpenseDate) == DateTime.Today.Date
                                && (ex.ActivityStatus == "Paid" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved" || ex.ActivityStatus == "Quick")
                                group ex by new {ex.ActivityStatus }
                                    into groupEmpExpense
@@ -98,7 +98,7 @@ namespace GAS.Controllers
                                select new
                                {
                                    ItemName = groupEmpActivity.Key.ProjectID,
-                                   ProjectName = prj.ProjectName,
+                                   Name = prj.ProjectName,
                                    Manager = prj.CreatedBy
                                });
                                
