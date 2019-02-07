@@ -7,6 +7,7 @@ using System.Web.Http;
 
 using System.Web.Http.Cors;
 using GAS.Models;
+using System.Data.Entity.Core.Objects;
 
 namespace GAS.Controllers
 {
@@ -14,44 +15,17 @@ namespace GAS.Controllers
     [RoutePrefix("api/ExpenseItem")]
     public class ExpenseItemController : ApiController
     {
-        // GET: api/ExpenseItem
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+       
 
-        [Route("Organization/{id}")]
-        [HttpGet]
-        public IEnumerable<DailyExpense> GetByOrg(int id)
-        {
-            try
-            {
-
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities orderby ex.UpdatedOn ascending
-                               where ex.OrgID == id 
-                               orderby ex.UpdatedOn ascending
-                               select new DailyExpense { ExpenseDate = (DateTime)ex.UpdatedOn, Status = ex.ActivityStatus, 
-                                   ExpenseAmount = (Int32)ex.ExpenseAmount, ReceiveAmount = (Int32)ex.ReceiveAmount })
-                               .Take(10);
-                return expData;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
-
-        // GET: api/ExpenseItem/5
+        // Get expense list of an Organization in given month of a year
         [Route("Organization/{id}/{year}/{month}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetByOrgMonth(int id, int year, int month)
+        public IEnumerable<ViewNewExpenseItemStatusActivity> GetByOrgMonth(int id, int year, int month)
         {
             try {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
                                where ex.OrgID == id && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month
                                orderby ex.UpdatedOn ascending
                                select ex);
@@ -63,16 +37,16 @@ namespace GAS.Controllers
             }
         }
 
-        // GET: api/ExpenseItem/5
-        
+        // Get expense list in a project
+
         [Route("Project/{id}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetByProject(int id)
+        public IEnumerable<ViewNewExpenseItemStatusActivity> GetByProject(int id)
         {
             try
             {
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
                                where ex.ProjectID == id
                                select ex);
                 return expData;
@@ -83,38 +57,20 @@ namespace GAS.Controllers
             }
         }
 
-        [Route("Employee/{id}/{year}/{month}")]
-        [HttpGet]
-        public IEnumerable<DailyExpense> GetByEmployeeByMonth(int id, int year, int month)
-        {
-            try
-            {
+     
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.EmployeeID == id && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month
-                               select new DailyExpense {ExpenseDate = (DateTime)ex.ExpenseDate, Status = ex.ActivityStatus, 
-                                   ExpenseAmount =(Int32)ex.ExpenseAmount, ReceiveAmount = (Int32)ex.ReceiveAmount });
-                return expData;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
-        // GET: api/ExpenseItem/5
+        // Get expense list of an employee in a project
 
         [Route("Project/{id}/Employee/{EmployeeID}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetProjectByEmployee(int id, int EmployeeID)
+        public IEnumerable<ViewNewExpenseItemStatusActivity> GetProjectByEmployee(int id, int EmployeeID)
         {
             try
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.ProjectID == id && ex.EmployeeID == EmployeeID
+                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                               where ex.ProjectID == id && ex.EmployeeID == EmployeeID && (ex.Action == "Added" || ex.Action == "Paid")
                                select ex);
                 return expData;
             }
@@ -124,16 +80,18 @@ namespace GAS.Controllers
             }
         }
 
+        // Get expense list of an employee by month of year
         [Route("Activity/{id}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetByActivity(int id)
+        public IEnumerable<ViewNewExpenseItemStatusActivity> GetByActivity(int id)
         {
             try
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.ActivityID == id orderby ex.ExpenseDate ascending
+                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                               where ex.ActivityID == id && (ex.Action == "Added" || ex.Action == "Paid")
+                               orderby ex.ExpenseDate ascending
                                select ex);
                 return expData;
             }
@@ -144,23 +102,19 @@ namespace GAS.Controllers
         }
 
 
-
-   
-
-
-
-        // GET: api/ExpenseItem/5
+        
+        // Get expense list of an employee by month of year
 
         [Route("Organization/{orgId}/Employee/{employeeID}/Year/{year}/{month}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetByEmployee(int orgId, int employeeID, int year, int month)
+        public IEnumerable<ViewNewExpenseItemStatusActivity> GetByEmployee(int orgId, int employeeID, int year, int month)
         {
             try
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.EmployeeID == employeeID && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month && (ex.Status == "Added" || ex.Status == "Paid")
+                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                               where ex.EmployeeID == employeeID && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month && (ex.Action == "Added" || ex.Action == "Paid")
                                select ex );
                 return expData;
             }
@@ -170,7 +124,7 @@ namespace GAS.Controllers
             }
         }
 
-
+        // Get expense list of an employee by month of year
 
         [Route("Organization/{orgId}/Employee/{employeeID}/{year}/{month}")]
         [HttpGet]
@@ -208,7 +162,7 @@ namespace GAS.Controllers
             }
             
         }
-        // GET: api/ExpenseItem/5
+        // Get Daily Expense with Status for a Manager
 
 
         [Route("Manager/{id}")]
@@ -231,7 +185,7 @@ namespace GAS.Controllers
         }
 
 
-        // POST: api/ExpenseItem/Add
+        // Add set/Array of Expense Item
         [Route("Add")]
         [HttpPost]
         public HttpResponseMessage PostAdd([FromBody]ExpenseItem[] eItem)
@@ -260,7 +214,7 @@ namespace GAS.Controllers
             return response;
         }
 
-        // POST: api/ExpenseItem/Add
+        // Add Single Expense Item
         [Route("AddItem")]
         [HttpPost]
         public HttpResponseMessage PostAddItem([FromBody]ExpenseItem eItem)
@@ -290,7 +244,7 @@ namespace GAS.Controllers
             return response;
         }
 
-        // POST: api/ExpenseItem/Delete
+        // Select a single Expense Item
         [Route("Delete")]
         [HttpPost]
         public HttpResponseMessage PostDelete([FromBody]ExpenseItem eItem)

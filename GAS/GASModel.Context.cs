@@ -76,5 +76,8 @@ namespace GAS
         public virtual DbSet<ViewDailyExpenseItemOrganization> ViewDailyExpenseItemOrganizations { get; set; }
         public virtual DbSet<ViewDailyExpenseItemProject> ViewDailyExpenseItemProjects { get; set; }
         public virtual DbSet<ViewExpenseItemDailyStatu> ViewExpenseItemDailyStatus { get; set; }
+        public virtual DbSet<NewExpenseItem> NewExpenseItems { get; set; }
+        public virtual DbSet<ViewNewActivityStatu> ViewNewActivityStatus { get; set; }
+        public virtual DbSet<ViewNewExpenseItemStatusActivity> ViewNewExpenseItemStatusActivities { get; set; }
     }
 }

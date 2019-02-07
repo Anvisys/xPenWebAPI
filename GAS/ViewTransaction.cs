@@ -30,5 +30,7 @@ namespace GAS
         public int OrgID { get; set; }
         public string TransType { get; set; }
         public string AccountName { get; set; }
+        public string ActivityName { get; set; }
+        public int EmployeeID { get; set; }
     }
 }

@@ -19,3 +19,12 @@ GAS/GASService.csproj.user
 GAS/obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
 GAS/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
 GAS/GASService.csproj.user
+GAPResources/bin/Debug/en-US/GAPResources.resources.dll
+GAPResources/bin/Debug/fr-FR/GAPResources.resources.dll
+GAPResources/bin/Debug/GAPResources.dll
+*.pdb
+*.dll
+*.resources
+*.dll
+GAS/bin/en-US/GAPResources.resources.dll
+GAS/bin/fr-FR/GAPResources.resources.dll
