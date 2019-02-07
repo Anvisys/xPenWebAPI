@@ -43,12 +43,12 @@
     <EntitySet Name="TDS" EntityType="GASModel.TD" />
     <EntitySet Name="ViewGSTs" EntityType="GASModel.ViewGST" />
     <EntitySet Name="ViewTDS" EntityType="GASModel.ViewTD" />
-    <EntitySet Name="ViewExpenseItemDailyStatus" EntityType="GASModel.ViewExpenseItemDailyStatu" />
     <EntitySet Name="ExpenseItems" EntityType="GASModel.ExpenseItem" />
-    <EntitySet Name="ViewActivities" EntityType="GASModel.ViewActivity" />
     <EntitySet Name="ViewActivityStatus" EntityType="GASModel.ViewActivityStatu" />
-    <EntitySet Name="ViewExpenseItemStatusActivities" EntityType="GASModel.ViewExpenseItemStatusActivity" />
     <EntitySet Name="NewViewActivities" EntityType="GASModel.NewViewActivity" />
+    <EntitySet Name="ViewActivities" EntityType="GASModel.ViewActivity" />
+    <EntitySet Name="ViewExpenseItemDailyStatus" EntityType="GASModel.ViewExpenseItemDailyStatu" />
+    <EntitySet Name="ViewExpenseItemStatusActivities" EntityType="GASModel.ViewExpenseItemStatusActivity" />
   </EntityContainer>
   <EntityType Name="AdvanceItem">
     <Key>
@@ -780,24 +780,6 @@
     <Property Name="TransactionRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="TransactionDate" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="ViewExpenseItemDailyStatu">
-    <Key>
-      <PropertyRef Name="OrgID" />
-      <PropertyRef Name="ProjectID" />
-      <PropertyRef Name="ActivityID" />
-      <PropertyRef Name="EmployeeID" />
-    </Key>
-    <Property Name="OrgID" Type="Int32" Nullable="false" />
-    <Property Name="ProjectID" Type="Int32" Nullable="false" />
-    <Property Name="ActivityID" Type="Int32" Nullable="false" />
-    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="ApproverID" Type="Int32" />
-    <Property Name="ExpensesDate" Type="DateTime" Precision="0" />
-    <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Expense" Type="Int32" />
-    <Property Name="Received" Type="Int32" />
-  </EntityType>
   <EntityType Name="ExpenseItem">
     <Key>
       <PropertyRef Name="ItemID" />
@@ -812,35 +794,6 @@
     <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
     <Property Name="Action" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="ViewActivity">
-    <Key>
-      <PropertyRef Name="ActivityID" />
-      <PropertyRef Name="ActivityName" />
-      <PropertyRef Name="ActivityDescription" />
-      <PropertyRef Name="EmployeeID" />
-      <PropertyRef Name="ProjectID" />
-      <PropertyRef Name="ProjectName" />
-      <PropertyRef Name="OrgID" />
-    </Key>
-    <Property Name="ActivityID" Type="Int32" Nullable="false" />
-    <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-    <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ProjectID" Type="Int32" Nullable="false" />
-    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Approver" Type="Int32" />
-    <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Expenses" Type="Int32" />
-    <Property Name="Received" Type="Int32" />
-    <Property Name="Balance" Type="Int32" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="Advance" Type="Int32" />
-    <Property Name="OrgID" Type="Int32" Nullable="false" />
-  </EntityType>
   <EntityType Name="ViewActivityStatu">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -848,36 +801,6 @@
     <Property Name="ActivityID" Type="Int32" Nullable="false" />
     <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="ViewExpenseItemStatusActivity">
-    <Key>
-      <PropertyRef Name="ActivityID" />
-      <PropertyRef Name="ItemName" />
-      <PropertyRef Name="ExpenseAmount" />
-      <PropertyRef Name="ReceiveAmount" />
-      <PropertyRef Name="ExpenseDescription" />
-      <PropertyRef Name="ExpenseDate" />
-      <PropertyRef Name="Action" />
-      <PropertyRef Name="ActivityName" />
-      <PropertyRef Name="EmployeeID" />
-      <PropertyRef Name="ProjectID" />
-      <PropertyRef Name="OrgID" />
-    </Key>
-    <Property Name="ActivityID" Type="Int32" Nullable="false" />
-    <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
-    <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
-    <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Action" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-    <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-    <Property Name="ProjectID" Type="Int32" Nullable="false" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="ApproverID" Type="Int32" />
-    <Property Name="OrgID" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="NewViewActivity">
     <Key>
@@ -909,6 +832,83 @@
     <Property Name="Balance" Type="Int32" />
     <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Advance" Type="Int32" Nullable="false" />
+    <Property Name="OrgID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ViewActivity">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="ActivityDescription" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ActivityID" Type="Int32" Nullable="false" />
+    <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Approver" Type="Int32" />
+    <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Expenses" Type="Int32" />
+    <Property Name="Received" Type="Int32" />
+    <Property Name="Balance" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="Advance" Type="Int32" />
+    <Property Name="OrgID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ViewExpenseItemDailyStatu">
+    <Key>
+      <PropertyRef Name="OrgID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="OrgID" Type="Int32" Nullable="false" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="ActivityID" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="ApproverID" Type="Int32" />
+    <Property Name="ExpensesDate" Type="DateTime" Precision="0" />
+    <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Expense" Type="Int32" />
+    <Property Name="Received" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ViewExpenseItemStatusActivity">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="ItemName" />
+      <PropertyRef Name="ExpenseAmount" />
+      <PropertyRef Name="ReceiveAmount" />
+      <PropertyRef Name="ExpenseDescription" />
+      <PropertyRef Name="ExpenseDate" />
+      <PropertyRef Name="Action" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ActivityID" Type="Int32" Nullable="false" />
+    <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
+    <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
+    <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Action" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="ApproverID" Type="Int32" />
     <Property Name="OrgID" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>
