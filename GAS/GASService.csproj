@@ -135,6 +135,9 @@
     <Compile Include="Infrastructure\UserToken.cs" />
     <Compile Include="Models\Expenses.cs" />
     <Compile Include="Models\Image.cs" />
+    <Compile Include="NewExpenseItem.cs">
+      <DependentUpon>GASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewViewActivity.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
@@ -184,6 +187,12 @@
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewGST.cs">
+      <DependentUpon>GASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNewActivityStatu.cs">
+      <DependentUpon>GASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNewExpenseItemStatusActivity.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewPaymentGiven.cs">
