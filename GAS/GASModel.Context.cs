@@ -63,7 +63,6 @@ namespace GAS
         public virtual DbSet<NewViewSellInvoice> NewViewSellInvoices { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<ViewTransaction> ViewTransactions { get; set; }
-        public virtual DbSet<NewViewActivity> NewViewActivities { get; set; }
         public virtual DbSet<GST> GSTs { get; set; }
         public virtual DbSet<TD> TDS { get; set; }
         public virtual DbSet<ViewGST> ViewGSTs { get; set; }
@@ -73,5 +72,6 @@ namespace GAS
         public virtual DbSet<ViewActivity> ViewActivities { get; set; }
         public virtual DbSet<ViewActivityStatu> ViewActivityStatus { get; set; }
         public virtual DbSet<ViewExpenseItemStatusActivity> ViewExpenseItemStatusActivities { get; set; }
+        public virtual DbSet<NewViewActivity> NewViewActivities { get; set; }
     }
 }
