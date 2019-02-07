@@ -15,19 +15,7 @@ namespace GAS.Controllers
     [RoutePrefix("api/Dashboard")]
     public class DashboardController : ApiController
     {
-        // GET: api/Dashboard
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Dashboard/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-
+      
         // Get unpaid Expenses for an Employee
 
         [Route("Organization/{orgId}/Employee/{employeeID}")]

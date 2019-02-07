@@ -67,11 +67,11 @@ namespace GAS
         public virtual DbSet<TD> TDS { get; set; }
         public virtual DbSet<ViewGST> ViewGSTs { get; set; }
         public virtual DbSet<ViewTD> ViewTDS { get; set; }
-        public virtual DbSet<ViewExpenseItemDailyStatu> ViewExpenseItemDailyStatus { get; set; }
         public virtual DbSet<ExpenseItem> ExpenseItems { get; set; }
         public virtual DbSet<ViewActivityStatu> ViewActivityStatus { get; set; }
-        public virtual DbSet<ViewExpenseItemStatusActivity> ViewExpenseItemStatusActivities { get; set; }
         public virtual DbSet<NewViewActivity> NewViewActivities { get; set; }
         public virtual DbSet<ViewActivity> ViewActivities { get; set; }
+        public virtual DbSet<ViewExpenseItemDailyStatu> ViewExpenseItemDailyStatus { get; set; }
+        public virtual DbSet<ViewExpenseItemStatusActivity> ViewExpenseItemStatusActivities { get; set; }
     }
 }
