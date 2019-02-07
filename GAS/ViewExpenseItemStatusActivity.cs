@@ -20,7 +20,7 @@ namespace GAS
         public int ReceiveAmount { get; set; }
         public string ExpenseDescription { get; set; }
         public System.DateTime ExpenseDate { get; set; }
-        public string Status { get; set; }
+        public string Action { get; set; }
         public string ActivityStatus { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string ActivityName { get; set; }

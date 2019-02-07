@@ -24,6 +24,7 @@
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
     <Property Name="SelectedRow" Type="bit" Nullable="false" />
     <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="ApproverID" Type="int" />
   </EntityType>
   <EntityType Name="AdvanceItem">
     <Key>
@@ -45,13 +46,13 @@
     </Key>
     <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ActivityID" Type="int" Nullable="false" />
-    <Property Name="ItemName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ExpenseAmount" Type="int" Nullable="false" />
     <Property Name="ReceiveAmount" Type="int" Nullable="false" />
     <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
     <Property Name="SelectedRow" Type="bit" Nullable="false" />
-    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="Expenses">
     <Key>
@@ -65,6 +66,19 @@
     <Property Name="SelectedRow" Type="bit" Nullable="false" />
     <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GST">
+    <Key>
+      <PropertyRef Name="GSTId" />
+    </Key>
+    <Property Name="GSTId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="GSTReceived" Type="int" Nullable="false" />
+    <Property Name="GSTInput" Type="int" Nullable="false" />
+    <Property Name="PreviousGSTDues" Type="int" Nullable="false" />
+    <Property Name="Penalty" Type="int" Nullable="false" />
+    <Property Name="GSTPayable" Type="int" Nullable="false" />
+    <Property Name="TaxMonth" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Organization">
     <Key>
@@ -80,6 +94,33 @@
     <Property Name="ContactEmail" Type="varchar" MaxLength="50" />
     <Property Name="Status" Type="varchar" MaxLength="20" />
     <Property Name="StartDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaymentGiven">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PInvoiceId" Type="int" Nullable="false" />
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="Paid" Type="float" Nullable="false" />
+    <Property Name="TaxPaid" Type="float" Nullable="false" />
+    <Property Name="TDSPayable" Type="float" Nullable="false" />
+    <Property Name="TDSStatus" Type="varchar" MaxLength="20" />
+    <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaymentReceived">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="Received" Type="float" Nullable="false" />
+    <Property Name="Tax" Type="float" Nullable="false" />
+    <Property Name="TDSDeducted" Type="float" Nullable="false" />
+    <Property Name="PaymentDate" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Project">
     <Key>
@@ -104,6 +145,52 @@
     <Property Name="Remarks" Type="varchar" MaxLength="200" />
     <Property Name="UpdateDate" Type="datetime" Nullable="false" />
     <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchaseInvoice">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="VendorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="ServiceCost" Type="float" Nullable="false" />
+    <Property Name="CGST" Type="float" Nullable="false" />
+    <Property Name="SGST" Type="float" Nullable="false" />
+    <Property Name="IGST" Type="float" Nullable="false" />
+    <Property Name="TDS" Type="float" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="InvoiceType" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SellInvoice">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="ServiceCost" Type="float" Nullable="false" />
+    <Property Name="CGST" Type="float" Nullable="false" />
+    <Property Name="SGST" Type="float" Nullable="false" />
+    <Property Name="IGST" Type="float" Nullable="false" />
+    <Property Name="TDS" Type="float" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="InvoiceType" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TDS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="TDSDeducted" Type="int" Nullable="false" />
+    <Property Name="TDSPayable" Type="int" Nullable="false" />
+    <Property Name="PreviousTDS" Type="int" Nullable="false" />
+    <Property Name="Penalty" Type="float" Nullable="false" />
+    <Property Name="TaxMonth" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Transaction">
     <Key>
@@ -111,7 +198,7 @@
     </Key>
     <Property Name="TransID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TransName" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="AccountNumber" Type="int" Nullable="false" />
+    <Property Name="AccID" Type="int" Nullable="false" />
     <Property Name="Deposit" Type="int" Nullable="false" />
     <Property Name="Withdraw" Type="int" Nullable="false" />
     <Property Name="EntryDate" Type="datetime" Nullable="false" />
@@ -122,6 +209,17 @@
     <Property Name="TransactionID" Type="int" Nullable="false" />
     <Property Name="TransactionRemarks" Type="varchar" MaxLength="50" />
     <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="TransType" Type="varchar" MaxLength="20" />
+    <Property Name="InvoiceID" Type="int" Nullable="false" />
+    <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserImage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Profile_image" Type="image" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -141,7 +239,139 @@
     <Property Name="SolutionType" Type="varchar" MaxLength="20" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.NewViewActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="NewViewActivity">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="ActivityDescription" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="Settlement" />
+      <PropertyRef Name="PaidDate" />
+      <PropertyRef Name="Advance" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ActivityDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="Employee" Type="varchar" MaxLength="20" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
+    <Property Name="Approver" Type="int" />
+    <Property Name="ApproverName" Type="varchar" MaxLength="20" />
+    <Property Name="Settlement" Type="int" Nullable="false" />
+    <Property Name="PaidDate" Type="datetime" Nullable="false" />
+    <Property Name="Expenses" Type="int" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
+    <Property Name="Advance" Type="int" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.NewViewPaymentGiven' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="NewViewPaymentGiven">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="ProjectId" Type="int" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="PaidAmount" Type="int" />
+    <Property Name="PaidDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.NewViewPaymentReceived' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="NewViewPaymentReceived">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="ProjectId" Type="int" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="ReceivedAmount" Type="int" />
+    <Property Name="ReceivedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.NewViewPurchaseInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="NewViewPurchaseInvoice">
+    <Key>
+      <PropertyRef Name="OrgId" />
+      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="VendorName" />
+      <PropertyRef Name="InvoiceId" />
+      <PropertyRef Name="InvoiceNumber" />
+      <PropertyRef Name="InvoiceDate" />
+      <PropertyRef Name="ServiceCost" />
+      <PropertyRef Name="CGST" />
+      <PropertyRef Name="SGST" />
+      <PropertyRef Name="IGST" />
+      <PropertyRef Name="TDS" />
+      <PropertyRef Name="Receivable" />
+      <PropertyRef Name="PaidAmount" />
+      <PropertyRef Name="PaidDate" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="ClientName" />
+    </Key>
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="VendorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="ServiceCost" Type="float" Nullable="false" />
+    <Property Name="CGST" Type="float" Nullable="false" />
+    <Property Name="SGST" Type="float" Nullable="false" />
+    <Property Name="IGST" Type="float" Nullable="false" />
+    <Property Name="TDS" Type="float" Nullable="false" />
+    <Property Name="Receivable" Type="float" Nullable="false" />
+    <Property Name="PaidAmount" Type="int" Nullable="false" />
+    <Property Name="PaidDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.NewViewSellInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="NewViewSellInvoice">
+    <Key>
+      <PropertyRef Name="OrgId" />
+      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="InvoiceId" />
+      <PropertyRef Name="InvoiceNumber" />
+      <PropertyRef Name="InvoiceDate" />
+      <PropertyRef Name="ServiceCost" />
+      <PropertyRef Name="CGST" />
+      <PropertyRef Name="SGST" />
+      <PropertyRef Name="IGST" />
+      <PropertyRef Name="TDS" />
+      <PropertyRef Name="Receivable" />
+      <PropertyRef Name="ReceivedAmount" />
+      <PropertyRef Name="ReceivedDate" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="ClientName" />
+    </Key>
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="ServiceCost" Type="float" Nullable="false" />
+    <Property Name="CGST" Type="float" Nullable="false" />
+    <Property Name="SGST" Type="float" Nullable="false" />
+    <Property Name="IGST" Type="float" Nullable="false" />
+    <Property Name="TDS" Type="float" Nullable="false" />
+    <Property Name="Receivable" Type="float" Nullable="false" />
+    <Property Name="ReceivedAmount" Type="int" Nullable="false" />
+    <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewAccount">
     <Key>
       <PropertyRef Name="AccID" />
@@ -163,7 +393,7 @@ warning 6002: The table/view 'GAS.dbo.ViewAccount' does not have a primary key d
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewActivity">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -194,7 +424,7 @@ warning 6002: The table/view 'GAS.dbo.ViewActivity' does not have a primary key 
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewActivityDashboard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewActivityDashboard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewActivityDashboard">
     <Key>
       <PropertyRef Name="EmployeeID" />
@@ -206,7 +436,7 @@ warning 6002: The table/view 'GAS.dbo.ViewActivityDashboard' does not have a pri
     <Property Name="Advance" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewActivityNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewActivityNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewActivityNames">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -233,7 +463,7 @@ warning 6002: The table/view 'GAS.dbo.ViewActivityNames' does not have a primary
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewActivityStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewActivityStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewActivityStatus">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -243,7 +473,7 @@ warning 6002: The table/view 'GAS.dbo.ViewActivityStatus' does not have a primar
     <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewActivitySummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewActivitySummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewActivitySummary">
     <Key>
       <PropertyRef Name="RowID" />
@@ -256,7 +486,7 @@ warning 6002: The table/view 'GAS.dbo.ViewActivitySummary' does not have a prima
     <Property Name="Received" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewAdvance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewAdvance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewAdvance">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -284,7 +514,7 @@ warning 6002: The table/view 'GAS.dbo.ViewAdvance' does not have a primary key d
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewAdvanceItemNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewAdvanceItemNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewAdvanceItemNames">
     <Key>
       <PropertyRef Name="AdvanceID" />
@@ -314,7 +544,7 @@ warning 6002: The table/view 'GAS.dbo.ViewAdvanceItemNames' does not have a prim
     <Property Name="ApproverName" Type="varchar" MaxLength="20" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewAdvanceStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewAdvanceStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewAdvanceStatus">
     <Key>
       <PropertyRef Name="ActivityNumber" />
@@ -325,7 +555,89 @@ warning 6002: The table/view 'GAS.dbo.ViewAdvanceStatus' does not have a primary
     <Property Name="AdvanceModifiedDate" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewMonthCumulativeExpense' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemDailyStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewExpenseItemDailyStatus">
+    <Key>
+      <PropertyRef Name="OrgID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ApproverID" Type="int" />
+    <Property Name="ExpensesDate" Type="date" />
+    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
+    <Property Name="Expense" Type="int" />
+    <Property Name="Received" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemStatusActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewExpenseItemStatusActivity">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="ItemName" />
+      <PropertyRef Name="ExpenseAmount" />
+      <PropertyRef Name="ReceiveAmount" />
+      <PropertyRef Name="ExpenseDescription" />
+      <PropertyRef Name="ExpenseDate" />
+      <PropertyRef Name="Action" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseAmount" Type="int" Nullable="false" />
+    <Property Name="ReceiveAmount" Type="int" Nullable="false" />
+    <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ApproverID" Type="int" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewGST' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewGST">
+    <Key>
+      <PropertyRef Name="GSTId" />
+      <PropertyRef Name="OrgID" />
+      <PropertyRef Name="GSTReceived" />
+      <PropertyRef Name="GSTInput" />
+      <PropertyRef Name="PreviousGSTDues" />
+      <PropertyRef Name="Penalty" />
+      <PropertyRef Name="GSTPayable" />
+      <PropertyRef Name="TaxMonth" />
+      <PropertyRef Name="GST_Paid" />
+      <PropertyRef Name="UpdateDate" />
+      <PropertyRef Name="TransactionRemarks" />
+      <PropertyRef Name="TransactionDate" />
+    </Key>
+    <Property Name="GSTId" Type="int" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="GSTReceived" Type="int" Nullable="false" />
+    <Property Name="GSTInput" Type="int" Nullable="false" />
+    <Property Name="PreviousGSTDues" Type="int" Nullable="false" />
+    <Property Name="Penalty" Type="int" Nullable="false" />
+    <Property Name="GSTPayable" Type="int" Nullable="false" />
+    <Property Name="TaxMonth" Type="datetime" Nullable="false" />
+    <Property Name="GST_Paid" Type="int" Nullable="false" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+    <Property Name="TransactionRemarks" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewMonthCumulativeExpense' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewMonthCumulativeExpense">
     <Key>
       <PropertyRef Name="UserID" />
@@ -336,7 +648,49 @@ warning 6002: The table/view 'GAS.dbo.ViewMonthCumulativeExpense' does not have 
     <Property Name="expense" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewOrganization' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewOrganization">
+    <Key>
+      <PropertyRef Name="OrganizationID" />
+    </Key>
+    <Property Name="OrganizationID" Type="int" Nullable="false" />
+    <Property Name="OrganizationName" Type="varchar" MaxLength="50" />
+    <Property Name="Employee" Type="int" />
+    <Property Name="Address" Type="varchar" MaxLength="100" />
+    <Property Name="ContactEmail" Type="varchar" MaxLength="50" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ContactPerson" Type="varchar" MaxLength="20" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="AdminName" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+    <Property Name="UserMobile" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentGiven' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewPaymentGiven">
+    <Key>
+      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="PInvoiceId" />
+    </Key>
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="PInvoiceId" Type="int" Nullable="false" />
+    <Property Name="PaidAmount" Type="float" />
+    <Property Name="PaidDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentReceived' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewPaymentReceived">
+    <Key>
+      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="ReceivedAmount" Type="float" />
+    <Property Name="ReceivedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewProject">
     <Key>
       <PropertyRef Name="ProjectID" />
@@ -344,6 +698,9 @@ warning 6002: The table/view 'GAS.dbo.ViewProject' does not have a primary key d
       <PropertyRef Name="ProjectName" />
       <PropertyRef Name="ProjectCreationDate" />
       <PropertyRef Name="StatusOn" />
+      <PropertyRef Name="Status" />
+      <PropertyRef Name="Spent" />
+      <PropertyRef Name="Received" />
       <PropertyRef Name="OrgID" />
     </Key>
     <Property Name="ProjectID" Type="int" Nullable="false" />
@@ -358,38 +715,158 @@ warning 6002: The table/view 'GAS.dbo.ViewProject' does not have a primary key d
     <Property Name="StatusOn" Type="datetime" Nullable="false" />
     <Property Name="WorkCompletion" Type="int" />
     <Property Name="StatusRemark" Type="varchar" MaxLength="200" />
-    <Property Name="Spent" Type="int" />
-    <Property Name="received" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Spent" Type="int" Nullable="false" />
+    <Property Name="Received" Type="int" Nullable="false" />
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewProjectStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewProjectExpense' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewProjectExpense">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="Expense" Type="int" />
+    <Property Name="ReceiveAmount" Type="int" />
+    <Property Name="exdate" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewProjectStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewProjectStatus">
     <Key>
       <PropertyRef Name="ProjectID" />
       <PropertyRef Name="StatusOn" />
+      <PropertyRef Name="Status" />
     </Key>
     <Property Name="ProjectID" Type="int" Nullable="false" />
     <Property Name="StatusOn" Type="datetime" Nullable="false" />
     <Property Name="WorkCompletion" Type="int" />
     <Property Name="StatusRemark" Type="varchar" MaxLength="200" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'GAS.dbo.ViewTransaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'LetsMeet.dbo.ViewPurchaseInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewPurchaseInvoice">
+    <Key>
+      <PropertyRef Name="OrgId" />
+      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="VendorName" />
+      <PropertyRef Name="InvoiceId" />
+      <PropertyRef Name="InvoiceNumber" />
+      <PropertyRef Name="InvoiceDate" />
+      <PropertyRef Name="ServiceCost" />
+      <PropertyRef Name="CGST" />
+      <PropertyRef Name="SGST" />
+      <PropertyRef Name="IGST" />
+      <PropertyRef Name="TDS" />
+      <PropertyRef Name="Receivable" />
+      <PropertyRef Name="PaidAmount" />
+      <PropertyRef Name="PaidDate" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="ClientName" />
+    </Key>
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="VendorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="ServiceCost" Type="float" Nullable="false" />
+    <Property Name="CGST" Type="float" Nullable="false" />
+    <Property Name="SGST" Type="float" Nullable="false" />
+    <Property Name="IGST" Type="float" Nullable="false" />
+    <Property Name="TDS" Type="float" Nullable="false" />
+    <Property Name="Receivable" Type="float" Nullable="false" />
+    <Property Name="PaidAmount" Type="float" Nullable="false" />
+    <Property Name="PaidDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewSellInvoice">
+    <Key>
+      <PropertyRef Name="OrgId" />
+      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="InvoiceId" />
+      <PropertyRef Name="InvoiceNumber" />
+      <PropertyRef Name="InvoiceDate" />
+      <PropertyRef Name="ServiceCost" />
+      <PropertyRef Name="CGST" />
+      <PropertyRef Name="SGST" />
+      <PropertyRef Name="IGST" />
+      <PropertyRef Name="TDS" />
+      <PropertyRef Name="Receivable" />
+      <PropertyRef Name="ReceivedAmount" />
+      <PropertyRef Name="ReceivedDate" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="ClientName" />
+    </Key>
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="ServiceCost" Type="float" Nullable="false" />
+    <Property Name="CGST" Type="float" Nullable="false" />
+    <Property Name="SGST" Type="float" Nullable="false" />
+    <Property Name="IGST" Type="float" Nullable="false" />
+    <Property Name="TDS" Type="float" Nullable="false" />
+    <Property Name="Receivable" Type="float" Nullable="false" />
+    <Property Name="ReceivedAmount" Type="float" Nullable="false" />
+    <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewTDS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewTDS">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="OrgID" />
+      <PropertyRef Name="TDSDeducted" />
+      <PropertyRef Name="TDSPayable" />
+      <PropertyRef Name="PreviousTDS" />
+      <PropertyRef Name="Penalty" />
+      <PropertyRef Name="TaxMonth" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="TDSDeducted" Type="int" Nullable="false" />
+    <Property Name="TDSPayable" Type="int" Nullable="false" />
+    <Property Name="PreviousTDS" Type="int" Nullable="false" />
+    <Property Name="Penalty" Type="float" Nullable="false" />
+    <Property Name="TaxMonth" Type="datetime" Nullable="false" />
+    <Property Name="TDS_Paid" Type="int" />
+    <Property Name="EntryDate" Type="datetime" />
+    <Property Name="TransactionRemarks" Type="varchar" MaxLength="50" />
+    <Property Name="TransactionDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewTransaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewTransaction">
     <Key>
+      <PropertyRef Name="EntryDate" />
+      <PropertyRef Name="TransactionDate" />
       <PropertyRef Name="TransID" />
       <PropertyRef Name="TransName" />
-      <PropertyRef Name="AccountNumber" />
+      <PropertyRef Name="AccID" />
       <PropertyRef Name="Deposit" />
       <PropertyRef Name="Withdraw" />
       <PropertyRef Name="ActivityID" />
       <PropertyRef Name="TransactionID" />
       <PropertyRef Name="OrgID" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="EmployeeID" />
     </Key>
+    <Property Name="EntryDate" Type="datetime" Nullable="false" />
+    <Property Name="TransactionDate" Type="datetime" Nullable="false" />
     <Property Name="TransID" Type="int" Nullable="false" />
     <Property Name="TransName" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="AccountNumber" Type="int" Nullable="false" />
+    <Property Name="AccID" Type="int" Nullable="false" />
     <Property Name="Deposit" Type="int" Nullable="false" />
     <Property Name="Withdraw" Type="int" Nullable="false" />
     <Property Name="Balance" Type="int" />
@@ -399,7 +876,52 @@ warning 6002: The table/view 'GAS.dbo.ViewTransaction' does not have a primary k
     <Property Name="TransactionID" Type="int" Nullable="false" />
     <Property Name="TransactionRemarks" Type="varchar" MaxLength="50" />
     <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="TransType" Type="varchar" MaxLength="20" />
     <Property Name="AccountName" Type="varchar" MaxLength="20" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailyAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewTransactionDailyAccount">
+    <Key>
+      <PropertyRef Name="OrgID" />
+      <PropertyRef Name="AccID" />
+    </Key>
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="AccID" Type="int" Nullable="false" />
+    <Property Name="AgrregateDate" Type="date" />
+    <Property Name="Deposit" Type="int" />
+    <Property Name="Withdraw" Type="int" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="AccountBalance" Type="int" />
+    <Property Name="tTime" Type="time" Precision="7" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailyAccountBalance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewTransactionDailyAccountBalance">
+    <Key>
+      <PropertyRef Name="AccID" />
+      <PropertyRef Name="EntryDate" />
+    </Key>
+    <Property Name="AccID" Type="int" Nullable="false" />
+    <Property Name="EntryDate" Type="datetime" Nullable="false" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="AccountBalance" Type="int" />
+    <Property Name="tDate" Type="date" />
+    <Property Name="tTime" Type="time" Precision="7" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ViewTransactionDailySummary">
+    <Key>
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="AgrregateDate" Type="date" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="Deposit" Type="int" />
+    <Property Name="Withdraw" Type="int" />
   </EntityType>
   <EntityContainer Name="GASModelStoreContainer">
     <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
@@ -407,11 +929,97 @@ warning 6002: The table/view 'GAS.dbo.ViewTransaction' does not have a primary k
     <EntitySet Name="AdvanceItem" EntityType="Self.AdvanceItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ExpenseItem" EntityType="Self.ExpenseItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GST" EntityType="Self.GST" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentGiven" EntityType="Self.PaymentGiven" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PaymentReceived" EntityType="Self.PaymentReceived" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseInvoice" EntityType="Self.PurchaseInvoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SellInvoice" EntityType="Self.SellInvoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TDS" EntityType="Self.TDS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserImage" EntityType="Self.UserImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NewViewActivity" EntityType="Self.NewViewActivity" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [NewViewActivity].[ActivityID] AS [ActivityID], 
+    [NewViewActivity].[ActivityName] AS [ActivityName], 
+    [NewViewActivity].[ActivityDescription] AS [ActivityDescription], 
+    [NewViewActivity].[EmployeeID] AS [EmployeeID], 
+    [NewViewActivity].[Employee] AS [Employee], 
+    [NewViewActivity].[ProjectID] AS [ProjectID], 
+    [NewViewActivity].[ProjectName] AS [ProjectName], 
+    [NewViewActivity].[CreatedBy] AS [CreatedBy], 
+    [NewViewActivity].[CreatedByName] AS [CreatedByName], 
+    [NewViewActivity].[Approver] AS [Approver], 
+    [NewViewActivity].[ApproverName] AS [ApproverName], 
+    [NewViewActivity].[Settlement] AS [Settlement], 
+    [NewViewActivity].[PaidDate] AS [PaidDate], 
+    [NewViewActivity].[Expenses] AS [Expenses], 
+    [NewViewActivity].[Balance] AS [Balance], 
+    [NewViewActivity].[ActivityStatus] AS [ActivityStatus], 
+    [NewViewActivity].[Advance] AS [Advance], 
+    [NewViewActivity].[OrgID] AS [OrgID]
+    FROM [dbo].[NewViewActivity] AS [NewViewActivity]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="NewViewPaymentGiven" EntityType="Self.NewViewPaymentGiven" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [NewViewPaymentGiven].[ProjectId] AS [ProjectId], 
+    [NewViewPaymentGiven].[InvoiceId] AS [InvoiceId], 
+    [NewViewPaymentGiven].[PaidAmount] AS [PaidAmount], 
+    [NewViewPaymentGiven].[PaidDate] AS [PaidDate]
+    FROM [dbo].[NewViewPaymentGiven] AS [NewViewPaymentGiven]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="NewViewPaymentReceived" EntityType="Self.NewViewPaymentReceived" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [NewViewPaymentReceived].[ProjectId] AS [ProjectId], 
+    [NewViewPaymentReceived].[InvoiceId] AS [InvoiceId], 
+    [NewViewPaymentReceived].[ReceivedAmount] AS [ReceivedAmount], 
+    [NewViewPaymentReceived].[ReceivedDate] AS [ReceivedDate]
+    FROM [dbo].[NewViewPaymentReceived] AS [NewViewPaymentReceived]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="NewViewPurchaseInvoice" EntityType="Self.NewViewPurchaseInvoice" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [NewViewPurchaseInvoice].[OrgId] AS [OrgId], 
+    [NewViewPurchaseInvoice].[ProjectId] AS [ProjectId], 
+    [NewViewPurchaseInvoice].[VendorName] AS [VendorName], 
+    [NewViewPurchaseInvoice].[InvoiceId] AS [InvoiceId], 
+    [NewViewPurchaseInvoice].[InvoiceNumber] AS [InvoiceNumber], 
+    [NewViewPurchaseInvoice].[InvoiceDate] AS [InvoiceDate], 
+    [NewViewPurchaseInvoice].[ServiceCost] AS [ServiceCost], 
+    [NewViewPurchaseInvoice].[CGST] AS [CGST], 
+    [NewViewPurchaseInvoice].[SGST] AS [SGST], 
+    [NewViewPurchaseInvoice].[IGST] AS [IGST], 
+    [NewViewPurchaseInvoice].[TDS] AS [TDS], 
+    [NewViewPurchaseInvoice].[Receivable] AS [Receivable], 
+    [NewViewPurchaseInvoice].[PaidAmount] AS [PaidAmount], 
+    [NewViewPurchaseInvoice].[PaidDate] AS [PaidDate], 
+    [NewViewPurchaseInvoice].[ProjectName] AS [ProjectName], 
+    [NewViewPurchaseInvoice].[ProjectNumber] AS [ProjectNumber], 
+    [NewViewPurchaseInvoice].[ClientName] AS [ClientName]
+    FROM [dbo].[NewViewPurchaseInvoice] AS [NewViewPurchaseInvoice]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="NewViewSellInvoice" EntityType="Self.NewViewSellInvoice" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [NewViewSellInvoice].[OrgId] AS [OrgId], 
+    [NewViewSellInvoice].[ProjectId] AS [ProjectId], 
+    [NewViewSellInvoice].[InvoiceId] AS [InvoiceId], 
+    [NewViewSellInvoice].[InvoiceNumber] AS [InvoiceNumber], 
+    [NewViewSellInvoice].[InvoiceDate] AS [InvoiceDate], 
+    [NewViewSellInvoice].[ServiceCost] AS [ServiceCost], 
+    [NewViewSellInvoice].[CGST] AS [CGST], 
+    [NewViewSellInvoice].[SGST] AS [SGST], 
+    [NewViewSellInvoice].[IGST] AS [IGST], 
+    [NewViewSellInvoice].[TDS] AS [TDS], 
+    [NewViewSellInvoice].[Receivable] AS [Receivable], 
+    [NewViewSellInvoice].[ReceivedAmount] AS [ReceivedAmount], 
+    [NewViewSellInvoice].[ReceivedDate] AS [ReceivedDate], 
+    [NewViewSellInvoice].[ProjectName] AS [ProjectName], 
+    [NewViewSellInvoice].[ProjectNumber] AS [ProjectNumber], 
+    [NewViewSellInvoice].[ClientName] AS [ClientName]
+    FROM [dbo].[NewViewSellInvoice] AS [NewViewSellInvoice]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="ViewAccount" EntityType="Self.ViewAccount" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [ViewAccount].[AccID] AS [AccID], 
@@ -534,6 +1142,55 @@ warning 6002: The table/view 'GAS.dbo.ViewTransaction' does not have a primary k
     [ViewAdvanceStatus].[AdvanceModifiedDate] AS [AdvanceModifiedDate]
     FROM [dbo].[ViewAdvanceStatus] AS [ViewAdvanceStatus]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="ViewExpenseItemDailyStatus" EntityType="Self.ViewExpenseItemDailyStatus" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewExpenseItemDailyStatus].[OrgID] AS [OrgID], 
+    [ViewExpenseItemDailyStatus].[ProjectID] AS [ProjectID], 
+    [ViewExpenseItemDailyStatus].[ActivityID] AS [ActivityID], 
+    [ViewExpenseItemDailyStatus].[EmployeeID] AS [EmployeeID], 
+    [ViewExpenseItemDailyStatus].[CreatedBy] AS [CreatedBy], 
+    [ViewExpenseItemDailyStatus].[ApproverID] AS [ApproverID], 
+    [ViewExpenseItemDailyStatus].[ExpensesDate] AS [ExpensesDate], 
+    [ViewExpenseItemDailyStatus].[ActivityStatus] AS [ActivityStatus], 
+    [ViewExpenseItemDailyStatus].[Expense] AS [Expense], 
+    [ViewExpenseItemDailyStatus].[Received] AS [Received]
+    FROM [dbo].[ViewExpenseItemDailyStatus] AS [ViewExpenseItemDailyStatus]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewExpenseItemStatusActivity" EntityType="Self.ViewExpenseItemStatusActivity" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewExpenseItemStatusActivity].[ActivityID] AS [ActivityID], 
+    [ViewExpenseItemStatusActivity].[ItemName] AS [ItemName], 
+    [ViewExpenseItemStatusActivity].[ExpenseAmount] AS [ExpenseAmount], 
+    [ViewExpenseItemStatusActivity].[ReceiveAmount] AS [ReceiveAmount], 
+    [ViewExpenseItemStatusActivity].[ExpenseDescription] AS [ExpenseDescription], 
+    [ViewExpenseItemStatusActivity].[ExpenseDate] AS [ExpenseDate], 
+    [ViewExpenseItemStatusActivity].[Action] AS [Action], 
+    [ViewExpenseItemStatusActivity].[ActivityStatus] AS [ActivityStatus], 
+    [ViewExpenseItemStatusActivity].[UpdatedOn] AS [UpdatedOn], 
+    [ViewExpenseItemStatusActivity].[ActivityName] AS [ActivityName], 
+    [ViewExpenseItemStatusActivity].[EmployeeID] AS [EmployeeID], 
+    [ViewExpenseItemStatusActivity].[ProjectID] AS [ProjectID], 
+    [ViewExpenseItemStatusActivity].[CreatedBy] AS [CreatedBy], 
+    [ViewExpenseItemStatusActivity].[ApproverID] AS [ApproverID], 
+    [ViewExpenseItemStatusActivity].[OrgID] AS [OrgID]
+    FROM [dbo].[ViewExpenseItemStatusActivity] AS [ViewExpenseItemStatusActivity]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewGST" EntityType="Self.ViewGST" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewGST].[GSTId] AS [GSTId], 
+    [ViewGST].[OrgID] AS [OrgID], 
+    [ViewGST].[GSTReceived] AS [GSTReceived], 
+    [ViewGST].[GSTInput] AS [GSTInput], 
+    [ViewGST].[PreviousGSTDues] AS [PreviousGSTDues], 
+    [ViewGST].[Penalty] AS [Penalty], 
+    [ViewGST].[GSTPayable] AS [GSTPayable], 
+    [ViewGST].[TaxMonth] AS [TaxMonth], 
+    [ViewGST].[GST_Paid] AS [GST_Paid], 
+    [ViewGST].[UpdateDate] AS [UpdateDate], 
+    [ViewGST].[TransactionRemarks] AS [TransactionRemarks], 
+    [ViewGST].[TransactionDate] AS [TransactionDate]
+    FROM [dbo].[ViewGST] AS [ViewGST]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="ViewMonthCumulativeExpense" EntityType="Self.ViewMonthCumulativeExpense" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [ViewMonthCumulativeExpense].[UserID] AS [UserID], 
@@ -541,6 +1198,37 @@ warning 6002: The table/view 'GAS.dbo.ViewTransaction' does not have a primary k
     [ViewMonthCumulativeExpense].[month] AS [month], 
     [ViewMonthCumulativeExpense].[expense] AS [expense]
     FROM [dbo].[ViewMonthCumulativeExpense] AS [ViewMonthCumulativeExpense]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewOrganization" EntityType="Self.ViewOrganization" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewOrganization].[OrganizationID] AS [OrganizationID], 
+    [ViewOrganization].[OrganizationName] AS [OrganizationName], 
+    [ViewOrganization].[Employee] AS [Employee], 
+    [ViewOrganization].[Address] AS [Address], 
+    [ViewOrganization].[ContactEmail] AS [ContactEmail], 
+    [ViewOrganization].[ContactNumber] AS [ContactNumber], 
+    [ViewOrganization].[ContactPerson] AS [ContactPerson], 
+    [ViewOrganization].[UserID] AS [UserID], 
+    [ViewOrganization].[AdminName] AS [AdminName], 
+    [ViewOrganization].[UserEmail] AS [UserEmail], 
+    [ViewOrganization].[UserMobile] AS [UserMobile]
+    FROM [dbo].[ViewOrganization] AS [ViewOrganization]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewPaymentGiven" EntityType="Self.ViewPaymentGiven" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewPaymentGiven].[ProjectId] AS [ProjectId], 
+    [ViewPaymentGiven].[PInvoiceId] AS [PInvoiceId], 
+    [ViewPaymentGiven].[PaidAmount] AS [PaidAmount], 
+    [ViewPaymentGiven].[PaidDate] AS [PaidDate]
+    FROM [dbo].[ViewPaymentGiven] AS [ViewPaymentGiven]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewPaymentReceived" EntityType="Self.ViewPaymentReceived" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewPaymentReceived].[ProjectId] AS [ProjectId], 
+    [ViewPaymentReceived].[InvoiceId] AS [InvoiceId], 
+    [ViewPaymentReceived].[ReceivedAmount] AS [ReceivedAmount], 
+    [ViewPaymentReceived].[ReceivedDate] AS [ReceivedDate]
+    FROM [dbo].[ViewPaymentReceived] AS [ViewPaymentReceived]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewProject" EntityType="Self.ViewProject" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -556,24 +1244,92 @@ warning 6002: The table/view 'GAS.dbo.ViewTransaction' does not have a primary k
     [ViewProject].[StatusOn] AS [StatusOn], 
     [ViewProject].[WorkCompletion] AS [WorkCompletion], 
     [ViewProject].[StatusRemark] AS [StatusRemark], 
+    [ViewProject].[Status] AS [Status], 
     [ViewProject].[Spent] AS [Spent], 
-    [ViewProject].[received] AS [received], 
+    [ViewProject].[Received] AS [Received], 
     [ViewProject].[OrgID] AS [OrgID]
     FROM [dbo].[ViewProject] AS [ViewProject]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewProjectExpense" EntityType="Self.ViewProjectExpense" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewProjectExpense].[ProjectID] AS [ProjectID], 
+    [ViewProjectExpense].[Expense] AS [Expense], 
+    [ViewProjectExpense].[ReceiveAmount] AS [ReceiveAmount], 
+    [ViewProjectExpense].[exdate] AS [exdate]
+    FROM [dbo].[ViewProjectExpense] AS [ViewProjectExpense]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewProjectStatus" EntityType="Self.ViewProjectStatus" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [ViewProjectStatus].[ProjectID] AS [ProjectID], 
     [ViewProjectStatus].[StatusOn] AS [StatusOn], 
     [ViewProjectStatus].[WorkCompletion] AS [WorkCompletion], 
-    [ViewProjectStatus].[StatusRemark] AS [StatusRemark]
+    [ViewProjectStatus].[StatusRemark] AS [StatusRemark], 
+    [ViewProjectStatus].[Status] AS [Status]
     FROM [dbo].[ViewProjectStatus] AS [ViewProjectStatus]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewPurchaseInvoice" EntityType="Self.ViewPurchaseInvoice" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewPurchaseInvoice].[OrgId] AS [OrgId], 
+    [ViewPurchaseInvoice].[ProjectId] AS [ProjectId], 
+    [ViewPurchaseInvoice].[VendorName] AS [VendorName], 
+    [ViewPurchaseInvoice].[InvoiceId] AS [InvoiceId], 
+    [ViewPurchaseInvoice].[InvoiceNumber] AS [InvoiceNumber], 
+    [ViewPurchaseInvoice].[InvoiceDate] AS [InvoiceDate], 
+    [ViewPurchaseInvoice].[ServiceCost] AS [ServiceCost], 
+    [ViewPurchaseInvoice].[CGST] AS [CGST], 
+    [ViewPurchaseInvoice].[SGST] AS [SGST], 
+    [ViewPurchaseInvoice].[IGST] AS [IGST], 
+    [ViewPurchaseInvoice].[TDS] AS [TDS], 
+    [ViewPurchaseInvoice].[Receivable] AS [Receivable], 
+    [ViewPurchaseInvoice].[PaidAmount] AS [PaidAmount], 
+    [ViewPurchaseInvoice].[PaidDate] AS [PaidDate], 
+    [ViewPurchaseInvoice].[ProjectName] AS [ProjectName], 
+    [ViewPurchaseInvoice].[ProjectNumber] AS [ProjectNumber], 
+    [ViewPurchaseInvoice].[ClientName] AS [ClientName]
+    FROM [dbo].[ViewPurchaseInvoice] AS [ViewPurchaseInvoice]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewSellInvoice" EntityType="Self.ViewSellInvoice" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewSellInvoice].[OrgId] AS [OrgId], 
+    [ViewSellInvoice].[ProjectId] AS [ProjectId], 
+    [ViewSellInvoice].[InvoiceId] AS [InvoiceId], 
+    [ViewSellInvoice].[InvoiceNumber] AS [InvoiceNumber], 
+    [ViewSellInvoice].[InvoiceDate] AS [InvoiceDate], 
+    [ViewSellInvoice].[ServiceCost] AS [ServiceCost], 
+    [ViewSellInvoice].[CGST] AS [CGST], 
+    [ViewSellInvoice].[SGST] AS [SGST], 
+    [ViewSellInvoice].[IGST] AS [IGST], 
+    [ViewSellInvoice].[TDS] AS [TDS], 
+    [ViewSellInvoice].[Receivable] AS [Receivable], 
+    [ViewSellInvoice].[ReceivedAmount] AS [ReceivedAmount], 
+    [ViewSellInvoice].[ReceivedDate] AS [ReceivedDate], 
+    [ViewSellInvoice].[ProjectName] AS [ProjectName], 
+    [ViewSellInvoice].[ProjectNumber] AS [ProjectNumber], 
+    [ViewSellInvoice].[ClientName] AS [ClientName]
+    FROM [dbo].[ViewSellInvoice] AS [ViewSellInvoice]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewTDS" EntityType="Self.ViewTDS" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewTDS].[ID] AS [ID], 
+    [ViewTDS].[OrgID] AS [OrgID], 
+    [ViewTDS].[TDSDeducted] AS [TDSDeducted], 
+    [ViewTDS].[TDSPayable] AS [TDSPayable], 
+    [ViewTDS].[PreviousTDS] AS [PreviousTDS], 
+    [ViewTDS].[Penalty] AS [Penalty], 
+    [ViewTDS].[TaxMonth] AS [TaxMonth], 
+    [ViewTDS].[TDS_Paid] AS [TDS_Paid], 
+    [ViewTDS].[EntryDate] AS [EntryDate], 
+    [ViewTDS].[TransactionRemarks] AS [TransactionRemarks], 
+    [ViewTDS].[TransactionDate] AS [TransactionDate]
+    FROM [dbo].[ViewTDS] AS [ViewTDS]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewTransaction" EntityType="Self.ViewTransaction" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
+    [ViewTransaction].[EntryDate] AS [EntryDate], 
+    [ViewTransaction].[TransactionDate] AS [TransactionDate], 
     [ViewTransaction].[TransID] AS [TransID], 
     [ViewTransaction].[TransName] AS [TransName], 
-    [ViewTransaction].[AccountNumber] AS [AccountNumber], 
+    [ViewTransaction].[AccID] AS [AccID], 
     [ViewTransaction].[Deposit] AS [Deposit], 
     [ViewTransaction].[Withdraw] AS [Withdraw], 
     [ViewTransaction].[Balance] AS [Balance], 
@@ -583,8 +1339,42 @@ warning 6002: The table/view 'GAS.dbo.ViewTransaction' does not have a primary k
     [ViewTransaction].[TransactionID] AS [TransactionID], 
     [ViewTransaction].[TransactionRemarks] AS [TransactionRemarks], 
     [ViewTransaction].[OrgID] AS [OrgID], 
-    [ViewTransaction].[AccountName] AS [AccountName]
+    [ViewTransaction].[TransType] AS [TransType], 
+    [ViewTransaction].[AccountName] AS [AccountName], 
+    [ViewTransaction].[ActivityName] AS [ActivityName], 
+    [ViewTransaction].[EmployeeID] AS [EmployeeID]
     FROM [dbo].[ViewTransaction] AS [ViewTransaction]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewTransactionDailyAccount" EntityType="Self.ViewTransactionDailyAccount" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewTransactionDailyAccount].[OrgID] AS [OrgID], 
+    [ViewTransactionDailyAccount].[AccID] AS [AccID], 
+    [ViewTransactionDailyAccount].[AgrregateDate] AS [AgrregateDate], 
+    [ViewTransactionDailyAccount].[Deposit] AS [Deposit], 
+    [ViewTransactionDailyAccount].[Withdraw] AS [Withdraw], 
+    [ViewTransactionDailyAccount].[Balance] AS [Balance], 
+    [ViewTransactionDailyAccount].[AccountBalance] AS [AccountBalance], 
+    [ViewTransactionDailyAccount].[tTime] AS [tTime]
+    FROM [dbo].[ViewTransactionDailyAccount] AS [ViewTransactionDailyAccount]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewTransactionDailyAccountBalance" EntityType="Self.ViewTransactionDailyAccountBalance" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewTransactionDailyAccountBalance].[AccID] AS [AccID], 
+    [ViewTransactionDailyAccountBalance].[EntryDate] AS [EntryDate], 
+    [ViewTransactionDailyAccountBalance].[Balance] AS [Balance], 
+    [ViewTransactionDailyAccountBalance].[AccountBalance] AS [AccountBalance], 
+    [ViewTransactionDailyAccountBalance].[tDate] AS [tDate], 
+    [ViewTransactionDailyAccountBalance].[tTime] AS [tTime]
+    FROM [dbo].[ViewTransactionDailyAccountBalance] AS [ViewTransactionDailyAccountBalance]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewTransactionDailySummary" EntityType="Self.ViewTransactionDailySummary" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewTransactionDailySummary].[OrgID] AS [OrgID], 
+    [ViewTransactionDailySummary].[AgrregateDate] AS [AgrregateDate], 
+    [ViewTransactionDailySummary].[Balance] AS [Balance], 
+    [ViewTransactionDailySummary].[Deposit] AS [Deposit], 
+    [ViewTransactionDailySummary].[Withdraw] AS [Withdraw]
+    FROM [dbo].[ViewTransactionDailySummary] AS [ViewTransactionDailySummary]</DefiningQuery>
     </EntitySet>
   </EntityContainer>
 </Schema>

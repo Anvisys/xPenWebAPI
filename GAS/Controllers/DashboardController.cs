@@ -69,7 +69,7 @@ namespace GAS.Controllers
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.EmployeeID == employeeID
                                && EntityFunctions.TruncateTime(ex.ExpenseDate) == DateTime.Today.Date
                                && (ex.ActivityStatus == "Paid" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved" || ex.ActivityStatus == "Quick")
@@ -101,7 +101,7 @@ namespace GAS.Controllers
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.EmployeeID == employeeID
                                 && (ex.ActivityStatus != "Paid")
                                group ex by new { ex.ProjectID }

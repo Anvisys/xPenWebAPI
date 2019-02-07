@@ -20,12 +20,12 @@ namespace GAS.Controllers
         // Get expense list of an Organization in given month of a year
         [Route("Organization/{id}/{year}/{month}")]
         [HttpGet]
-        public IEnumerable<ViewNewExpenseItemStatusActivity> GetByOrgMonth(int id, int year, int month)
+        public IEnumerable<ViewExpenseItemStatusActivity> GetByOrgMonth(int id, int year, int month)
         {
             try {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.OrgID == id && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month
                                orderby ex.UpdatedOn ascending
                                select ex);
@@ -41,12 +41,12 @@ namespace GAS.Controllers
 
         [Route("Project/{id}")]
         [HttpGet]
-        public IEnumerable<ViewNewExpenseItemStatusActivity> GetByProject(int id)
+        public IEnumerable<ViewExpenseItemStatusActivity> GetByProject(int id)
         {
             try
             {
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.ProjectID == id
                                select ex);
                 return expData;
@@ -63,13 +63,13 @@ namespace GAS.Controllers
 
         [Route("Project/{id}/Employee/{EmployeeID}")]
         [HttpGet]
-        public IEnumerable<ViewNewExpenseItemStatusActivity> GetProjectByEmployee(int id, int EmployeeID)
+        public IEnumerable<ViewExpenseItemStatusActivity> GetProjectByEmployee(int id, int EmployeeID)
         {
             try
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.ProjectID == id && ex.EmployeeID == EmployeeID && (ex.Action == "Added" || ex.Action == "Paid")
                                select ex);
                 return expData;
@@ -83,13 +83,13 @@ namespace GAS.Controllers
         // Get expense list of an employee by month of year
         [Route("Activity/{id}")]
         [HttpGet]
-        public IEnumerable<ViewNewExpenseItemStatusActivity> GetByActivity(int id)
+        public IEnumerable<ViewExpenseItemStatusActivity> GetByActivity(int id)
         {
             try
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.ActivityID == id && (ex.Action == "Added" || ex.Action == "Paid")
                                orderby ex.ExpenseDate ascending
                                select ex);
@@ -107,13 +107,13 @@ namespace GAS.Controllers
 
         [Route("Organization/{orgId}/Employee/{employeeID}/Year/{year}/{month}")]
         [HttpGet]
-        public IEnumerable<ViewNewExpenseItemStatusActivity> GetByEmployee(int orgId, int employeeID, int year, int month)
+        public IEnumerable<ViewExpenseItemStatusActivity> GetByEmployee(int orgId, int employeeID, int year, int month)
         {
             try
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewNewExpenseItemStatusActivities
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.EmployeeID == employeeID && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month && (ex.Action == "Added" || ex.Action == "Paid")
                                select ex );
                 return expData;
@@ -198,7 +198,7 @@ namespace GAS.Controllers
                 if (eItem != null)
                 {
                     var id = ctx.ExpenseItems.AddRange(eItem);
-
+                
                     ctx.SaveChanges();
                     resp = "{\"Response\":\"OK\"}";
                 }
@@ -259,7 +259,7 @@ namespace GAS.Controllers
                     var item = (from ex in ctx.ExpenseItems
                                 where ex.ItemID == eItem.ItemID 
                               select ex).First();
-                    item.Status = "Deleted";
+                    item.Action = "Deleted";
                     ctx.SaveChanges();
                     resp = "{\"Response\":\"OK\"}";
                 }

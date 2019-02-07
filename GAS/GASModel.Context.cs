@@ -26,7 +26,6 @@ namespace GAS
         }
     
         public virtual DbSet<AdvanceItem> AdvanceItems { get; set; }
-        public virtual DbSet<ViewActivityStatu> ViewActivityStatus { get; set; }
         public virtual DbSet<ViewActivitySummary> ViewActivitySummaries { get; set; }
         public virtual DbSet<ViewAdvanceStatu> ViewAdvanceStatus { get; set; }
         public virtual DbSet<ViewAdvanceItemName> ViewAdvanceItemNames { get; set; }
@@ -35,7 +34,6 @@ namespace GAS
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<ViewActivity> ViewActivities { get; set; }
         public virtual DbSet<ViewActivityDashboard> ViewActivityDashboards { get; set; }
         public virtual DbSet<ViewActivityName> ViewActivityNames { get; set; }
         public virtual DbSet<Expens> Expenses { get; set; }
@@ -51,7 +49,6 @@ namespace GAS
         public virtual DbSet<ProjectStatu> ProjectStatus { get; set; }
         public virtual DbSet<ViewProjectStatu> ViewProjectStatus { get; set; }
         public virtual DbSet<ViewProject> ViewProjects { get; set; }
-        public virtual DbSet<ViewExpenseItemStatusActivity> ViewExpenseItemStatusActivities { get; set; }
         public virtual DbSet<PurchaseInvoice> PurchaseInvoices { get; set; }
         public virtual DbSet<PaymentGiven> PaymentGivens { get; set; }
         public virtual DbSet<PaymentReceived> PaymentReceiveds { get; set; }
@@ -67,17 +64,14 @@ namespace GAS
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<ViewTransaction> ViewTransactions { get; set; }
         public virtual DbSet<NewViewActivity> NewViewActivities { get; set; }
-        public virtual DbSet<ExpenseItem> ExpenseItems { get; set; }
         public virtual DbSet<GST> GSTs { get; set; }
         public virtual DbSet<TD> TDS { get; set; }
         public virtual DbSet<ViewGST> ViewGSTs { get; set; }
         public virtual DbSet<ViewTD> ViewTDS { get; set; }
-        public virtual DbSet<ViewDailyExpenseItemEmployee> ViewDailyExpenseItemEmployees { get; set; }
-        public virtual DbSet<ViewDailyExpenseItemOrganization> ViewDailyExpenseItemOrganizations { get; set; }
-        public virtual DbSet<ViewDailyExpenseItemProject> ViewDailyExpenseItemProjects { get; set; }
         public virtual DbSet<ViewExpenseItemDailyStatu> ViewExpenseItemDailyStatus { get; set; }
-        public virtual DbSet<NewExpenseItem> NewExpenseItems { get; set; }
-        public virtual DbSet<ViewNewActivityStatu> ViewNewActivityStatus { get; set; }
-        public virtual DbSet<ViewNewExpenseItemStatusActivity> ViewNewExpenseItemStatusActivities { get; set; }
+        public virtual DbSet<ExpenseItem> ExpenseItems { get; set; }
+        public virtual DbSet<ViewActivity> ViewActivities { get; set; }
+        public virtual DbSet<ViewActivityStatu> ViewActivityStatus { get; set; }
+        public virtual DbSet<ViewExpenseItemStatusActivity> ViewExpenseItemStatusActivities { get; set; }
     }
 }

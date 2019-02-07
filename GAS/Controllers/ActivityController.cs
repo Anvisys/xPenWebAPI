@@ -428,7 +428,7 @@ namespace GAS.Controllers
                         }
                         );
                     ctx.SaveChanges();
-                    ctx.NewExpenseItems.Add(new NewExpenseItem
+                    ctx.ExpenseItems.Add(new ExpenseItem
                     {
                         ActivityID = e.ActivityID,
                         ExpenseAmount = activity.ExpenseAmount,

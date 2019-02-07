@@ -35,11 +35,21 @@ namespace GAS.Controllers
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewDailyExpenseItemOrganizations
+          
+                var expData = (from ex in ctx.ViewExpenseItemDailyStatus
                                where ex.OrgID == id
                                orderby ex.ExpensesDate descending
-                               select new DailyExpense { ExpenseDate = (DateTime)ex.ExpensesDate, Status = ex.ActivityStatus, 
-                                   ExpenseAmount = (int)ex.expense, ReceiveAmount = (int)ex.Received }).Take(10);
+                               group ex by new { ex.ExpensesDate, ex.ActivityStatus }
+                            into dailyEx
+                               select new DailyExpense
+                               {
+                                   ExpenseDate = (DateTime)dailyEx.Key.ExpensesDate,
+                                   Status = dailyEx.Key.ActivityStatus,
+                                   ExpenseAmount = (int)dailyEx.Sum(x => x.Expense),
+                                   ReceiveAmount = (int)dailyEx.Sum(x => x.Received)
+                               }).Take(10);
+
+
                 return expData;
             }
             catch (Exception ex)
@@ -58,11 +68,20 @@ namespace GAS.Controllers
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewDailyExpenseItemProjects
+                            var expData = (from ex in ctx.ViewExpenseItemDailyStatus
                                where ex.ProjectID == id
                                orderby ex.ExpensesDate descending
-                               select new DailyExpense { ExpenseDate = (DateTime)ex.ExpensesDate, Status = ex.ActivityStatus, 
-                                   ExpenseAmount = (int)ex.expense, ReceiveAmount = (int)ex.Received }).Take(10);
+                               group ex by new { ex.ExpensesDate, ex.ActivityStatus }
+                                into dailyEx
+                               select new DailyExpense
+                               {
+                                   ExpenseDate = (DateTime)dailyEx.Key.ExpensesDate,
+                                   Status = dailyEx.Key.ActivityStatus,
+                                   ExpenseAmount = (int)dailyEx.Sum(x => x.Expense),
+                                   ReceiveAmount = (int)dailyEx.Sum(x => x.Received)
+                               }).Take(10);
+
+
                 return expData;
             }
             catch (Exception ex)
@@ -80,10 +99,17 @@ namespace GAS.Controllers
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewDailyExpenseItemEmployees
+                var expData = (from ex in ctx.ViewExpenseItemDailyStatus
                                where ex.EmployeeID == id orderby ex.ExpensesDate descending
-                               select new DailyExpense { ExpenseDate = (DateTime)ex.ExpensesDate, Status = ex.ActivityStatus, 
-                                   ExpenseAmount = (int)ex.expense, ReceiveAmount = (int)ex.Received }).Take(10);
+                               group ex by new { ex.ExpensesDate, ex.ActivityStatus }
+                                   into dailyEx
+                               select new DailyExpense
+                               {
+                                   ExpenseDate = (DateTime)dailyEx.Key.ExpensesDate,
+                                   Status = dailyEx.Key.ActivityStatus,
+                                   ExpenseAmount = (int)dailyEx.Sum(x => x.Expense),
+                                   ReceiveAmount = (int)dailyEx.Sum(x => x.Received)
+                               }).Take(10);
                 return expData;
             }
             catch (Exception ex)
@@ -92,19 +118,6 @@ namespace GAS.Controllers
             }
         }
 
-        // POST: api/DailyExpense
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/DailyExpense/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/DailyExpense/5
-        public void Delete(int id)
-        {
-        }
+  
     }
 }

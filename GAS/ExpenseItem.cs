@@ -22,6 +22,6 @@ namespace GAS
         public string ExpenseDescription { get; set; }
         public System.DateTime ExpenseDate { get; set; }
         public bool SelectedRow { get; set; }
-        public string Status { get; set; }
+        public string Action { get; set; }
     }
 }
