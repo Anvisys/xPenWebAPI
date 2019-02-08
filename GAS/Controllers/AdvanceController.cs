@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 
 using System.Web.Http.Cors;
+using GAS.Models;
 
 namespace GAS.Controllers
 {
@@ -13,8 +14,9 @@ namespace GAS.Controllers
        [RoutePrefix("api/Advance")]
     public class AdvanceController : ApiController
     {
-        // get advance request in an Organization by Status
-           [Route("Organization/{OrgID}/Status/{Status}")]
+       GASEntities ctx;
+      // get advance request in an Organization by Status
+      [Route("Organization/{OrgID}/Status/{Status}")]
            [HttpGet]
            public IEnumerable<ViewAdvance> GetAll(int OrgID, String Status)
         {
@@ -41,7 +43,7 @@ namespace GAS.Controllers
                         ints1 = new String[5];
                         ints1[0] = "Paid";
                     }
-                var ctx = new GASEntities();
+                ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewAdvances
                                orderby ex.ActivityID ascending
                                where ex.AdvanceStatus != "Deleted" && ex.OrgID == OrgID && ints1.Contains(ex.AdvanceStatus)
@@ -61,7 +63,7 @@ namespace GAS.Controllers
         {
             try
             {
-               var ctx = new GASEntities();
+                ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewAdvanceItemNames
                                where ex.ActivityID == id && ex.Status != "Deleted"
                                select ex);
@@ -118,20 +120,70 @@ namespace GAS.Controllers
         // Add Advance request
            [Route("Add")]
            [HttpPost]
-        public HttpResponseMessage PostAdd([FromBody]AdvanceItem ai)
+        public HttpResponseMessage PostAdd([FromBody]Advance ai)
         {
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
-                ai.CreationDate = DateTime.UtcNow;
-                if (ai != null)
+                ctx = new GASEntities();
+               
+                using (var dbContextTransaction = ctx.Database.BeginTransaction())
                 {
-                    var id = ctx.AdvanceItems.Add(ai);
+                    try
+                    {
+                        ai.CreationDate = DateTime.UtcNow;
+                        if (ai != null)
+                        {
+                            AdvanceItem advanceItem = new AdvanceItem();
+                            advanceItem.ActivityID = ai.ActivityID;
+                            advanceItem.AdvanceName = ai.AdvanceName;
+                            advanceItem.AdvanceRemarks = ai.AdvanceRemarks;
+                            advanceItem.CreationDate = ai.CreationDate;
+                            advanceItem.ReceiveAmount = ai.ReceiveAmount;
+                            advanceItem.RequestAmount = ai.RequestAmount;
+                            advanceItem.SelectedRow = false;
+                            advanceItem.Status = ai.Status;
+                           
 
-                    ctx.SaveChanges();
-                    resp = "{\"Response\":\"OK\"}";
+                            var id = ctx.AdvanceItems.Add(advanceItem);
+                            ctx.SaveChanges();
+                            Transaction trans_GST = new Transaction();
+                            trans_GST.AccID = ai.AccID;
+                            trans_GST.Deposit = 0;
+                            trans_GST.EntryDate = DateTime.UtcNow;
+                            trans_GST.InvoiceID = advanceItem.AdvanceID;
+                            trans_GST.OrgID = ai.OrgID;
+                            trans_GST.ProjectID = ai.ProjectID;
+                            trans_GST.TransactionDate = ai.CreationDate;
+                            trans_GST.Withdraw = ai.ReceiveAmount;
+                            trans_GST.TransType = "Advance";
+                            trans_GST.TransactionRemarks = ai.AdvanceRemarks;
+                            trans_GST.TransName = ai.AdvanceName;
+
+
+                             CalculateBalance(trans_GST);
+                            ctx.Transactions.Add(trans_GST);
+
+                            ctx.SaveChanges();
+                          
+                        }
+                        dbContextTransaction.Commit();
+                        resp = "{\"Response\":\"OK\"}";
+
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransaction.Rollback();
+                        resp = "{\"Response\":\"Fail\"}";
+
+                    }
+
                 }
+
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -145,14 +197,39 @@ namespace GAS.Controllers
 
         }
 
-        // PUT: api/Advance/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+       
 
-        // DELETE: api/Advance/5
-        public void Delete(int id)
+
+        private void CalculateBalance(Transaction trans)
         {
+
+            var prevBalance = 0;
+            var prevT = (from tr in ctx.Transactions
+                         where tr.OrgID == trans.OrgID
+                         orderby tr.TransID descending
+                         select tr.Balance).Take(1);
+            if (prevT.Count() > 0)
+            {
+                prevBalance = Convert.ToInt32(prevT.FirstOrDefault());
+            }
+
+            var prevAccT = (from tr in ctx.Transactions
+                            where tr.AccID == trans.AccID && tr.OrgID == trans.OrgID
+                            orderby tr.TransID descending
+                            select tr.AccountBalance).Take(1);
+            var prevAccBalance = 0;
+            if (prevAccT.Count() > 0)
+            {
+                prevAccBalance = Convert.ToInt32(prevAccT.FirstOrDefault());
+            }
+
+            trans.Balance = prevBalance + trans.Deposit - trans.Withdraw;
+            trans.AccountBalance = prevAccBalance + trans.Deposit - trans.Withdraw;
+            trans.EntryDate = System.DateTime.UtcNow;
+
+            // ctx.Transactions.Add(trans);
+            //ctx.SaveChanges();
+            return ;
         }
     }
 }

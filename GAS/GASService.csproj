@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="Infrastructure\UserToken.cs" />
     <Compile Include="Models\ActiveActivity.cs" />
+    <Compile Include="Models\Advance.cs" />
     <Compile Include="Models\Expenses.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="NewViewActivity.cs">

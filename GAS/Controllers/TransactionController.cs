@@ -153,7 +153,7 @@ namespace GAS.Controllers
                             transFrom.Withdraw = transfer.Withdraw;
                             transFrom.Deposit = 0;
                             transFrom.TransactionID = 0;
-                            Transaction trans1 = AddTransaction(transFrom);
+                            Transaction trans1 = CalculateBalance(transFrom);
                             ctx.Transactions.Add(trans1);
                            // int newID = Transaction(transfer.TransferName , transfer.TFromAccount, transfer.TransferAmount, 0,0, 0, 0, transfer.TransferRemark, transfer.OrgID,"Transfer", DateTime.UtcNow);
 
@@ -203,7 +203,7 @@ namespace GAS.Controllers
                         Transaction trans = transfer[i];
                         if (trans.Withdraw != 0 || trans.Deposit != 0)
                         {
-                            AddTransaction(trans);
+                            CalculateBalance(trans);
                             ctx.Transactions.Add(trans);
                             ctx.SaveChanges();
                         }
@@ -241,7 +241,7 @@ namespace GAS.Controllers
                 {
                     int GST = transaction.Withdraw;
                     transaction.Withdraw = 0;
-                    Transaction trans1 = AddTransaction(transaction);
+                    Transaction trans1 = CalculateBalance(transaction);
                     ctx.Transactions.Add(trans1);
                     ctx.SaveChanges();
 
@@ -259,13 +259,13 @@ namespace GAS.Controllers
                     trans_GST.TransName = "GST_" + transaction.TransName;
 
 
-                    Transaction trans2 = AddTransaction(trans_GST);
+                    Transaction trans2 = CalculateBalance(trans_GST);
                     ctx.Transactions.Add(trans2);
                     ctx.SaveChanges();
                 }
                 else
                 {
-                    Transaction trans1 = AddTransaction(transaction);
+                    Transaction trans1 = CalculateBalance(transaction);
                     ctx.Transactions.Add(trans1);
                     ctx.SaveChanges();
                 }
@@ -343,7 +343,7 @@ namespace GAS.Controllers
         }
 
 
-        private Transaction AddTransaction(Transaction trans)
+        private Transaction CalculateBalance(Transaction trans)
         {
            
             var prevBalance = 0;
