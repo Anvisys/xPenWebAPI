@@ -25,7 +25,7 @@ namespace GAS
         public double IGST { get; set; }
         public double TDS { get; set; }
         public double Receivable { get; set; }
-        public double ReceivedAmount { get; set; }
+        public int ReceivedAmount { get; set; }
         public System.DateTime ReceivedDate { get; set; }
         public string ProjectName { get; set; }
         public string ProjectNumber { get; set; }

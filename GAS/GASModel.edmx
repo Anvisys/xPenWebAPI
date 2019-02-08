@@ -45,6 +45,21 @@
           <Property Name="SelectedRow" Type="bit" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="CatchUpUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="image" Nullable="false" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="GCMCode" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Function" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Date" Type="smalldatetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="ExpenseItem">
           <Key>
             <PropertyRef Name="ItemID" />
@@ -100,33 +115,6 @@
           <Property Name="Status" Type="varchar" MaxLength="20" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="PaymentGiven">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PInvoiceId" Type="int" Nullable="false" />
-          <Property Name="OrgId" Type="int" Nullable="false" />
-          <Property Name="ProjectId" Type="int" Nullable="false" />
-          <Property Name="Paid" Type="float" Nullable="false" />
-          <Property Name="TaxPaid" Type="float" Nullable="false" />
-          <Property Name="TDSPayable" Type="float" Nullable="false" />
-          <Property Name="TDSStatus" Type="varchar" MaxLength="20" />
-          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PaymentReceived">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="InvoiceId" Type="int" Nullable="false" />
-          <Property Name="OrgId" Type="int" Nullable="false" />
-          <Property Name="ProjectId" Type="int" Nullable="false" />
-          <Property Name="Received" Type="float" Nullable="false" />
-          <Property Name="Tax" Type="float" Nullable="false" />
-          <Property Name="TDSDeducted" Type="float" Nullable="false" />
-          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
-        </EntityType>
         <EntityType Name="Project">
           <Key>
             <PropertyRef Name="ProjectID" />
@@ -168,6 +156,20 @@
           <Property Name="TDS" Type="float" Nullable="false" />
           <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
           <Property Name="InvoiceType" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportedIssue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lattitude" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="Longitude" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="severity" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Image" Type="image" Nullable="false" />
+          <Property Name="ModifiedAt" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="SellInvoice">
           <Key>
@@ -278,102 +280,16 @@ warning 6002: The table/view 'LetsMeet.dbo.NewViewActivity' does not have a prim
           <Property Name="OrgID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.NewViewPaymentGiven' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="NewViewPaymentGiven">
+warning 6002: The table/view 'LetsMeet.dbo.oldViewActivityDashboard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="oldViewActivityDashboard">
           <Key>
-            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="ProjectId" Type="int" />
-          <Property Name="InvoiceId" Type="int" Nullable="false" />
-          <Property Name="PaidAmount" Type="int" />
-          <Property Name="PaidDate" Type="datetime" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.NewViewPaymentReceived' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="NewViewPaymentReceived">
-          <Key>
-            <PropertyRef Name="InvoiceId" />
-          </Key>
-          <Property Name="ProjectId" Type="int" />
-          <Property Name="InvoiceId" Type="int" Nullable="false" />
-          <Property Name="ReceivedAmount" Type="int" />
-          <Property Name="ReceivedDate" Type="datetime" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.NewViewPurchaseInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="NewViewPurchaseInvoice">
-          <Key>
-            <PropertyRef Name="OrgId" />
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="VendorName" />
-            <PropertyRef Name="InvoiceId" />
-            <PropertyRef Name="InvoiceNumber" />
-            <PropertyRef Name="InvoiceDate" />
-            <PropertyRef Name="ServiceCost" />
-            <PropertyRef Name="CGST" />
-            <PropertyRef Name="SGST" />
-            <PropertyRef Name="IGST" />
-            <PropertyRef Name="TDS" />
-            <PropertyRef Name="Receivable" />
-            <PropertyRef Name="PaidAmount" />
-            <PropertyRef Name="PaidDate" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="ClientName" />
-          </Key>
-          <Property Name="OrgId" Type="int" Nullable="false" />
-          <Property Name="ProjectId" Type="int" Nullable="false" />
-          <Property Name="VendorName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="InvoiceId" Type="int" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
-          <Property Name="ServiceCost" Type="float" Nullable="false" />
-          <Property Name="CGST" Type="float" Nullable="false" />
-          <Property Name="SGST" Type="float" Nullable="false" />
-          <Property Name="IGST" Type="float" Nullable="false" />
-          <Property Name="TDS" Type="float" Nullable="false" />
-          <Property Name="Receivable" Type="float" Nullable="false" />
-          <Property Name="PaidAmount" Type="int" Nullable="false" />
-          <Property Name="PaidDate" Type="datetime" Nullable="false" />
-          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
-          <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.NewViewSellInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="NewViewSellInvoice">
-          <Key>
-            <PropertyRef Name="OrgId" />
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="InvoiceId" />
-            <PropertyRef Name="InvoiceNumber" />
-            <PropertyRef Name="InvoiceDate" />
-            <PropertyRef Name="ServiceCost" />
-            <PropertyRef Name="CGST" />
-            <PropertyRef Name="SGST" />
-            <PropertyRef Name="IGST" />
-            <PropertyRef Name="TDS" />
-            <PropertyRef Name="Receivable" />
-            <PropertyRef Name="ReceivedAmount" />
-            <PropertyRef Name="ReceivedDate" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="ClientName" />
-          </Key>
-          <Property Name="OrgId" Type="int" Nullable="false" />
-          <Property Name="ProjectId" Type="int" Nullable="false" />
-          <Property Name="InvoiceId" Type="int" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
-          <Property Name="ServiceCost" Type="float" Nullable="false" />
-          <Property Name="CGST" Type="float" Nullable="false" />
-          <Property Name="SGST" Type="float" Nullable="false" />
-          <Property Name="IGST" Type="float" Nullable="false" />
-          <Property Name="TDS" Type="float" Nullable="false" />
-          <Property Name="Receivable" Type="float" Nullable="false" />
-          <Property Name="ReceivedAmount" Type="int" Nullable="false" />
-          <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
-          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
-          <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ActivitiesCount" Type="int" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="Spent" Type="int" />
+          <Property Name="Received" Type="int" />
+          <Property Name="Advance" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -427,18 +343,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewActivity' does not have a primary
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="Advance" Type="int" />
           <Property Name="OrgID" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewActivityDashboard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ViewActivityDashboard">
-          <Key>
-            <PropertyRef Name="EmployeeID" />
-          </Key>
-          <Property Name="ActivitiesCount" Type="int" />
-          <Property Name="EmployeeID" Type="int" Nullable="false" />
-          <Property Name="Spent" Type="int" />
-          <Property Name="Received" Type="int" />
-          <Property Name="Advance" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewActivityNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -674,24 +578,22 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewOrganization' does not have a pri
 warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentGiven' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewPaymentGiven">
           <Key>
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="PInvoiceId" />
+            <PropertyRef Name="InvoiceId" />
           </Key>
-          <Property Name="ProjectId" Type="int" Nullable="false" />
-          <Property Name="PInvoiceId" Type="int" Nullable="false" />
-          <Property Name="PaidAmount" Type="float" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="PaidAmount" Type="int" />
           <Property Name="PaidDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentReceived' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewPaymentReceived">
           <Key>
-            <PropertyRef Name="ProjectId" />
             <PropertyRef Name="InvoiceId" />
           </Key>
-          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
           <Property Name="InvoiceId" Type="int" Nullable="false" />
-          <Property Name="ReceivedAmount" Type="float" />
+          <Property Name="ReceivedAmount" Type="int" />
           <Property Name="ReceivedDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -783,7 +685,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewPurchaseInvoice' does not have a 
           <Property Name="IGST" Type="float" Nullable="false" />
           <Property Name="TDS" Type="float" Nullable="false" />
           <Property Name="Receivable" Type="float" Nullable="false" />
-          <Property Name="PaidAmount" Type="float" Nullable="false" />
+          <Property Name="PaidAmount" Type="int" Nullable="false" />
           <Property Name="PaidDate" Type="datetime" Nullable="false" />
           <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
@@ -820,7 +722,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a prim
           <Property Name="IGST" Type="float" Nullable="false" />
           <Property Name="TDS" Type="float" Nullable="false" />
           <Property Name="Receivable" Type="float" Nullable="false" />
-          <Property Name="ReceivedAmount" Type="float" Nullable="false" />
+          <Property Name="ReceivedAmount" Type="int" Nullable="false" />
           <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
           <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
@@ -932,15 +834,15 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdvanceItem" EntityType="Self.AdvanceItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatchUpUser" EntityType="Self.CatchUpUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpenseItem" EntityType="Self.ExpenseItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GST" EntityType="Self.GST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PaymentGiven" EntityType="Self.PaymentGiven" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PaymentReceived" EntityType="Self.PaymentReceived" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PurchaseInvoice" EntityType="Self.PurchaseInvoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportedIssue" EntityType="Self.ReportedIssue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SellInvoice" EntityType="Self.SellInvoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TDS" EntityType="Self.TDS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
@@ -968,62 +870,14 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [NewViewActivity].[OrgID] AS [OrgID]
     FROM [dbo].[NewViewActivity] AS [NewViewActivity]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="NewViewPaymentGiven" EntityType="Self.NewViewPaymentGiven" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="oldViewActivityDashboard" EntityType="Self.oldViewActivityDashboard" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [NewViewPaymentGiven].[ProjectId] AS [ProjectId], 
-    [NewViewPaymentGiven].[InvoiceId] AS [InvoiceId], 
-    [NewViewPaymentGiven].[PaidAmount] AS [PaidAmount], 
-    [NewViewPaymentGiven].[PaidDate] AS [PaidDate]
-    FROM [dbo].[NewViewPaymentGiven] AS [NewViewPaymentGiven]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="NewViewPaymentReceived" EntityType="Self.NewViewPaymentReceived" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [NewViewPaymentReceived].[ProjectId] AS [ProjectId], 
-    [NewViewPaymentReceived].[InvoiceId] AS [InvoiceId], 
-    [NewViewPaymentReceived].[ReceivedAmount] AS [ReceivedAmount], 
-    [NewViewPaymentReceived].[ReceivedDate] AS [ReceivedDate]
-    FROM [dbo].[NewViewPaymentReceived] AS [NewViewPaymentReceived]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="NewViewPurchaseInvoice" EntityType="Self.NewViewPurchaseInvoice" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [NewViewPurchaseInvoice].[OrgId] AS [OrgId], 
-    [NewViewPurchaseInvoice].[ProjectId] AS [ProjectId], 
-    [NewViewPurchaseInvoice].[VendorName] AS [VendorName], 
-    [NewViewPurchaseInvoice].[InvoiceId] AS [InvoiceId], 
-    [NewViewPurchaseInvoice].[InvoiceNumber] AS [InvoiceNumber], 
-    [NewViewPurchaseInvoice].[InvoiceDate] AS [InvoiceDate], 
-    [NewViewPurchaseInvoice].[ServiceCost] AS [ServiceCost], 
-    [NewViewPurchaseInvoice].[CGST] AS [CGST], 
-    [NewViewPurchaseInvoice].[SGST] AS [SGST], 
-    [NewViewPurchaseInvoice].[IGST] AS [IGST], 
-    [NewViewPurchaseInvoice].[TDS] AS [TDS], 
-    [NewViewPurchaseInvoice].[Receivable] AS [Receivable], 
-    [NewViewPurchaseInvoice].[PaidAmount] AS [PaidAmount], 
-    [NewViewPurchaseInvoice].[PaidDate] AS [PaidDate], 
-    [NewViewPurchaseInvoice].[ProjectName] AS [ProjectName], 
-    [NewViewPurchaseInvoice].[ProjectNumber] AS [ProjectNumber], 
-    [NewViewPurchaseInvoice].[ClientName] AS [ClientName]
-    FROM [dbo].[NewViewPurchaseInvoice] AS [NewViewPurchaseInvoice]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="NewViewSellInvoice" EntityType="Self.NewViewSellInvoice" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [NewViewSellInvoice].[OrgId] AS [OrgId], 
-    [NewViewSellInvoice].[ProjectId] AS [ProjectId], 
-    [NewViewSellInvoice].[InvoiceId] AS [InvoiceId], 
-    [NewViewSellInvoice].[InvoiceNumber] AS [InvoiceNumber], 
-    [NewViewSellInvoice].[InvoiceDate] AS [InvoiceDate], 
-    [NewViewSellInvoice].[ServiceCost] AS [ServiceCost], 
-    [NewViewSellInvoice].[CGST] AS [CGST], 
-    [NewViewSellInvoice].[SGST] AS [SGST], 
-    [NewViewSellInvoice].[IGST] AS [IGST], 
-    [NewViewSellInvoice].[TDS] AS [TDS], 
-    [NewViewSellInvoice].[Receivable] AS [Receivable], 
-    [NewViewSellInvoice].[ReceivedAmount] AS [ReceivedAmount], 
-    [NewViewSellInvoice].[ReceivedDate] AS [ReceivedDate], 
-    [NewViewSellInvoice].[ProjectName] AS [ProjectName], 
-    [NewViewSellInvoice].[ProjectNumber] AS [ProjectNumber], 
-    [NewViewSellInvoice].[ClientName] AS [ClientName]
-    FROM [dbo].[NewViewSellInvoice] AS [NewViewSellInvoice]</DefiningQuery>
+    [oldViewActivityDashboard].[ActivitiesCount] AS [ActivitiesCount], 
+    [oldViewActivityDashboard].[EmployeeID] AS [EmployeeID], 
+    [oldViewActivityDashboard].[Spent] AS [Spent], 
+    [oldViewActivityDashboard].[Received] AS [Received], 
+    [oldViewActivityDashboard].[Advance] AS [Advance]
+    FROM [dbo].[oldViewActivityDashboard] AS [oldViewActivityDashboard]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewAccount" EntityType="Self.ViewAccount" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1058,15 +912,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewActivity].[Advance] AS [Advance], 
     [ViewActivity].[OrgID] AS [OrgID]
     FROM [dbo].[ViewActivity] AS [ViewActivity]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ViewActivityDashboard" EntityType="Self.ViewActivityDashboard" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ViewActivityDashboard].[ActivitiesCount] AS [ActivitiesCount], 
-    [ViewActivityDashboard].[EmployeeID] AS [EmployeeID], 
-    [ViewActivityDashboard].[Spent] AS [Spent], 
-    [ViewActivityDashboard].[Received] AS [Received], 
-    [ViewActivityDashboard].[Advance] AS [Advance]
-    FROM [dbo].[ViewActivityDashboard] AS [ViewActivityDashboard]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewActivityNames" EntityType="Self.ViewActivityNames" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1222,7 +1067,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <EntitySet Name="ViewPaymentGiven" EntityType="Self.ViewPaymentGiven" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ViewPaymentGiven].[ProjectId] AS [ProjectId], 
-    [ViewPaymentGiven].[PInvoiceId] AS [PInvoiceId], 
+    [ViewPaymentGiven].[InvoiceId] AS [InvoiceId], 
     [ViewPaymentGiven].[PaidAmount] AS [PaidAmount], 
     [ViewPaymentGiven].[PaidDate] AS [PaidDate]
     FROM [dbo].[ViewPaymentGiven] AS [ViewPaymentGiven]</DefiningQuery>
@@ -1387,255 +1232,51 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     <edmx:ConceptualModels>
       <Schema Namespace="GASModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="GASEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AdvanceItems" EntityType="GASModel.AdvanceItem" />
-          <EntitySet Name="ViewActivitySummaries" EntityType="GASModel.ViewActivitySummary" />
-          <EntitySet Name="ViewAdvanceStatus" EntityType="GASModel.ViewAdvanceStatu" />
-          <EntitySet Name="ViewAdvanceItemNames" EntityType="GASModel.ViewAdvanceItemName" />
-          <EntitySet Name="ViewAdvances" EntityType="GASModel.ViewAdvance" />
-          <EntitySet Name="Organizations" EntityType="GASModel.Organization" />
-          <EntitySet Name="Accounts" EntityType="GASModel.Account" />
-          <EntitySet Name="Activities" EntityType="GASModel.Activity" />
-          <EntitySet Name="Projects" EntityType="GASModel.Project" />
-          <EntitySet Name="ViewActivityDashboards" EntityType="GASModel.ViewActivityDashboard" />
-          <EntitySet Name="ViewActivityNames" EntityType="GASModel.ViewActivityName" />
-          <EntitySet Name="Expenses" EntityType="GASModel.Expens" />
-          <EntitySet Name="ViewMonthCumulativeExpenses" EntityType="GASModel.ViewMonthCumulativeExpense" />
           <EntitySet Name="Users" EntityType="GASModel.User" />
           <EntitySet Name="ViewOrganizations" EntityType="GASModel.ViewOrganization" />
-          <EntitySet Name="ViewProjectExpenses" EntityType="GASModel.ViewProjectExpense" />
-          <EntitySet Name="ViewAccounts" EntityType="GASModel.ViewAccount" />
-          <EntitySet Name="ViewTransactionDailyAccountBalances" EntityType="GASModel.ViewTransactionDailyAccountBalance" />
-          <EntitySet Name="ViewTransactionDailyAccounts" EntityType="GASModel.ViewTransactionDailyAccount" />
-          <EntitySet Name="ViewTransactionDailySummaries" EntityType="GASModel.ViewTransactionDailySummary" />
-          <EntitySet Name="UserImages" EntityType="GASModel.UserImage" />
-          <EntitySet Name="ProjectStatus" EntityType="GASModel.ProjectStatu" />
-          <EntitySet Name="ViewProjectStatus" EntityType="GASModel.ViewProjectStatu" />
-          <EntitySet Name="ViewProjects" EntityType="GASModel.ViewProject" />
-          <EntitySet Name="PurchaseInvoices" EntityType="GASModel.PurchaseInvoice" />
-          <EntitySet Name="PaymentGivens" EntityType="GASModel.PaymentGiven" />
-          <EntitySet Name="PaymentReceiveds" EntityType="GASModel.PaymentReceived" />
-          <EntitySet Name="ViewPaymentReceiveds" EntityType="GASModel.ViewPaymentReceived" />
-          <EntitySet Name="ViewPaymentGivens" EntityType="GASModel.ViewPaymentGiven" />
-          <EntitySet Name="SellInvoices" EntityType="GASModel.SellInvoice" />
-          <EntitySet Name="ViewPurchaseInvoices" EntityType="GASModel.ViewPurchaseInvoice" />
-          <EntitySet Name="NewViewPaymentGivens" EntityType="GASModel.NewViewPaymentGiven" />
-          <EntitySet Name="NewViewPaymentReceiveds" EntityType="GASModel.NewViewPaymentReceived" />
-          <EntitySet Name="NewViewPurchaseInvoices" EntityType="GASModel.NewViewPurchaseInvoice" />
-          <EntitySet Name="ViewSellInvoices" EntityType="GASModel.ViewSellInvoice" />
-          <EntitySet Name="NewViewSellInvoices" EntityType="GASModel.NewViewSellInvoice" />
           <EntitySet Name="Transactions" EntityType="GASModel.Transaction" />
-          <EntitySet Name="ViewTransactions" EntityType="GASModel.ViewTransaction" />
           <EntitySet Name="GSTs" EntityType="GASModel.GST" />
-          <EntitySet Name="TDS" EntityType="GASModel.TD" />
           <EntitySet Name="ViewGSTs" EntityType="GASModel.ViewGST" />
-          <EntitySet Name="ViewTDS" EntityType="GASModel.ViewTD" />
+          <EntitySet Name="Accounts" EntityType="GASModel.Account" />
+          <EntitySet Name="Activities" EntityType="GASModel.Activity" />
+          <EntitySet Name="AdvanceItems" EntityType="GASModel.AdvanceItem" />
+          <EntitySet Name="CatchUpUsers" EntityType="GASModel.CatchUpUser" />
           <EntitySet Name="ExpenseItems" EntityType="GASModel.ExpenseItem" />
-          <EntitySet Name="ViewActivityStatus" EntityType="GASModel.ViewActivityStatu" />
+          <EntitySet Name="Expenses" EntityType="GASModel.Expens" />
+          <EntitySet Name="Organizations" EntityType="GASModel.Organization" />
+          <EntitySet Name="Projects" EntityType="GASModel.Project" />
+          <EntitySet Name="ProjectStatus" EntityType="GASModel.ProjectStatu" />
+          <EntitySet Name="PurchaseInvoices" EntityType="GASModel.PurchaseInvoice" />
+          <EntitySet Name="ReportedIssues" EntityType="GASModel.ReportedIssue" />
+          <EntitySet Name="SellInvoices" EntityType="GASModel.SellInvoice" />
+          <EntitySet Name="TDS" EntityType="GASModel.TD" />
+          <EntitySet Name="UserImages" EntityType="GASModel.UserImage" />
           <EntitySet Name="NewViewActivities" EntityType="GASModel.NewViewActivity" />
+          <EntitySet Name="oldViewActivityDashboards" EntityType="GASModel.oldViewActivityDashboard" />
+          <EntitySet Name="ViewAccounts" EntityType="GASModel.ViewAccount" />
           <EntitySet Name="ViewActivities" EntityType="GASModel.ViewActivity" />
+          <EntitySet Name="ViewActivityNames" EntityType="GASModel.ViewActivityName" />
+          <EntitySet Name="ViewActivityStatus" EntityType="GASModel.ViewActivityStatu" />
+          <EntitySet Name="ViewActivitySummaries" EntityType="GASModel.ViewActivitySummary" />
+          <EntitySet Name="ViewAdvances" EntityType="GASModel.ViewAdvance" />
+          <EntitySet Name="ViewAdvanceItemNames" EntityType="GASModel.ViewAdvanceItemName" />
+          <EntitySet Name="ViewAdvanceStatus" EntityType="GASModel.ViewAdvanceStatu" />
           <EntitySet Name="ViewExpenseItemDailyStatus" EntityType="GASModel.ViewExpenseItemDailyStatu" />
           <EntitySet Name="ViewExpenseItemStatusActivities" EntityType="GASModel.ViewExpenseItemStatusActivity" />
+          <EntitySet Name="ViewMonthCumulativeExpenses" EntityType="GASModel.ViewMonthCumulativeExpense" />
+          <EntitySet Name="ViewPaymentGivens" EntityType="GASModel.ViewPaymentGiven" />
+          <EntitySet Name="ViewPaymentReceiveds" EntityType="GASModel.ViewPaymentReceived" />
+          <EntitySet Name="ViewProjects" EntityType="GASModel.ViewProject" />
+          <EntitySet Name="ViewProjectExpenses" EntityType="GASModel.ViewProjectExpense" />
+          <EntitySet Name="ViewProjectStatus" EntityType="GASModel.ViewProjectStatu" />
+          <EntitySet Name="ViewPurchaseInvoices" EntityType="GASModel.ViewPurchaseInvoice" />
+          <EntitySet Name="ViewSellInvoices" EntityType="GASModel.ViewSellInvoice" />
+          <EntitySet Name="ViewTDS" EntityType="GASModel.ViewTD" />
+          <EntitySet Name="ViewTransactions" EntityType="GASModel.ViewTransaction" />
+          <EntitySet Name="ViewTransactionDailyAccounts" EntityType="GASModel.ViewTransactionDailyAccount" />
+          <EntitySet Name="ViewTransactionDailyAccountBalances" EntityType="GASModel.ViewTransactionDailyAccountBalance" />
+          <EntitySet Name="ViewTransactionDailySummaries" EntityType="GASModel.ViewTransactionDailySummary" />
         </EntityContainer>
-        <EntityType Name="AdvanceItem">
-          <Key>
-            <PropertyRef Name="AdvanceID" />
-          </Key>
-          <Property Name="AdvanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="AdvanceName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="RequestAmount" Type="Int32" Nullable="false" />
-          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
-          <Property Name="AdvanceRemarks" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ViewActivitySummary">
-          <Key>
-            <PropertyRef Name="RowID" />
-            <PropertyRef Name="OrgID" />
-          </Key>
-          <Property Name="RowID" Type="Int64" Nullable="false" />
-          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Expense" Type="Int32" />
-          <Property Name="Received" Type="Int32" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ViewAdvanceStatu">
-          <Key>
-            <PropertyRef Name="ActivityNumber" />
-          </Key>
-          <Property Name="ActivityNumber" Type="Int32" Nullable="false" />
-          <Property Name="AdvanceName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AdvanceStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AdvanceModifiedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="ViewAdvanceItemName">
-          <Key>
-            <PropertyRef Name="AdvanceID" />
-            <PropertyRef Name="AdvanceName" />
-            <PropertyRef Name="RequestAmount" />
-            <PropertyRef Name="ReceiveAmount" />
-            <PropertyRef Name="AdvanceRemarks" />
-            <PropertyRef Name="CreationDate" />
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="ActivityName" />
-            <PropertyRef Name="ProjectName" />
-          </Key>
-          <Property Name="AdvanceID" Type="Int32" Nullable="false" />
-          <Property Name="AdvanceName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="RequestAmount" Type="Int32" Nullable="false" />
-          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
-          <Property Name="AdvanceRemarks" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Approver" Type="Int32" />
-          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ViewAdvance">
-          <Key>
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="ActivityName" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="OrgID" />
-          </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="RequestAmount" Type="Int32" />
-          <Property Name="ReceivedAmount" Type="Int32" />
-          <Property Name="AdvanceName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AdvanceStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AdvanceModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="Approver" Type="Int32" />
-          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Organization">
-          <Key>
-            <PropertyRef Name="OrganizationID" />
-          </Key>
-          <Property Name="OrganizationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrganizationNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="OrganizationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Employee" Type="Int32" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ContactPerson" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ContactEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="Account">
-          <Key>
-            <PropertyRef Name="AccID" />
-          </Key>
-          <Property Name="AccID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Number" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AccountDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Activity">
-          <Key>
-            <PropertyRef Name="ActivityID" />
-          </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="ApproverID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Project">
-          <Key>
-            <PropertyRef Name="ProjectID" />
-          </Key>
-          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectValue" Type="Int32" />
-          <Property Name="ProjectDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectCreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ViewActivityDashboard">
-          <Key>
-            <PropertyRef Name="EmployeeID" />
-          </Key>
-          <Property Name="ActivitiesCount" Type="Int32" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="Spent" Type="Int32" />
-          <Property Name="Received" Type="Int32" />
-          <Property Name="Advance" Type="Int32" />
-        </EntityType>
-        <EntityType Name="ViewActivityName">
-          <Key>
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="ActivityName" />
-            <PropertyRef Name="ActivityDescription" />
-            <PropertyRef Name="CreationDate" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="OrgID" />
-          </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Approver" Type="Int32" />
-          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Expens">
-          <Key>
-            <PropertyRef Name="ExpenseID" />
-          </Key>
-          <Property Name="ExpenseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ExpenseType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
-          <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ViewMonthCumulativeExpense">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="year" Type="Int32" />
-          <Property Name="month" Type="Int32" />
-          <Property Name="expense" Type="Int32" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -1669,14 +1310,298 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserMobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="ViewProjectExpense">
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransID" />
+          </Key>
+          <Property Name="TransID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AccID" Type="Int32" Nullable="false" />
+          <Property Name="Deposit" Type="Int32" Nullable="false" />
+          <Property Name="Withdraw" Type="Int32" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Balance" Type="Int32" />
+          <Property Name="AccountBalance" Type="Int32" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="TransactionID" Type="Int32" Nullable="false" />
+          <Property Name="TransactionRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="TransType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="GST">
+          <Key>
+            <PropertyRef Name="GSTId" />
+          </Key>
+          <Property Name="GSTId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="GSTReceived" Type="Int32" Nullable="false" />
+          <Property Name="GSTInput" Type="Int32" Nullable="false" />
+          <Property Name="PreviousGSTDues" Type="Int32" Nullable="false" />
+          <Property Name="Penalty" Type="Int32" Nullable="false" />
+          <Property Name="GSTPayable" Type="Int32" Nullable="false" />
+          <Property Name="TaxMonth" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="ViewGST">
+          <Key>
+            <PropertyRef Name="GSTId" />
+            <PropertyRef Name="OrgID" />
+            <PropertyRef Name="GSTReceived" />
+            <PropertyRef Name="GSTInput" />
+            <PropertyRef Name="PreviousGSTDues" />
+            <PropertyRef Name="Penalty" />
+            <PropertyRef Name="GSTPayable" />
+            <PropertyRef Name="TaxMonth" />
+            <PropertyRef Name="GST_Paid" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="TransactionRemarks" />
+            <PropertyRef Name="TransactionDate" />
+          </Key>
+          <Property Name="GSTId" Type="Int32" Nullable="false" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="GSTReceived" Type="Int32" Nullable="false" />
+          <Property Name="GSTInput" Type="Int32" Nullable="false" />
+          <Property Name="PreviousGSTDues" Type="Int32" Nullable="false" />
+          <Property Name="Penalty" Type="Int32" Nullable="false" />
+          <Property Name="GSTPayable" Type="Int32" Nullable="false" />
+          <Property Name="TaxMonth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GST_Paid" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TransactionRemarks" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccID" />
+          </Key>
+          <Property Name="AccID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AccountDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="ApproverID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AdvanceItem">
+          <Key>
+            <PropertyRef Name="AdvanceID" />
+          </Key>
+          <Property Name="AdvanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="AdvanceName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RequestAmount" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
+          <Property Name="AdvanceRemarks" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CatchUpUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="MobileNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GCMCode" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Function" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="ExpenseItem">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
+          <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Expens">
+          <Key>
+            <PropertyRef Name="ExpenseID" />
+          </Key>
+          <Property Name="ExpenseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExpenseType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
+          <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="OrganizationID" />
+          </Key>
+          <Property Name="OrganizationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrganizationNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OrganizationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Employee" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ContactPerson" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ContactEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Project">
           <Key>
             <PropertyRef Name="ProjectID" />
           </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectValue" Type="Int32" />
+          <Property Name="ProjectDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectCreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkCompletion" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="Expense" Type="Int32" />
-          <Property Name="ReceiveAmount" Type="Int32" />
-          <Property Name="exdate" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PurchaseInvoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrgId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceCost" Type="Double" Nullable="false" />
+          <Property Name="CGST" Type="Double" Nullable="false" />
+          <Property Name="SGST" Type="Double" Nullable="false" />
+          <Property Name="IGST" Type="Double" Nullable="false" />
+          <Property Name="TDS" Type="Double" Nullable="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InvoiceType" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportedIssue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lattitude" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="severity" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ModifiedAt" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="SellInvoice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrgId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceCost" Type="Double" Nullable="false" />
+          <Property Name="CGST" Type="Double" Nullable="false" />
+          <Property Name="SGST" Type="Double" Nullable="false" />
+          <Property Name="IGST" Type="Double" Nullable="false" />
+          <Property Name="TDS" Type="Double" Nullable="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InvoiceType" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="TDSDeducted" Type="Int32" Nullable="false" />
+          <Property Name="TDSPayable" Type="Int32" Nullable="false" />
+          <Property Name="PreviousTDS" Type="Int32" Nullable="false" />
+          <Property Name="Penalty" Type="Double" Nullable="false" />
+          <Property Name="TaxMonth" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Profile_image" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="NewViewActivity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+            <PropertyRef Name="ActivityName" />
+            <PropertyRef Name="ActivityDescription" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="Settlement" />
+            <PropertyRef Name="PaidDate" />
+            <PropertyRef Name="Advance" />
+            <PropertyRef Name="OrgID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Approver" Type="Int32" />
+          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Settlement" Type="Int32" Nullable="false" />
+          <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Expenses" Type="Int32" />
+          <Property Name="Balance" Type="Int32" />
+          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Advance" Type="Int32" Nullable="false" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="oldViewActivityDashboard">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="ActivitiesCount" Type="Int32" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Spent" Type="Int32" />
+          <Property Name="Received" Type="Int32" />
+          <Property Name="Advance" Type="Int32" />
         </EntityType>
         <EntityType Name="ViewAccount">
           <Key>
@@ -1698,72 +1623,216 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="BalanceOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OrgID" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="ViewTransactionDailyAccountBalance">
+        <EntityType Name="ViewActivity">
           <Key>
-            <PropertyRef Name="AccID" />
-            <PropertyRef Name="EntryDate" />
-          </Key>
-          <Property Name="AccID" Type="Int32" Nullable="false" />
-          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Balance" Type="Int32" />
-          <Property Name="AccountBalance" Type="Int32" />
-          <Property Name="tDate" Type="DateTime" Precision="0" />
-          <Property Name="tTime" Type="Time" Precision="7" />
-        </EntityType>
-        <EntityType Name="ViewTransactionDailyAccount">
-          <Key>
-            <PropertyRef Name="OrgID" />
-            <PropertyRef Name="AccID" />
-          </Key>
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="AccID" Type="Int32" Nullable="false" />
-          <Property Name="AgrregateDate" Type="DateTime" Precision="0" />
-          <Property Name="Deposit" Type="Int32" />
-          <Property Name="Withdraw" Type="Int32" />
-          <Property Name="Balance" Type="Int32" />
-          <Property Name="AccountBalance" Type="Int32" />
-          <Property Name="tTime" Type="Time" Precision="7" />
-        </EntityType>
-        <EntityType Name="ViewTransactionDailySummary">
-          <Key>
-            <PropertyRef Name="OrgID" />
-          </Key>
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="AgrregateDate" Type="DateTime" Precision="0" />
-          <Property Name="Balance" Type="Int32" />
-          <Property Name="Deposit" Type="Int32" />
-          <Property Name="Withdraw" Type="Int32" />
-        </EntityType>
-        <EntityType Name="UserImage">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Profile_image" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="ProjectStatu">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WorkCompletion" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ViewProjectStatu">
-          <Key>
+            <PropertyRef Name="ActivityID" />
+            <PropertyRef Name="ActivityName" />
+            <PropertyRef Name="ActivityDescription" />
+            <PropertyRef Name="EmployeeID" />
             <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="StatusOn" />
-            <PropertyRef Name="Status" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="OrgID" />
           </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="StatusOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="WorkCompletion" Type="Int32" />
-          <Property Name="StatusRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Approver" Type="Int32" />
+          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Expenses" Type="Int32" />
+          <Property Name="Received" Type="Int32" />
+          <Property Name="Balance" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="Advance" Type="Int32" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ViewActivityName">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+            <PropertyRef Name="ActivityName" />
+            <PropertyRef Name="ActivityDescription" />
+            <PropertyRef Name="CreationDate" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="OrgID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Approver" Type="Int32" />
+          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ViewActivityStatu">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ViewActivitySummary">
+          <Key>
+            <PropertyRef Name="RowID" />
+            <PropertyRef Name="OrgID" />
+          </Key>
+          <Property Name="RowID" Type="Int64" Nullable="false" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Expense" Type="Int32" />
+          <Property Name="Received" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ViewAdvance">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+            <PropertyRef Name="ActivityName" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="OrgID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RequestAmount" Type="Int32" />
+          <Property Name="ReceivedAmount" Type="Int32" />
+          <Property Name="AdvanceName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AdvanceStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AdvanceModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Approver" Type="Int32" />
+          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ViewAdvanceItemName">
+          <Key>
+            <PropertyRef Name="AdvanceID" />
+            <PropertyRef Name="AdvanceName" />
+            <PropertyRef Name="RequestAmount" />
+            <PropertyRef Name="ReceiveAmount" />
+            <PropertyRef Name="AdvanceRemarks" />
+            <PropertyRef Name="CreationDate" />
+            <PropertyRef Name="ActivityID" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="ActivityName" />
+            <PropertyRef Name="ProjectName" />
+          </Key>
+          <Property Name="AdvanceID" Type="Int32" Nullable="false" />
+          <Property Name="AdvanceName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RequestAmount" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
+          <Property Name="AdvanceRemarks" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Approver" Type="Int32" />
+          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ViewAdvanceStatu">
+          <Key>
+            <PropertyRef Name="ActivityNumber" />
+          </Key>
+          <Property Name="ActivityNumber" Type="Int32" Nullable="false" />
+          <Property Name="AdvanceName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AdvanceStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AdvanceModifiedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ViewExpenseItemDailyStatu">
+          <Key>
+            <PropertyRef Name="OrgID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ActivityID" />
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ApproverID" Type="Int32" />
+          <Property Name="ExpensesDate" Type="DateTime" Precision="0" />
+          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Expense" Type="Int32" />
+          <Property Name="Received" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ViewExpenseItemStatusActivity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="ExpenseAmount" />
+            <PropertyRef Name="ReceiveAmount" />
+            <PropertyRef Name="ExpenseDescription" />
+            <PropertyRef Name="ExpenseDate" />
+            <PropertyRef Name="Action" />
+            <PropertyRef Name="ActivityName" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="OrgID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
+          <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ApproverID" Type="Int32" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ViewMonthCumulativeExpense">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="month" Type="Int32" />
+          <Property Name="expense" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ViewPaymentGiven">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="PaidAmount" Type="Int32" />
+          <Property Name="PaidDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ViewPaymentReceived">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedAmount" Type="Int32" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ViewProject">
           <Key>
@@ -1794,142 +1863,28 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="Received" Type="Int32" Nullable="false" />
           <Property Name="OrgID" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="PurchaseInvoice">
+        <EntityType Name="ViewProjectExpense">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="ProjectID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrgId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="ServiceCost" Type="Double" Nullable="false" />
-          <Property Name="CGST" Type="Double" Nullable="false" />
-          <Property Name="SGST" Type="Double" Nullable="false" />
-          <Property Name="IGST" Type="Double" Nullable="false" />
-          <Property Name="TDS" Type="Double" Nullable="false" />
-          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="InvoiceType" Type="Byte" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="Expense" Type="Int32" />
+          <Property Name="ReceiveAmount" Type="Int32" />
+          <Property Name="exdate" Type="DateTime" Precision="0" />
         </EntityType>
-        <EntityType Name="PaymentGiven">
+        <EntityType Name="ViewProjectStatu">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="StatusOn" />
+            <PropertyRef Name="Status" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PInvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="OrgId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="Paid" Type="Double" Nullable="false" />
-          <Property Name="TaxPaid" Type="Double" Nullable="false" />
-          <Property Name="TDSPayable" Type="Double" Nullable="false" />
-          <Property Name="TDSStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="PaymentReceived">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="OrgId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="Received" Type="Double" Nullable="false" />
-          <Property Name="Tax" Type="Double" Nullable="false" />
-          <Property Name="TDSDeducted" Type="Double" Nullable="false" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="ViewPaymentReceived">
-          <Key>
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="InvoiceId" />
-          </Key>
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="ReceivedAmount" Type="Double" />
-          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="ViewPaymentGiven">
-          <Key>
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="PInvoiceId" />
-          </Key>
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="PInvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="PaidAmount" Type="Double" />
-          <Property Name="PaidDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="SellInvoice">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrgId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="ServiceCost" Type="Double" Nullable="false" />
-          <Property Name="CGST" Type="Double" Nullable="false" />
-          <Property Name="SGST" Type="Double" Nullable="false" />
-          <Property Name="IGST" Type="Double" Nullable="false" />
-          <Property Name="TDS" Type="Double" Nullable="false" />
-          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="InvoiceType" Type="Byte" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="StatusOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WorkCompletion" Type="Int32" />
+          <Property Name="StatusRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ViewPurchaseInvoice">
-          <Key>
-            <PropertyRef Name="OrgId" />
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="VendorName" />
-            <PropertyRef Name="InvoiceId" />
-            <PropertyRef Name="InvoiceNumber" />
-            <PropertyRef Name="InvoiceDate" />
-            <PropertyRef Name="ServiceCost" />
-            <PropertyRef Name="CGST" />
-            <PropertyRef Name="SGST" />
-            <PropertyRef Name="IGST" />
-            <PropertyRef Name="TDS" />
-            <PropertyRef Name="Receivable" />
-            <PropertyRef Name="PaidAmount" />
-            <PropertyRef Name="PaidDate" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="ClientName" />
-          </Key>
-          <Property Name="OrgId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ServiceCost" Type="Double" Nullable="false" />
-          <Property Name="CGST" Type="Double" Nullable="false" />
-          <Property Name="SGST" Type="Double" Nullable="false" />
-          <Property Name="IGST" Type="Double" Nullable="false" />
-          <Property Name="TDS" Type="Double" Nullable="false" />
-          <Property Name="Receivable" Type="Double" Nullable="false" />
-          <Property Name="PaidAmount" Type="Double" Nullable="false" />
-          <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="NewViewPaymentGiven">
-          <Key>
-            <PropertyRef Name="InvoiceId" />
-          </Key>
-          <Property Name="ProjectId" Type="Int32" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="PaidAmount" Type="Int32" />
-          <Property Name="PaidDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="NewViewPaymentReceived">
-          <Key>
-            <PropertyRef Name="InvoiceId" />
-          </Key>
-          <Property Name="ProjectId" Type="Int32" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="ReceivedAmount" Type="Int32" />
-          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="NewViewPurchaseInvoice">
           <Key>
             <PropertyRef Name="OrgId" />
             <PropertyRef Name="ProjectId" />
@@ -1995,67 +1950,33 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="IGST" Type="Double" Nullable="false" />
           <Property Name="TDS" Type="Double" Nullable="false" />
           <Property Name="Receivable" Type="Double" Nullable="false" />
-          <Property Name="ReceivedAmount" Type="Double" Nullable="false" />
-          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="NewViewSellInvoice">
-          <Key>
-            <PropertyRef Name="OrgId" />
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="InvoiceId" />
-            <PropertyRef Name="InvoiceNumber" />
-            <PropertyRef Name="InvoiceDate" />
-            <PropertyRef Name="ServiceCost" />
-            <PropertyRef Name="CGST" />
-            <PropertyRef Name="SGST" />
-            <PropertyRef Name="IGST" />
-            <PropertyRef Name="TDS" />
-            <PropertyRef Name="Receivable" />
-            <PropertyRef Name="ReceivedAmount" />
-            <PropertyRef Name="ReceivedDate" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="ClientName" />
-          </Key>
-          <Property Name="OrgId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ServiceCost" Type="Double" Nullable="false" />
-          <Property Name="CGST" Type="Double" Nullable="false" />
-          <Property Name="SGST" Type="Double" Nullable="false" />
-          <Property Name="IGST" Type="Double" Nullable="false" />
-          <Property Name="TDS" Type="Double" Nullable="false" />
-          <Property Name="Receivable" Type="Double" Nullable="false" />
           <Property Name="ReceivedAmount" Type="Int32" Nullable="false" />
           <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Transaction">
+        <EntityType Name="ViewTD">
           <Key>
-            <PropertyRef Name="TransID" />
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="OrgID" />
+            <PropertyRef Name="TDSDeducted" />
+            <PropertyRef Name="TDSPayable" />
+            <PropertyRef Name="PreviousTDS" />
+            <PropertyRef Name="Penalty" />
+            <PropertyRef Name="TaxMonth" />
           </Key>
-          <Property Name="TransID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TransName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="AccID" Type="Int32" Nullable="false" />
-          <Property Name="Deposit" Type="Int32" Nullable="false" />
-          <Property Name="Withdraw" Type="Int32" Nullable="false" />
-          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Balance" Type="Int32" />
-          <Property Name="AccountBalance" Type="Int32" />
-          <Property Name="ProjectID" Type="Int32" />
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="TransactionID" Type="Int32" Nullable="false" />
-          <Property Name="TransactionRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="TransType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
-          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TDSDeducted" Type="Int32" Nullable="false" />
+          <Property Name="TDSPayable" Type="Int32" Nullable="false" />
+          <Property Name="PreviousTDS" Type="Int32" Nullable="false" />
+          <Property Name="Penalty" Type="Double" Nullable="false" />
+          <Property Name="TaxMonth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TDS_Paid" Type="Int32" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="TransactionRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ViewTransaction">
           <Key>
@@ -2091,211 +2012,41 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="GST">
+        <EntityType Name="ViewTransactionDailyAccount">
           <Key>
-            <PropertyRef Name="GSTId" />
-          </Key>
-          <Property Name="GSTId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="GSTReceived" Type="Int32" Nullable="false" />
-          <Property Name="GSTInput" Type="Int32" Nullable="false" />
-          <Property Name="PreviousGSTDues" Type="Int32" Nullable="false" />
-          <Property Name="Penalty" Type="Int32" Nullable="false" />
-          <Property Name="GSTPayable" Type="Int32" Nullable="false" />
-          <Property Name="TaxMonth" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="TD">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="TDSDeducted" Type="Int32" Nullable="false" />
-          <Property Name="TDSPayable" Type="Int32" Nullable="false" />
-          <Property Name="PreviousTDS" Type="Int32" Nullable="false" />
-          <Property Name="Penalty" Type="Double" Nullable="false" />
-          <Property Name="TaxMonth" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="ViewGST">
-          <Key>
-            <PropertyRef Name="GSTId" />
             <PropertyRef Name="OrgID" />
-            <PropertyRef Name="GSTReceived" />
-            <PropertyRef Name="GSTInput" />
-            <PropertyRef Name="PreviousGSTDues" />
-            <PropertyRef Name="Penalty" />
-            <PropertyRef Name="GSTPayable" />
-            <PropertyRef Name="TaxMonth" />
-            <PropertyRef Name="GST_Paid" />
-            <PropertyRef Name="UpdateDate" />
-            <PropertyRef Name="TransactionRemarks" />
-            <PropertyRef Name="TransactionDate" />
+            <PropertyRef Name="AccID" />
           </Key>
-          <Property Name="GSTId" Type="Int32" Nullable="false" />
           <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="GSTReceived" Type="Int32" Nullable="false" />
-          <Property Name="GSTInput" Type="Int32" Nullable="false" />
-          <Property Name="PreviousGSTDues" Type="Int32" Nullable="false" />
-          <Property Name="Penalty" Type="Int32" Nullable="false" />
-          <Property Name="GSTPayable" Type="Int32" Nullable="false" />
-          <Property Name="TaxMonth" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="GST_Paid" Type="Int32" Nullable="false" />
-          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TransactionRemarks" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="ViewTD">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="OrgID" />
-            <PropertyRef Name="TDSDeducted" />
-            <PropertyRef Name="TDSPayable" />
-            <PropertyRef Name="PreviousTDS" />
-            <PropertyRef Name="Penalty" />
-            <PropertyRef Name="TaxMonth" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="TDSDeducted" Type="Int32" Nullable="false" />
-          <Property Name="TDSPayable" Type="Int32" Nullable="false" />
-          <Property Name="PreviousTDS" Type="Int32" Nullable="false" />
-          <Property Name="Penalty" Type="Double" Nullable="false" />
-          <Property Name="TaxMonth" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TDS_Paid" Type="Int32" />
-          <Property Name="EntryDate" Type="DateTime" Precision="3" />
-          <Property Name="TransactionRemarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="ExpenseItem">
-          <Key>
-            <PropertyRef Name="ItemID" />
-          </Key>
-          <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
-          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
-          <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
-          <Property Name="Action" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ViewActivityStatu">
-          <Key>
-            <PropertyRef Name="ActivityID" />
-          </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="NewViewActivity">
-          <Key>
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="ActivityName" />
-            <PropertyRef Name="ActivityDescription" />
-            <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="Settlement" />
-            <PropertyRef Name="PaidDate" />
-            <PropertyRef Name="Advance" />
-            <PropertyRef Name="OrgID" />
-          </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Approver" Type="Int32" />
-          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Settlement" Type="Int32" Nullable="false" />
-          <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Expenses" Type="Int32" />
+          <Property Name="AccID" Type="Int32" Nullable="false" />
+          <Property Name="AgrregateDate" Type="DateTime" Precision="0" />
+          <Property Name="Deposit" Type="Int32" />
+          <Property Name="Withdraw" Type="Int32" />
           <Property Name="Balance" Type="Int32" />
-          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Advance" Type="Int32" Nullable="false" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="AccountBalance" Type="Int32" />
+          <Property Name="tTime" Type="Time" Precision="7" />
         </EntityType>
-        <EntityType Name="ViewActivity">
+        <EntityType Name="ViewTransactionDailyAccountBalance">
           <Key>
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="ActivityName" />
-            <PropertyRef Name="ActivityDescription" />
-            <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="OrgID" />
+            <PropertyRef Name="AccID" />
+            <PropertyRef Name="EntryDate" />
           </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ActivityDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="Employee" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Approver" Type="Int32" />
-          <Property Name="ApproverName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Expenses" Type="Int32" />
-          <Property Name="Received" Type="Int32" />
+          <Property Name="AccID" Type="Int32" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Balance" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="Advance" Type="Int32" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="AccountBalance" Type="Int32" />
+          <Property Name="tDate" Type="DateTime" Precision="0" />
+          <Property Name="tTime" Type="Time" Precision="7" />
         </EntityType>
-        <EntityType Name="ViewExpenseItemDailyStatu">
+        <EntityType Name="ViewTransactionDailySummary">
           <Key>
             <PropertyRef Name="OrgID" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="EmployeeID" />
           </Key>
           <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="ApproverID" Type="Int32" />
-          <Property Name="ExpensesDate" Type="DateTime" Precision="0" />
-          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Expense" Type="Int32" />
-          <Property Name="Received" Type="Int32" />
-        </EntityType>
-        <EntityType Name="ViewExpenseItemStatusActivity">
-          <Key>
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="ItemName" />
-            <PropertyRef Name="ExpenseAmount" />
-            <PropertyRef Name="ReceiveAmount" />
-            <PropertyRef Name="ExpenseDescription" />
-            <PropertyRef Name="ExpenseDate" />
-            <PropertyRef Name="Action" />
-            <PropertyRef Name="ActivityName" />
-            <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="OrgID" />
-          </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
-          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
-          <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Action" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="ApproverID" Type="Int32" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="AgrregateDate" Type="DateTime" Precision="0" />
+          <Property Name="Balance" Type="Int32" />
+          <Property Name="Deposit" Type="Int32" />
+          <Property Name="Withdraw" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2303,197 +2054,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="GASModelStoreContainer" CdmEntityContainer="GASEntities">
-          <EntitySetMapping Name="AdvanceItems">
-            <EntityTypeMapping TypeName="GASModel.AdvanceItem">
-              <MappingFragment StoreEntitySet="AdvanceItem">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="AdvanceRemarks" ColumnName="AdvanceRemarks" />
-                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
-                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
-                <ScalarProperty Name="AdvanceName" ColumnName="AdvanceName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="AdvanceID" ColumnName="AdvanceID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewActivitySummaries">
-            <EntityTypeMapping TypeName="GASModel.ViewActivitySummary">
-              <MappingFragment StoreEntitySet="ViewActivitySummary">
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="Received" ColumnName="Received" />
-                <ScalarProperty Name="Expense" ColumnName="Expense" />
-                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
-                <ScalarProperty Name="RowID" ColumnName="RowID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewAdvanceStatus">
-            <EntityTypeMapping TypeName="GASModel.ViewAdvanceStatu">
-              <MappingFragment StoreEntitySet="ViewAdvanceStatus">
-                <ScalarProperty Name="AdvanceModifiedDate" ColumnName="AdvanceModifiedDate" />
-                <ScalarProperty Name="AdvanceStatus" ColumnName="AdvanceStatus" />
-                <ScalarProperty Name="AdvanceName" ColumnName="AdvanceName" />
-                <ScalarProperty Name="ActivityNumber" ColumnName="ActivityNumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewAdvanceItemNames">
-            <EntityTypeMapping TypeName="GASModel.ViewAdvanceItemName">
-              <MappingFragment StoreEntitySet="ViewAdvanceItemNames">
-                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
-                <ScalarProperty Name="Approver" ColumnName="Approver" />
-                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
-                <ScalarProperty Name="Employee" ColumnName="Employee" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="AdvanceRemarks" ColumnName="AdvanceRemarks" />
-                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
-                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
-                <ScalarProperty Name="AdvanceName" ColumnName="AdvanceName" />
-                <ScalarProperty Name="AdvanceID" ColumnName="AdvanceID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewAdvances">
-            <EntityTypeMapping TypeName="GASModel.ViewAdvance">
-              <MappingFragment StoreEntitySet="ViewAdvance">
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
-                <ScalarProperty Name="Approver" ColumnName="Approver" />
-                <ScalarProperty Name="AdvanceModifiedDate" ColumnName="AdvanceModifiedDate" />
-                <ScalarProperty Name="AdvanceStatus" ColumnName="AdvanceStatus" />
-                <ScalarProperty Name="AdvanceName" ColumnName="AdvanceName" />
-                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
-                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
-                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Employee" ColumnName="Employee" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Organizations">
-            <EntityTypeMapping TypeName="GASModel.Organization">
-              <MappingFragment StoreEntitySet="Organization">
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
-                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
-                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Employee" ColumnName="Employee" />
-                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
-                <ScalarProperty Name="OrganizationNumber" ColumnName="OrganizationNumber" />
-                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="GASModel.Account">
-              <MappingFragment StoreEntitySet="Accounts">
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AccID" ColumnName="AccID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Activities">
-            <EntityTypeMapping TypeName="GASModel.Activity">
-              <MappingFragment StoreEntitySet="Activity">
-                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Projects">
-            <EntityTypeMapping TypeName="GASModel.Project">
-              <MappingFragment StoreEntitySet="Project">
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
-                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
-                <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewActivityDashboards">
-            <EntityTypeMapping TypeName="GASModel.ViewActivityDashboard">
-              <MappingFragment StoreEntitySet="ViewActivityDashboard">
-                <ScalarProperty Name="Advance" ColumnName="Advance" />
-                <ScalarProperty Name="Received" ColumnName="Received" />
-                <ScalarProperty Name="Spent" ColumnName="Spent" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ActivitiesCount" ColumnName="ActivitiesCount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewActivityNames">
-            <EntityTypeMapping TypeName="GASModel.ViewActivityName">
-              <MappingFragment StoreEntitySet="ViewActivityNames">
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Employee" ColumnName="Employee" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
-                <ScalarProperty Name="Approver" ColumnName="Approver" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
-                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Expenses">
-            <EntityTypeMapping TypeName="GASModel.Expens">
-              <MappingFragment StoreEntitySet="Expenses">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
-                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
-                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
-                <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
-                <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
-                <ScalarProperty Name="ExpenseID" ColumnName="ExpenseID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewMonthCumulativeExpenses">
-            <EntityTypeMapping TypeName="GASModel.ViewMonthCumulativeExpense">
-              <MappingFragment StoreEntitySet="ViewMonthCumulativeExpense">
-                <ScalarProperty Name="expense" ColumnName="expense" />
-                <ScalarProperty Name="month" ColumnName="month" />
-                <ScalarProperty Name="year" ColumnName="year" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="GASModel.User">
               <MappingFragment StoreEntitySet="Users">
@@ -2529,13 +2089,295 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ViewProjectExpenses">
-            <EntityTypeMapping TypeName="GASModel.ViewProjectExpense">
-              <MappingFragment StoreEntitySet="ViewProjectExpense">
-                <ScalarProperty Name="exdate" ColumnName="exdate" />
-                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
-                <ScalarProperty Name="Expense" ColumnName="Expense" />
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="GASModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="TransType" ColumnName="TransType" />
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="TransactionRemarks" ColumnName="TransactionRemarks" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="Withdraw" ColumnName="Withdraw" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="AccID" ColumnName="AccID" />
+                <ScalarProperty Name="TransName" ColumnName="TransName" />
+                <ScalarProperty Name="TransID" ColumnName="TransID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GSTs">
+            <EntityTypeMapping TypeName="GASModel.GST">
+              <MappingFragment StoreEntitySet="GST">
+                <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
+                <ScalarProperty Name="GSTPayable" ColumnName="GSTPayable" />
+                <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+                <ScalarProperty Name="PreviousGSTDues" ColumnName="PreviousGSTDues" />
+                <ScalarProperty Name="GSTInput" ColumnName="GSTInput" />
+                <ScalarProperty Name="GSTReceived" ColumnName="GSTReceived" />
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="GSTId" ColumnName="GSTId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewGSTs">
+            <EntityTypeMapping TypeName="GASModel.ViewGST">
+              <MappingFragment StoreEntitySet="ViewGST">
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="TransactionRemarks" ColumnName="TransactionRemarks" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="GST_Paid" ColumnName="GST_Paid" />
+                <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
+                <ScalarProperty Name="GSTPayable" ColumnName="GSTPayable" />
+                <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+                <ScalarProperty Name="PreviousGSTDues" ColumnName="PreviousGSTDues" />
+                <ScalarProperty Name="GSTInput" ColumnName="GSTInput" />
+                <ScalarProperty Name="GSTReceived" ColumnName="GSTReceived" />
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="GSTId" ColumnName="GSTId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="GASModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AccID" ColumnName="AccID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="GASModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvanceItems">
+            <EntityTypeMapping TypeName="GASModel.AdvanceItem">
+              <MappingFragment StoreEntitySet="AdvanceItem">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="AdvanceRemarks" ColumnName="AdvanceRemarks" />
+                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
+                <ScalarProperty Name="AdvanceName" ColumnName="AdvanceName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="AdvanceID" ColumnName="AdvanceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatchUpUsers">
+            <EntityTypeMapping TypeName="GASModel.CatchUpUser">
+              <MappingFragment StoreEntitySet="CatchUpUser">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Function" ColumnName="Function" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="GCMCode" ColumnName="GCMCode" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpenseItems">
+            <EntityTypeMapping TypeName="GASModel.ExpenseItem">
+              <MappingFragment StoreEntitySet="ExpenseItem">
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+                <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="GASModel.Expens">
+              <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+                <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+                <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
+                <ScalarProperty Name="ExpenseID" ColumnName="ExpenseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="GASModel.Organization">
+              <MappingFragment StoreEntitySet="Organization">
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="OrganizationNumber" ColumnName="OrganizationNumber" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="GASModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectStatus">
+            <EntityTypeMapping TypeName="GASModel.ProjectStatu">
+              <MappingFragment StoreEntitySet="ProjectStatus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseInvoices">
+            <EntityTypeMapping TypeName="GASModel.PurchaseInvoice">
+              <MappingFragment StoreEntitySet="PurchaseInvoice">
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="IGST" ColumnName="IGST" />
+                <ScalarProperty Name="SGST" ColumnName="SGST" />
+                <ScalarProperty Name="CGST" ColumnName="CGST" />
+                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportedIssues">
+            <EntityTypeMapping TypeName="GASModel.ReportedIssue">
+              <MappingFragment StoreEntitySet="ReportedIssue">
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="severity" ColumnName="severity" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Lattitude" ColumnName="Lattitude" />
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellInvoices">
+            <EntityTypeMapping TypeName="GASModel.SellInvoice">
+              <MappingFragment StoreEntitySet="SellInvoice">
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="IGST" ColumnName="IGST" />
+                <ScalarProperty Name="SGST" ColumnName="SGST" />
+                <ScalarProperty Name="CGST" ColumnName="CGST" />
+                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TDS">
+            <EntityTypeMapping TypeName="GASModel.TD">
+              <MappingFragment StoreEntitySet="TDS">
+                <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
+                <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+                <ScalarProperty Name="PreviousTDS" ColumnName="PreviousTDS" />
+                <ScalarProperty Name="TDSPayable" ColumnName="TDSPayable" />
+                <ScalarProperty Name="TDSDeducted" ColumnName="TDSDeducted" />
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserImages">
+            <EntityTypeMapping TypeName="GASModel.UserImage">
+              <MappingFragment StoreEntitySet="UserImage">
+                <ScalarProperty Name="Profile_image" ColumnName="Profile_image" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewViewActivities">
+            <EntityTypeMapping TypeName="GASModel.NewViewActivity">
+              <MappingFragment StoreEntitySet="NewViewActivity">
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="Advance" ColumnName="Advance" />
+                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Expenses" ColumnName="Expenses" />
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="Settlement" ColumnName="Settlement" />
+                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oldViewActivityDashboards">
+            <EntityTypeMapping TypeName="GASModel.oldViewActivityDashboard">
+              <MappingFragment StoreEntitySet="oldViewActivityDashboard">
+                <ScalarProperty Name="Advance" ColumnName="Advance" />
+                <ScalarProperty Name="Received" ColumnName="Received" />
+                <ScalarProperty Name="Spent" ColumnName="Spent" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ActivitiesCount" ColumnName="ActivitiesCount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2553,72 +2395,185 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ViewTransactionDailyAccountBalances">
-            <EntityTypeMapping TypeName="GASModel.ViewTransactionDailyAccountBalance">
-              <MappingFragment StoreEntitySet="ViewTransactionDailyAccountBalance">
-                <ScalarProperty Name="tTime" ColumnName="tTime" />
-                <ScalarProperty Name="tDate" ColumnName="tDate" />
-                <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+          <EntitySetMapping Name="ViewActivities">
+            <EntityTypeMapping TypeName="GASModel.ViewActivity">
+              <MappingFragment StoreEntitySet="ViewActivity">
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="Advance" ColumnName="Advance" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="AccID" ColumnName="AccID" />
+                <ScalarProperty Name="Received" ColumnName="Received" />
+                <ScalarProperty Name="Expenses" ColumnName="Expenses" />
+                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ViewTransactionDailyAccounts">
-            <EntityTypeMapping TypeName="GASModel.ViewTransactionDailyAccount">
-              <MappingFragment StoreEntitySet="ViewTransactionDailyAccount">
-                <ScalarProperty Name="tTime" ColumnName="tTime" />
-                <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="Withdraw" ColumnName="Withdraw" />
-                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
-                <ScalarProperty Name="AgrregateDate" ColumnName="AgrregateDate" />
-                <ScalarProperty Name="AccID" ColumnName="AccID" />
+          <EntitySetMapping Name="ViewActivityNames">
+            <EntityTypeMapping TypeName="GASModel.ViewActivityName">
+              <MappingFragment StoreEntitySet="ViewActivityNames">
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewActivityStatus">
+            <EntityTypeMapping TypeName="GASModel.ViewActivityStatu">
+              <MappingFragment StoreEntitySet="ViewActivityStatus">
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewActivitySummaries">
+            <EntityTypeMapping TypeName="GASModel.ViewActivitySummary">
+              <MappingFragment StoreEntitySet="ViewActivitySummary">
+                <ScalarProperty Name="Received" ColumnName="Received" />
+                <ScalarProperty Name="Expense" ColumnName="Expense" />
+                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="RowID" ColumnName="RowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewAdvances">
+            <EntityTypeMapping TypeName="GASModel.ViewAdvance">
+              <MappingFragment StoreEntitySet="ViewAdvance">
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="AdvanceModifiedDate" ColumnName="AdvanceModifiedDate" />
+                <ScalarProperty Name="AdvanceStatus" ColumnName="AdvanceStatus" />
+                <ScalarProperty Name="AdvanceName" ColumnName="AdvanceName" />
+                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
+                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewAdvanceItemNames">
+            <EntityTypeMapping TypeName="GASModel.ViewAdvanceItemName">
+              <MappingFragment StoreEntitySet="ViewAdvanceItemNames">
+                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
+                <ScalarProperty Name="Approver" ColumnName="Approver" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="AdvanceRemarks" ColumnName="AdvanceRemarks" />
+                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
+                <ScalarProperty Name="AdvanceName" ColumnName="AdvanceName" />
+                <ScalarProperty Name="AdvanceID" ColumnName="AdvanceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewAdvanceStatus">
+            <EntityTypeMapping TypeName="GASModel.ViewAdvanceStatu">
+              <MappingFragment StoreEntitySet="ViewAdvanceStatus">
+                <ScalarProperty Name="AdvanceModifiedDate" ColumnName="AdvanceModifiedDate" />
+                <ScalarProperty Name="AdvanceStatus" ColumnName="AdvanceStatus" />
+                <ScalarProperty Name="AdvanceName" ColumnName="AdvanceName" />
+                <ScalarProperty Name="ActivityNumber" ColumnName="ActivityNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewExpenseItemDailyStatus">
+            <EntityTypeMapping TypeName="GASModel.ViewExpenseItemDailyStatu">
+              <MappingFragment StoreEntitySet="ViewExpenseItemDailyStatus">
+                <ScalarProperty Name="Received" ColumnName="Received" />
+                <ScalarProperty Name="Expense" ColumnName="Expense" />
+                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+                <ScalarProperty Name="ExpensesDate" ColumnName="ExpensesDate" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="OrgID" ColumnName="OrgID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ViewTransactionDailySummaries">
-            <EntityTypeMapping TypeName="GASModel.ViewTransactionDailySummary">
-              <MappingFragment StoreEntitySet="ViewTransactionDailySummary">
-                <ScalarProperty Name="Withdraw" ColumnName="Withdraw" />
-                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="AgrregateDate" ColumnName="AgrregateDate" />
+          <EntitySetMapping Name="ViewExpenseItemStatusActivities">
+            <EntityTypeMapping TypeName="GASModel.ViewExpenseItemStatusActivity">
+              <MappingFragment StoreEntitySet="ViewExpenseItemStatusActivity">
                 <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+                <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserImages">
-            <EntityTypeMapping TypeName="GASModel.UserImage">
-              <MappingFragment StoreEntitySet="UserImage">
-                <ScalarProperty Name="Profile_image" ColumnName="Profile_image" />
+          <EntitySetMapping Name="ViewMonthCumulativeExpenses">
+            <EntityTypeMapping TypeName="GASModel.ViewMonthCumulativeExpense">
+              <MappingFragment StoreEntitySet="ViewMonthCumulativeExpense">
+                <ScalarProperty Name="expense" ColumnName="expense" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="year" ColumnName="year" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProjectStatus">
-            <EntityTypeMapping TypeName="GASModel.ProjectStatu">
-              <MappingFragment StoreEntitySet="ProjectStatus">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <EntitySetMapping Name="ViewPaymentGivens">
+            <EntityTypeMapping TypeName="GASModel.ViewPaymentGiven">
+              <MappingFragment StoreEntitySet="ViewPaymentGiven">
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ViewProjectStatus">
-            <EntityTypeMapping TypeName="GASModel.ViewProjectStatu">
-              <MappingFragment StoreEntitySet="ViewProjectStatus">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="StatusRemark" ColumnName="StatusRemark" />
-                <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
-                <ScalarProperty Name="StatusOn" ColumnName="StatusOn" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <EntitySetMapping Name="ViewPaymentReceiveds">
+            <EntityTypeMapping TypeName="GASModel.ViewPaymentReceived">
+              <MappingFragment StoreEntitySet="ViewPaymentReceived">
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2644,136 +2599,30 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PurchaseInvoices">
-            <EntityTypeMapping TypeName="GASModel.PurchaseInvoice">
-              <MappingFragment StoreEntitySet="PurchaseInvoice">
-                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="TDS" ColumnName="TDS" />
-                <ScalarProperty Name="IGST" ColumnName="IGST" />
-                <ScalarProperty Name="SGST" ColumnName="SGST" />
-                <ScalarProperty Name="CGST" ColumnName="CGST" />
-                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <EntitySetMapping Name="ViewProjectExpenses">
+            <EntityTypeMapping TypeName="GASModel.ViewProjectExpense">
+              <MappingFragment StoreEntitySet="ViewProjectExpense">
+                <ScalarProperty Name="exdate" ColumnName="exdate" />
+                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+                <ScalarProperty Name="Expense" ColumnName="Expense" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PaymentGivens">
-            <EntityTypeMapping TypeName="GASModel.PaymentGiven">
-              <MappingFragment StoreEntitySet="PaymentGiven">
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="TDSStatus" ColumnName="TDSStatus" />
-                <ScalarProperty Name="TDSPayable" ColumnName="TDSPayable" />
-                <ScalarProperty Name="TaxPaid" ColumnName="TaxPaid" />
-                <ScalarProperty Name="Paid" ColumnName="Paid" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-                <ScalarProperty Name="PInvoiceId" ColumnName="PInvoiceId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PaymentReceiveds">
-            <EntityTypeMapping TypeName="GASModel.PaymentReceived">
-              <MappingFragment StoreEntitySet="PaymentReceived">
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="TDSDeducted" ColumnName="TDSDeducted" />
-                <ScalarProperty Name="Tax" ColumnName="Tax" />
-                <ScalarProperty Name="Received" ColumnName="Received" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewPaymentReceiveds">
-            <EntityTypeMapping TypeName="GASModel.ViewPaymentReceived">
-              <MappingFragment StoreEntitySet="ViewPaymentReceived">
-                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewPaymentGivens">
-            <EntityTypeMapping TypeName="GASModel.ViewPaymentGiven">
-              <MappingFragment StoreEntitySet="ViewPaymentGiven">
-                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
-                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
-                <ScalarProperty Name="PInvoiceId" ColumnName="PInvoiceId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SellInvoices">
-            <EntityTypeMapping TypeName="GASModel.SellInvoice">
-              <MappingFragment StoreEntitySet="SellInvoice">
-                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="TDS" ColumnName="TDS" />
-                <ScalarProperty Name="IGST" ColumnName="IGST" />
-                <ScalarProperty Name="SGST" ColumnName="SGST" />
-                <ScalarProperty Name="CGST" ColumnName="CGST" />
-                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <EntitySetMapping Name="ViewProjectStatus">
+            <EntityTypeMapping TypeName="GASModel.ViewProjectStatu">
+              <MappingFragment StoreEntitySet="ViewProjectStatus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StatusRemark" ColumnName="StatusRemark" />
+                <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
+                <ScalarProperty Name="StatusOn" ColumnName="StatusOn" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ViewPurchaseInvoices">
             <EntityTypeMapping TypeName="GASModel.ViewPurchaseInvoice">
               <MappingFragment StoreEntitySet="ViewPurchaseInvoice">
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
-                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
-                <ScalarProperty Name="Receivable" ColumnName="Receivable" />
-                <ScalarProperty Name="TDS" ColumnName="TDS" />
-                <ScalarProperty Name="IGST" ColumnName="IGST" />
-                <ScalarProperty Name="SGST" ColumnName="SGST" />
-                <ScalarProperty Name="CGST" ColumnName="CGST" />
-                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NewViewPaymentGivens">
-            <EntityTypeMapping TypeName="GASModel.NewViewPaymentGiven">
-              <MappingFragment StoreEntitySet="NewViewPaymentGiven">
-                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
-                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NewViewPaymentReceiveds">
-            <EntityTypeMapping TypeName="GASModel.NewViewPaymentReceived">
-              <MappingFragment StoreEntitySet="NewViewPaymentReceived">
-                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NewViewPurchaseInvoices">
-            <EntityTypeMapping TypeName="GASModel.NewViewPurchaseInvoice">
-              <MappingFragment StoreEntitySet="NewViewPurchaseInvoice">
                 <ScalarProperty Name="ClientName" ColumnName="ClientName" />
                 <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
@@ -2816,47 +2665,20 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="NewViewSellInvoices">
-            <EntityTypeMapping TypeName="GASModel.NewViewSellInvoice">
-              <MappingFragment StoreEntitySet="NewViewSellInvoice">
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
-                <ScalarProperty Name="Receivable" ColumnName="Receivable" />
-                <ScalarProperty Name="TDS" ColumnName="TDS" />
-                <ScalarProperty Name="IGST" ColumnName="IGST" />
-                <ScalarProperty Name="SGST" ColumnName="SGST" />
-                <ScalarProperty Name="CGST" ColumnName="CGST" />
-                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Transactions">
-            <EntityTypeMapping TypeName="GASModel.Transaction">
-              <MappingFragment StoreEntitySet="Transaction">
+          <EntitySetMapping Name="ViewTDS">
+            <EntityTypeMapping TypeName="GASModel.ViewTD">
+              <MappingFragment StoreEntitySet="ViewTDS">
                 <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="TransType" ColumnName="TransType" />
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
                 <ScalarProperty Name="TransactionRemarks" ColumnName="TransactionRemarks" />
-                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="Withdraw" ColumnName="Withdraw" />
-                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
-                <ScalarProperty Name="AccID" ColumnName="AccID" />
-                <ScalarProperty Name="TransName" ColumnName="TransName" />
-                <ScalarProperty Name="TransID" ColumnName="TransID" />
+                <ScalarProperty Name="TDS_Paid" ColumnName="TDS_Paid" />
+                <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
+                <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+                <ScalarProperty Name="PreviousTDS" ColumnName="PreviousTDS" />
+                <ScalarProperty Name="TDSPayable" ColumnName="TDSPayable" />
+                <ScalarProperty Name="TDSDeducted" ColumnName="TDSDeducted" />
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2884,174 +2706,40 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GSTs">
-            <EntityTypeMapping TypeName="GASModel.GST">
-              <MappingFragment StoreEntitySet="GST">
-                <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
-                <ScalarProperty Name="GSTPayable" ColumnName="GSTPayable" />
-                <ScalarProperty Name="Penalty" ColumnName="Penalty" />
-                <ScalarProperty Name="PreviousGSTDues" ColumnName="PreviousGSTDues" />
-                <ScalarProperty Name="GSTInput" ColumnName="GSTInput" />
-                <ScalarProperty Name="GSTReceived" ColumnName="GSTReceived" />
+          <EntitySetMapping Name="ViewTransactionDailyAccounts">
+            <EntityTypeMapping TypeName="GASModel.ViewTransactionDailyAccount">
+              <MappingFragment StoreEntitySet="ViewTransactionDailyAccount">
+                <ScalarProperty Name="tTime" ColumnName="tTime" />
+                <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Withdraw" ColumnName="Withdraw" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="AgrregateDate" ColumnName="AgrregateDate" />
+                <ScalarProperty Name="AccID" ColumnName="AccID" />
                 <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="GSTId" ColumnName="GSTId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TDS">
-            <EntityTypeMapping TypeName="GASModel.TD">
-              <MappingFragment StoreEntitySet="TDS">
-                <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
-                <ScalarProperty Name="Penalty" ColumnName="Penalty" />
-                <ScalarProperty Name="PreviousTDS" ColumnName="PreviousTDS" />
-                <ScalarProperty Name="TDSPayable" ColumnName="TDSPayable" />
-                <ScalarProperty Name="TDSDeducted" ColumnName="TDSDeducted" />
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewGSTs">
-            <EntityTypeMapping TypeName="GASModel.ViewGST">
-              <MappingFragment StoreEntitySet="ViewGST">
-                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-                <ScalarProperty Name="TransactionRemarks" ColumnName="TransactionRemarks" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="GST_Paid" ColumnName="GST_Paid" />
-                <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
-                <ScalarProperty Name="GSTPayable" ColumnName="GSTPayable" />
-                <ScalarProperty Name="Penalty" ColumnName="Penalty" />
-                <ScalarProperty Name="PreviousGSTDues" ColumnName="PreviousGSTDues" />
-                <ScalarProperty Name="GSTInput" ColumnName="GSTInput" />
-                <ScalarProperty Name="GSTReceived" ColumnName="GSTReceived" />
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="GSTId" ColumnName="GSTId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewTDS">
-            <EntityTypeMapping TypeName="GASModel.ViewTD">
-              <MappingFragment StoreEntitySet="ViewTDS">
-                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-                <ScalarProperty Name="TransactionRemarks" ColumnName="TransactionRemarks" />
+          <EntitySetMapping Name="ViewTransactionDailyAccountBalances">
+            <EntityTypeMapping TypeName="GASModel.ViewTransactionDailyAccountBalance">
+              <MappingFragment StoreEntitySet="ViewTransactionDailyAccountBalance">
+                <ScalarProperty Name="tTime" ColumnName="tTime" />
+                <ScalarProperty Name="tDate" ColumnName="tDate" />
+                <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="TDS_Paid" ColumnName="TDS_Paid" />
-                <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
-                <ScalarProperty Name="Penalty" ColumnName="Penalty" />
-                <ScalarProperty Name="PreviousTDS" ColumnName="PreviousTDS" />
-                <ScalarProperty Name="TDSPayable" ColumnName="TDSPayable" />
-                <ScalarProperty Name="TDSDeducted" ColumnName="TDSDeducted" />
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AccID" ColumnName="AccID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ExpenseItems">
-            <EntityTypeMapping TypeName="GASModel.ExpenseItem">
-              <MappingFragment StoreEntitySet="ExpenseItem">
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
-                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
-                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
-                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
-                <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewActivityStatus">
-            <EntityTypeMapping TypeName="GASModel.ViewActivityStatu">
-              <MappingFragment StoreEntitySet="ViewActivityStatus">
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NewViewActivities">
-            <EntityTypeMapping TypeName="GASModel.NewViewActivity">
-              <MappingFragment StoreEntitySet="NewViewActivity">
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="Advance" ColumnName="Advance" />
-                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+          <EntitySetMapping Name="ViewTransactionDailySummaries">
+            <EntityTypeMapping TypeName="GASModel.ViewTransactionDailySummary">
+              <MappingFragment StoreEntitySet="ViewTransactionDailySummary">
+                <ScalarProperty Name="Withdraw" ColumnName="Withdraw" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="Expenses" ColumnName="Expenses" />
-                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
-                <ScalarProperty Name="Settlement" ColumnName="Settlement" />
-                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
-                <ScalarProperty Name="Approver" ColumnName="Approver" />
-                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="Employee" ColumnName="Employee" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
-                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewActivities">
-            <EntityTypeMapping TypeName="GASModel.ViewActivity">
-              <MappingFragment StoreEntitySet="ViewActivity">
+                <ScalarProperty Name="AgrregateDate" ColumnName="AgrregateDate" />
                 <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="Advance" ColumnName="Advance" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="Received" ColumnName="Received" />
-                <ScalarProperty Name="Expenses" ColumnName="Expenses" />
-                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
-                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
-                <ScalarProperty Name="Approver" ColumnName="Approver" />
-                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="Employee" ColumnName="Employee" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
-                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewExpenseItemDailyStatus">
-            <EntityTypeMapping TypeName="GASModel.ViewExpenseItemDailyStatu">
-              <MappingFragment StoreEntitySet="ViewExpenseItemDailyStatus">
-                <ScalarProperty Name="Received" ColumnName="Received" />
-                <ScalarProperty Name="Expense" ColumnName="Expense" />
-                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
-                <ScalarProperty Name="ExpensesDate" ColumnName="ExpensesDate" />
-                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewExpenseItemStatusActivities">
-            <EntityTypeMapping TypeName="GASModel.ViewExpenseItemStatusActivity">
-              <MappingFragment StoreEntitySet="ViewExpenseItemStatusActivity">
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
-                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
-                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
-                <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

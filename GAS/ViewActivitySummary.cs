@@ -15,9 +15,9 @@ namespace GAS
     public partial class ViewActivitySummary
     {
         public long RowID { get; set; }
+        public int OrgID { get; set; }
         public string ActivityStatus { get; set; }
         public Nullable<int> Expense { get; set; }
         public Nullable<int> Received { get; set; }
-        public int OrgID { get; set; }
     }
 }

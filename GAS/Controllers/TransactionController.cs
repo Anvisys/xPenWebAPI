@@ -187,6 +187,45 @@ namespace GAS.Controllers
 
         }
 
+        // Add new withdraw
+        [Route("Items")]
+        [HttpPost]
+        public HttpResponseMessage PostTransactions([FromBody]Transaction[] transfer)
+        {
+            String resp = "{\"Response\":\"Udefine\"}";
+            ctx = new GASEntities();
+
+            using (var dbContextTransaction = ctx.Database.BeginTransaction())
+            {
+                try {
+                    for (int i = 0; i < transfer.Length; i++)
+                    {
+                        Transaction trans = transfer[i];
+                        if (trans.Withdraw != 0 || trans.Deposit != 0)
+                        {
+                            AddTransaction(trans);
+                            ctx.Transactions.Add(trans);
+                            ctx.SaveChanges();
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    dbContextTransaction.Rollback();
+                    resp = "{\"Response\":\"Fail\"}";
+
+                }
+
+            }
+
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(resp, System.Text.Encoding.UTF8, "application/json");
+            return response;
+
+        }
+
+
         // Add new payment
         [Route("Payment")]
         [HttpPost]

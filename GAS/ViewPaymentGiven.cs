@@ -14,9 +14,9 @@ namespace GAS
     
     public partial class ViewPaymentGiven
     {
-        public int ProjectId { get; set; }
-        public int PInvoiceId { get; set; }
-        public Nullable<double> PaidAmount { get; set; }
+        public Nullable<int> ProjectId { get; set; }
+        public int InvoiceId { get; set; }
+        public Nullable<int> PaidAmount { get; set; }
         public Nullable<System.DateTime> PaidDate { get; set; }
     }
 }

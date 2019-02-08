@@ -123,6 +123,9 @@
     <Compile Include="Attributes\AutherizeAttribute.cs" />
     <Compile Include="Attributes\ClosingProjectFilter.cs" />
     <Compile Include="Attributes\WebAPIExceptionFilter.cs" />
+    <Compile Include="CatchUpUser.cs">
+      <DependentUpon>GASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\DailyExpenseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
@@ -139,25 +142,13 @@
     <Compile Include="NewViewActivity.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="NewViewPaymentGiven.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="NewViewPaymentReceived.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="NewViewPurchaseInvoice.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="NewViewSellInvoice.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PaymentGiven.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PaymentReceived.cs">
+    <Compile Include="oldViewActivityDashboard.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PurchaseInvoice.cs">
+      <DependentUpon>GASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportedIssue.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SellInvoice.cs">
@@ -264,9 +255,6 @@
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewActivity.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ViewActivityDashboard.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewActivityName.cs">

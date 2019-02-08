@@ -77,24 +77,24 @@ namespace GAS.Controllers
             }
         }
 
-        // GET: api/Activity/Summary
-        [Route("Organization/{OrgID}/Dashboard/Employee/{id}")]
-        [HttpGet]
-        public ViewActivityDashboard GetDashboard(int OrgID, int id)
-        {
-            try
-            {
-                var ctx = new GASEntities();
-                var actData = (from act in ctx.ViewActivityDashboards
-                               where act.EmployeeID == id 
-                               select act).First();
-                return actData;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+        //// GET: api/Activity/Summary
+        //[Route("Organization/{OrgID}/Dashboard/Employee/{id}")]
+        //[HttpGet]
+        //public ViewActivityDashboard GetDashboard(int OrgID, int id)
+        //{
+        //    try
+        //    {
+        //        var ctx = new GASEntities();
+        //        var actData = (from act in ctx.ViewActivityDashboards
+        //                       where act.EmployeeID == id 
+        //                       select act).First();
+        //        return actData;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return null;
+        //    }
+        //}
 
 
         // GET: api/Activity/ByID/5

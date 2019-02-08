@@ -28,12 +28,12 @@ namespace GAS.Controllers
         // Get all Unpaid sales invoice for an organization
         [Route("Sell/Organization/{OrgID}/Unpaid")]
         [HttpGet]
-        public IEnumerable<NewViewSellInvoice> GetUnpaidSellInvoice(int OrgID)
+        public IEnumerable<ViewSellInvoice> GetUnpaidSellInvoice(int OrgID)
         {
             try
             {
                 var ctx = new GASEntities();
-                var invoiceData = (from inv in ctx.NewViewSellInvoices
+                var invoiceData = (from inv in ctx.ViewSellInvoices
                                    where inv.OrgId == OrgID && (inv.Receivable - inv.ReceivedAmount>100)
                                    select inv);
                 return invoiceData;
@@ -48,12 +48,12 @@ namespace GAS.Controllers
         // Get all Sales Invoice for a project
         [Route("Sell/Organization/{OrgID}/Project/{ProjectID}")]
         [HttpGet]
-        public IEnumerable<NewViewSellInvoice> GetSellInvoice(int OrgID, int ProjectID)
+        public IEnumerable<ViewSellInvoice> GetSellInvoice(int OrgID, int ProjectID)
         {
             try
             {
                 var ctx = new GASEntities();
-                var projectData = (from inv in ctx.NewViewSellInvoices
+                var projectData = (from inv in ctx.ViewSellInvoices
                                    where inv.OrgId == OrgID && inv.ProjectId == ProjectID
                                    select inv);
                 return projectData;
@@ -68,12 +68,12 @@ namespace GAS.Controllers
         // Get all purchase Invoice for a project
         [Route("Purchase/Organization/{OrgID}/Project/{ProjectID}")]
         [HttpGet]
-        public IEnumerable<NewViewPurchaseInvoice> GetPurchaseInvoice(int OrgID, int ProjectID)
+        public IEnumerable<ViewPurchaseInvoice> GetPurchaseInvoice(int OrgID, int ProjectID)
         {
             try
             {
                 var ctx = new GASEntities();
-                var projectData = (from inv in ctx.NewViewPurchaseInvoices
+                var projectData = (from inv in ctx.ViewPurchaseInvoices
                                    where inv.OrgId == OrgID && inv.ProjectId == ProjectID
                                    select inv);
                 return projectData;
@@ -88,12 +88,12 @@ namespace GAS.Controllers
         // Get all purchase Invoice of a Organization by Year and Month
         [Route("Purchase/Organization/{OrgID}/{Year}/{Month}")]
         [HttpGet]
-        public IEnumerable<NewViewPurchaseInvoice> GetPurchaseForMonth(int OrgID, int Year, int Month)
+        public IEnumerable<ViewPurchaseInvoice> GetPurchaseForMonth(int OrgID, int Year, int Month)
         {
             try
             {
                 var ctx = new GASEntities();
-                var tdsData = (from tds in ctx.NewViewPurchaseInvoices
+                var tdsData = (from tds in ctx.ViewPurchaseInvoices
                                where tds.OrgId == OrgID && tds.InvoiceDate.Year == Year && tds.InvoiceDate.Month == Month
                                    select tds);
                 return tdsData;
@@ -108,12 +108,12 @@ namespace GAS.Controllers
         // Get all Sales Invoice of a Organization by Year and Month
         [Route("Sell/Organization/{OrgID}/{Year}/{Month}")]
         [HttpGet]
-        public IEnumerable<NewViewSellInvoice> GetSellForMonth(int OrgID, int Year, int Month)
+        public IEnumerable<ViewSellInvoice> GetSellForMonth(int OrgID, int Year, int Month)
         {
             try
             {
                 var ctx = new GASEntities();
-                var tdsData = (from inv in ctx.NewViewSellInvoices
+                var tdsData = (from inv in ctx.ViewSellInvoices
                                where inv.OrgId == OrgID && inv.InvoiceDate.Year == Year && inv.InvoiceDate.Month == Month
                                select inv);
                 return tdsData;
@@ -158,38 +158,38 @@ namespace GAS.Controllers
             return response;
         }
 
-        // Add Payment Received
-        [Route("ReceivePayment")]
-        [HttpPost]
-        public HttpResponseMessage PostReceive([FromBody]PaymentReceived pr)
-        {
+        //// Add Payment Received
+        //[Route("ReceivePayment")]
+        //[HttpPost]
+        //public HttpResponseMessage PostReceive([FromBody]PaymentReceived pr)
+        //{
 
-            String resp = "{\"Response\":\"Undefine\"}";
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            try
-            {
-                var ctx = new GASEntities();
+        //    String resp = "{\"Response\":\"Undefine\"}";
+        //    var response = Request.CreateResponse(HttpStatusCode.OK);
+        //    try
+        //    {
+        //        var ctx = new GASEntities();
 
-                if (pr != null)
-                {
-                    ctx.PaymentReceiveds.Add(pr);
-                    ctx.SaveChanges();
+        //        if (pr != null)
+        //        {
+        //            ctx.PaymentReceiveds.Add(pr);
+        //            ctx.SaveChanges();
 
-                    resp = "{\"Response\":\"OK\"}";
-                }
-            }
-            catch (Exception ex)
-            {
-                int a = 1;
-                resp = "{\"Response\":\"Fail\"}";
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+        //            resp = "{\"Response\":\"OK\"}";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        int a = 1;
+        //        resp = "{\"Response\":\"Fail\"}";
+        //        response = Request.CreateResponse(HttpStatusCode.InternalServerError);
 
-            }
+        //    }
 
-            // var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(resp, System.Text.Encoding.UTF8, "application/json");
-            return response;
-        }
+        //    // var response = Request.CreateResponse(HttpStatusCode.OK);
+        //    response.Content = new StringContent(resp, System.Text.Encoding.UTF8, "application/json");
+        //    return response;
+        //}
 
         // Add Purchase Invoice
         [Route("PurchaseInvoice")]
@@ -224,48 +224,40 @@ namespace GAS.Controllers
             return response;
         }
 
-        // Add Payment given
-        [Route("GivePayment")]
-        [HttpPost]
-        public HttpResponseMessage Post([FromBody]PaymentGiven pg)
-        {
+        //// Add Payment given
+        //[Route("GivePayment")]
+        //[HttpPost]
+        //public HttpResponseMessage Post([FromBody]PaymentGiven pg)
+        //{
 
-            String resp = "{\"Response\":\"Undefine\"}";
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            try
-            {
-                var ctx = new GASEntities();
+        //    String resp = "{\"Response\":\"Undefine\"}";
+        //    var response = Request.CreateResponse(HttpStatusCode.OK);
+        //    try
+        //    {
+        //        var ctx = new GASEntities();
 
-                if (pg != null)
-                {
-                    ctx.PaymentGivens.Add(pg);
-                    ctx.SaveChanges();
+        //        if (pg != null)
+        //        {
+        //            ctx.PaymentGivens.Add(pg);
+        //            ctx.SaveChanges();
 
-                    resp = "{\"Response\":\"OK\"}";
-                }
-            }
-            catch (Exception ex)
-            {
-                int a = 1;
-                resp = "{\"Response\":\"Fail\"}";
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+        //            resp = "{\"Response\":\"OK\"}";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        int a = 1;
+        //        resp = "{\"Response\":\"Fail\"}";
+        //        response = Request.CreateResponse(HttpStatusCode.InternalServerError);
 
-            }
+        //    }
 
-            // var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(resp, System.Text.Encoding.UTF8, "application/json");
-            return response;
-        }
+        //    // var response = Request.CreateResponse(HttpStatusCode.OK);
+        //    response.Content = new StringContent(resp, System.Text.Encoding.UTF8, "application/json");
+        //    return response;
+        //}
 
 
-        // PUT: api/Invoice/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
 
-        // DELETE: api/Invoice/5
-        public void Delete(int id)
-        {
-        }
     }
 }
