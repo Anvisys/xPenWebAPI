@@ -8,6 +8,11 @@ using System.Web.Http;
 using GAS.Models;
 using System.Web.Http.Cors;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+
+using System.Threading.Tasks;
+
+
 
 namespace GAS.Controllers
 {
@@ -57,7 +62,7 @@ namespace GAS.Controllers
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var expData =  (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.EmployeeID == employeeID
                                && DbFunctions.TruncateTime(ex.ExpenseDate) == DateTime.Today.Date
                                && (ex.ActivityStatus == "Paid" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved" || ex.ActivityStatus == "Quick")
@@ -71,6 +76,7 @@ namespace GAS.Controllers
                                    ReceiveAmount = (Int32)groupEmpExpense.Sum(x => x.ReceiveAmount),
                                   
                                });
+
                 return expData;
             }
             catch (Exception ex)
@@ -83,30 +89,52 @@ namespace GAS.Controllers
 
         [Route("ActiveProjects/{orgId}/Employee/{employeeID}")]
         [HttpGet]
-        public IEnumerable<dynamic> GetActiveProjectsOfEmployee(int orgId, int employeeID)
+        public IEnumerable<ActiveProject> GetActiveProjectsOfEmployee(int orgId, int employeeID)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.EmployeeID == employeeID
-                                && (ex.ActivityStatus != "Paid")
-                               group ex by new { ex.ProjectID }
-                                   into groupEmpActivity
-                               join prj in ctx.Projects on groupEmpActivity.Key.ProjectID equals prj.ProjectID
-                               select new
-                               {
-                                   ItemName = groupEmpActivity.Key.ProjectID,
-                                   Name = prj.ProjectName,
-                                   Manager = prj.CreatedBy
-                               });
-                               
-                return expData;
+                using (var ctx = new GASEntities())
+                {
+                    var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                                    where ex.EmployeeID == employeeID
+                                     && (ex.ActivityStatus != "Paid")
+                                     select new ActiveProject
+                                     {
+                                         ProjectID = ex.ProjectID,
+                                         Name = ex.ProjectName,
+                                         Manager = ex.ProjectOwner
+                                     }
+                                        ).Distinct().ToList();
+
+                    //var expData = (from prj in ctx.Projects.Where(p => expData1.Contains(p.ProjectID))
+                    //               select new ActiveProject()
+                    //               {
+                    //                   ProjectID = prj.ProjectID,
+                    //                   Name = prj.ProjectName,
+                    //                   Manager = 0
+                    //               }).ToList();
+                    return expData;
+                }
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Utility.log(string.Format("Property: {0} Error: {1}",
+                                                validationError.PropertyName,
+                                                validationError.ErrorMessage));
+                    }
+                }
+                throw dbEx;
             }
             catch (Exception ex)
             {
-                return null;
+                Utility.log(ex.Message);
+                Utility.log(ex.StackTrace);
+                throw ex;
             }
         }
 

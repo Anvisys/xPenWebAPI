@@ -121,7 +121,7 @@
     <Property Name="ProjectValue" Type="int" />
     <Property Name="ProjectDescription" Type="varchar" MaxLength="50" />
     <Property Name="ProjectCreationDate" Type="datetime" Nullable="false" />
-    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ProjectStatus">
@@ -273,18 +273,6 @@ warning 6002: The table/view 'LetsMeet.dbo.NewViewActivity' does not have a prim
     <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
     <Property Name="Advance" Type="int" Nullable="false" />
     <Property Name="OrgID" Type="int" Nullable="false" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.oldViewActivityDashboard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="oldViewActivityDashboard">
-    <Key>
-      <PropertyRef Name="EmployeeID" />
-    </Key>
-    <Property Name="ActivitiesCount" Type="int" />
-    <Property Name="EmployeeID" Type="int" Nullable="false" />
-    <Property Name="Spent" Type="int" />
-    <Property Name="Received" Type="int" />
-    <Property Name="Advance" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -488,7 +476,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemStatusActivity' does n
       <PropertyRef Name="ReceiveAmount" />
       <PropertyRef Name="ExpenseDescription" />
       <PropertyRef Name="ExpenseDate" />
-      <PropertyRef Name="Action" />
+      <PropertyRef Name="ItemAction" />
       <PropertyRef Name="ActivityName" />
       <PropertyRef Name="EmployeeID" />
       <PropertyRef Name="ProjectID" />
@@ -500,7 +488,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemStatusActivity' does n
     <Property Name="ReceiveAmount" Type="int" Nullable="false" />
     <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
-    <Property Name="Action" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ItemAction" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
     <Property Name="UpdatedOn" Type="datetime" />
     <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
@@ -509,6 +497,8 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemStatusActivity' does n
     <Property Name="CreatedBy" Type="int" />
     <Property Name="ApproverID" Type="int" />
     <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" />
+    <Property Name="ProjectOwner" Type="varchar" MaxLength="20" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewGST' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -865,15 +855,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [NewViewActivity].[OrgID] AS [OrgID]
     FROM [dbo].[NewViewActivity] AS [NewViewActivity]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="oldViewActivityDashboard" EntityType="Self.oldViewActivityDashboard" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [oldViewActivityDashboard].[ActivitiesCount] AS [ActivitiesCount], 
-    [oldViewActivityDashboard].[EmployeeID] AS [EmployeeID], 
-    [oldViewActivityDashboard].[Spent] AS [Spent], 
-    [oldViewActivityDashboard].[Received] AS [Received], 
-    [oldViewActivityDashboard].[Advance] AS [Advance]
-    FROM [dbo].[oldViewActivityDashboard] AS [oldViewActivityDashboard]</DefiningQuery>
-    </EntitySet>
     <EntitySet Name="ViewAccount" EntityType="Self.ViewAccount" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [ViewAccount].[AccID] AS [AccID], 
@@ -1009,7 +990,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewExpenseItemStatusActivity].[ReceiveAmount] AS [ReceiveAmount], 
     [ViewExpenseItemStatusActivity].[ExpenseDescription] AS [ExpenseDescription], 
     [ViewExpenseItemStatusActivity].[ExpenseDate] AS [ExpenseDate], 
-    [ViewExpenseItemStatusActivity].[Action] AS [Action], 
+    [ViewExpenseItemStatusActivity].[ItemAction] AS [ItemAction], 
     [ViewExpenseItemStatusActivity].[ActivityStatus] AS [ActivityStatus], 
     [ViewExpenseItemStatusActivity].[UpdatedOn] AS [UpdatedOn], 
     [ViewExpenseItemStatusActivity].[ActivityName] AS [ActivityName], 
@@ -1017,7 +998,9 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewExpenseItemStatusActivity].[ProjectID] AS [ProjectID], 
     [ViewExpenseItemStatusActivity].[CreatedBy] AS [CreatedBy], 
     [ViewExpenseItemStatusActivity].[ApproverID] AS [ApproverID], 
-    [ViewExpenseItemStatusActivity].[OrgID] AS [OrgID]
+    [ViewExpenseItemStatusActivity].[OrgID] AS [OrgID], 
+    [ViewExpenseItemStatusActivity].[ProjectName] AS [ProjectName], 
+    [ViewExpenseItemStatusActivity].[ProjectOwner] AS [ProjectOwner]
     FROM [dbo].[ViewExpenseItemStatusActivity] AS [ViewExpenseItemStatusActivity]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewGST" EntityType="Self.ViewGST" store:Type="Views" store:Schema="dbo">

@@ -37,3 +37,4 @@ C:\aaWork\Code\Git\xPenWebAPI\GAPResources\obj\Release\en-US\GAPResources.resour
 C:\aaWork\Code\Git\xPenWebAPI\GAPResources\obj\Release\fr-FR\GAPResources.resources.dll
 C:\aaWork\Code\Git\xPenWebAPI\GAPResources\obj\Release\GAPResources.dll
 C:\aaWork\Code\Git\xPenWebAPI\GAPResources\obj\Release\GAPResources.pdb
+C:\aaWork\Code\Git\xpenWebApi\GAPResources\obj\Release\GAPResources.csprojAssemblyReference.cache

@@ -140,10 +140,8 @@
     <Compile Include="Models\Advance.cs" />
     <Compile Include="Models\Expenses.cs" />
     <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\ActiveProject.cs" />
     <Compile Include="NewViewActivity.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="oldViewActivityDashboard.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PurchaseInvoice.cs">

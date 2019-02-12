@@ -149,22 +149,39 @@ namespace GAS.Controllers
                 {
                         try
                         {
-                            Transaction transFrom = transfer;
+                            Transaction transFrom = new GAS.Transaction();
+                            transFrom.AccID = transfer.AccID;
+                            transFrom.ActivityID = transfer.ActivityID;
                             transFrom.Withdraw = transfer.Withdraw;
                             transFrom.Deposit = 0;
+                            transFrom.InvoiceID = transfer.InvoiceID;
+                            transFrom.OrgID = transfer.OrgID;
+                            transFrom.ProjectID = transfer.ProjectID;
+                            transFrom.TransactionRemarks = transfer.TransactionRemarks;
+                            transFrom.TransType = transfer.TransType;
+                            transFrom.TransName = transfer.TransName;
                             transFrom.TransactionID = 0;
-                            Transaction trans1 = CalculateBalance(transFrom);
-                            ctx.Transactions.Add(trans1);
-                           // int newID = Transaction(transfer.TransferName , transfer.TFromAccount, transfer.TransferAmount, 0,0, 0, 0, transfer.TransferRemark, transfer.OrgID,"Transfer", DateTime.UtcNow);
-
-                            if (trans1.TransID > 0)
+                            transFrom.TransactionDate = transfer.TransactionDate;
+                            CalculateBalance(transFrom);
+                            ctx.Transactions.Add(transFrom);
+                    // int newID = Transaction(transfer.TransferName , transfer.TFromAccount, transfer.TransferAmount, 0,0, 0, 0, transfer.TransferRemark, transfer.OrgID,"Transfer", DateTime.UtcNow);
+                    ctx.SaveChanges();
+                    if (transFrom.TransID > 0)
                             {
-                                Transaction transTo = transfer;
+                                Transaction transTo = new GAS.Transaction();
                                 transTo.AccID = transfer.TransactionID;
+                                transTo.ActivityID = transfer.ActivityID;
                                 transTo.Withdraw = 0;
-                                transTo.Deposit = transfer.Deposit;
-                                transTo.TransactionID = trans1.TransID;
-                                //int result = AddTransaction(transTo);
+                                transTo.Deposit = transfer.Withdraw;
+                                transTo.InvoiceID = transfer.InvoiceID;
+                                transTo.OrgID = transfer.OrgID;
+                                transTo.ProjectID = transfer.ProjectID;
+                                transTo.TransactionRemarks = transfer.TransactionRemarks;
+                                transTo.TransType = transfer.TransType;
+                                transTo.TransName = transfer.TransName;
+                                transTo.TransactionID = transFrom.TransID;
+                                transTo.TransactionDate = transfer.TransactionDate;
+                                CalculateBalance(transTo);
                                 ctx.Transactions.Add(transTo);
                                // int result = Transaction(transfer.TransferName, transfer.TToAccount, 0, transfer.TransferAmount, 0, 0, newID, transfer.TransferRemark, transfer.OrgID, "Transfer", DateTime.UtcNow);
                             }
@@ -258,15 +275,14 @@ namespace GAS.Controllers
                     trans_GST.TransactionRemarks = "GST_" + transaction.TransactionRemarks;
                     trans_GST.TransName = "GST_" + transaction.TransName;
 
-
-                    Transaction trans2 = CalculateBalance(trans_GST);
-                    ctx.Transactions.Add(trans2);
+                     CalculateBalance(trans_GST);
+                    ctx.Transactions.Add(trans_GST);
                     ctx.SaveChanges();
                 }
                 else
                 {
-                    Transaction trans1 = CalculateBalance(transaction);
-                    ctx.Transactions.Add(trans1);
+                    CalculateBalance(transaction);
+                    ctx.Transactions.Add(transaction);
                     ctx.SaveChanges();
                 }
                 

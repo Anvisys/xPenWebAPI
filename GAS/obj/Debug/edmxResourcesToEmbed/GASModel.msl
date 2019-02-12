@@ -194,21 +194,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Projects">
-      <EntityTypeMapping TypeName="GASModel.Project">
-        <MappingFragment StoreEntitySet="Project">
-          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
-          <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
-          <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
-          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-          <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ProjectStatus">
       <EntityTypeMapping TypeName="GASModel.ProjectStatu">
         <MappingFragment StoreEntitySet="ProjectStatus">
@@ -314,17 +299,6 @@
           <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
           <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
           <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="oldViewActivityDashboards">
-      <EntityTypeMapping TypeName="GASModel.oldViewActivityDashboard">
-        <MappingFragment StoreEntitySet="oldViewActivityDashboard">
-          <ScalarProperty Name="Advance" ColumnName="Advance" />
-          <ScalarProperty Name="Received" ColumnName="Received" />
-          <ScalarProperty Name="Spent" ColumnName="Spent" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="ActivitiesCount" ColumnName="ActivitiesCount" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -473,27 +447,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ViewExpenseItemStatusActivities">
-      <EntityTypeMapping TypeName="GASModel.ViewExpenseItemStatusActivity">
-        <MappingFragment StoreEntitySet="ViewExpenseItemStatusActivity">
-          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-          <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
-          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-          <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
-          <ScalarProperty Name="Action" ColumnName="Action" />
-          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
-          <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
-          <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
-          <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
-          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ViewMonthCumulativeExpenses">
       <EntityTypeMapping TypeName="GASModel.ViewMonthCumulativeExpense">
         <MappingFragment StoreEntitySet="ViewMonthCumulativeExpense">
@@ -521,28 +474,6 @@
           <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
           <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
           <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ViewProjects">
-      <EntityTypeMapping TypeName="GASModel.ViewProject">
-        <MappingFragment StoreEntitySet="ViewProject">
-          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-          <ScalarProperty Name="Received" ColumnName="Received" />
-          <ScalarProperty Name="Spent" ColumnName="Spent" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="StatusRemark" ColumnName="StatusRemark" />
-          <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
-          <ScalarProperty Name="StatusOn" ColumnName="StatusOn" />
-          <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
-          <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
-          <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
-          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-          <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -687,6 +618,66 @@
           <ScalarProperty Name="Balance" ColumnName="Balance" />
           <ScalarProperty Name="AgrregateDate" ColumnName="AgrregateDate" />
           <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="GASModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
+          <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+          <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewExpenseItemStatusActivities">
+      <EntityTypeMapping TypeName="GASModel.ViewExpenseItemStatusActivity">
+        <MappingFragment StoreEntitySet="ViewExpenseItemStatusActivity">
+          <ScalarProperty Name="ProjectOwner" ColumnName="ProjectOwner" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+          <ScalarProperty Name="ItemAction" ColumnName="ItemAction" />
+          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+          <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+          <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+          <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewProjects">
+      <EntityTypeMapping TypeName="GASModel.ViewProject">
+        <MappingFragment StoreEntitySet="ViewProject">
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="Received" ColumnName="Received" />
+          <ScalarProperty Name="Spent" ColumnName="Spent" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StatusRemark" ColumnName="StatusRemark" />
+          <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
+          <ScalarProperty Name="StatusOn" ColumnName="StatusOn" />
+          <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+          <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
+          <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

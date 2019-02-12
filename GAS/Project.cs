@@ -21,7 +21,7 @@ namespace GAS
         public Nullable<int> ProjectValue { get; set; }
         public string ProjectDescription { get; set; }
         public System.DateTime ProjectCreationDate { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
         public int OrgID { get; set; }
     }
 }

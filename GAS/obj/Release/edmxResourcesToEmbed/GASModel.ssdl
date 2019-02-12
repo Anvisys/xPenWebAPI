@@ -40,19 +40,34 @@
     <Property Name="SelectedRow" Type="bit" Nullable="false" />
     <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <EntityType Name="CatchUpUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Image" Type="image" Nullable="false" />
+    <Property Name="MobileNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="30" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="GCMCode" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Location" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Function" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Date" Type="smalldatetime" Nullable="false" />
+  </EntityType>
   <EntityType Name="ExpenseItem">
     <Key>
       <PropertyRef Name="ItemID" />
     </Key>
     <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ActivityID" Type="int" Nullable="false" />
-    <Property Name="ItemName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ExpenseAmount" Type="int" Nullable="false" />
     <Property Name="ReceiveAmount" Type="int" Nullable="false" />
     <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
     <Property Name="SelectedRow" Type="bit" Nullable="false" />
-    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityType Name="Expenses">
     <Key>
@@ -95,33 +110,6 @@
     <Property Name="Status" Type="varchar" MaxLength="20" />
     <Property Name="StartDate" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="PaymentGiven">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PInvoiceId" Type="int" Nullable="false" />
-    <Property Name="OrgId" Type="int" Nullable="false" />
-    <Property Name="ProjectId" Type="int" Nullable="false" />
-    <Property Name="Paid" Type="float" Nullable="false" />
-    <Property Name="TaxPaid" Type="float" Nullable="false" />
-    <Property Name="TDSPayable" Type="float" Nullable="false" />
-    <Property Name="TDSStatus" Type="varchar" MaxLength="20" />
-    <Property Name="PaymentDate" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="PaymentReceived">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="InvoiceId" Type="int" Nullable="false" />
-    <Property Name="OrgId" Type="int" Nullable="false" />
-    <Property Name="ProjectId" Type="int" Nullable="false" />
-    <Property Name="Received" Type="float" Nullable="false" />
-    <Property Name="Tax" Type="float" Nullable="false" />
-    <Property Name="TDSDeducted" Type="float" Nullable="false" />
-    <Property Name="PaymentDate" Type="datetime" Nullable="false" />
-  </EntityType>
   <EntityType Name="Project">
     <Key>
       <PropertyRef Name="ProjectID" />
@@ -133,7 +121,7 @@
     <Property Name="ProjectValue" Type="int" />
     <Property Name="ProjectDescription" Type="varchar" MaxLength="50" />
     <Property Name="ProjectCreationDate" Type="datetime" Nullable="false" />
-    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ProjectStatus">
@@ -163,6 +151,20 @@
     <Property Name="TDS" Type="float" Nullable="false" />
     <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
     <Property Name="InvoiceType" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReportedIssue">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeviceID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lattitude" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="Longitude" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="severity" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Image" Type="image" Nullable="false" />
+    <Property Name="ModifiedAt" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="SellInvoice">
     <Key>
@@ -273,104 +275,6 @@ warning 6002: The table/view 'LetsMeet.dbo.NewViewActivity' does not have a prim
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.NewViewPaymentGiven' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="NewViewPaymentGiven">
-    <Key>
-      <PropertyRef Name="InvoiceId" />
-    </Key>
-    <Property Name="ProjectId" Type="int" />
-    <Property Name="InvoiceId" Type="int" Nullable="false" />
-    <Property Name="PaidAmount" Type="int" />
-    <Property Name="PaidDate" Type="datetime" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.NewViewPaymentReceived' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="NewViewPaymentReceived">
-    <Key>
-      <PropertyRef Name="InvoiceId" />
-    </Key>
-    <Property Name="ProjectId" Type="int" />
-    <Property Name="InvoiceId" Type="int" Nullable="false" />
-    <Property Name="ReceivedAmount" Type="int" />
-    <Property Name="ReceivedDate" Type="datetime" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.NewViewPurchaseInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="NewViewPurchaseInvoice">
-    <Key>
-      <PropertyRef Name="OrgId" />
-      <PropertyRef Name="ProjectId" />
-      <PropertyRef Name="VendorName" />
-      <PropertyRef Name="InvoiceId" />
-      <PropertyRef Name="InvoiceNumber" />
-      <PropertyRef Name="InvoiceDate" />
-      <PropertyRef Name="ServiceCost" />
-      <PropertyRef Name="CGST" />
-      <PropertyRef Name="SGST" />
-      <PropertyRef Name="IGST" />
-      <PropertyRef Name="TDS" />
-      <PropertyRef Name="Receivable" />
-      <PropertyRef Name="PaidAmount" />
-      <PropertyRef Name="PaidDate" />
-      <PropertyRef Name="ProjectName" />
-      <PropertyRef Name="ClientName" />
-    </Key>
-    <Property Name="OrgId" Type="int" Nullable="false" />
-    <Property Name="ProjectId" Type="int" Nullable="false" />
-    <Property Name="VendorName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="InvoiceId" Type="int" Nullable="false" />
-    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
-    <Property Name="ServiceCost" Type="float" Nullable="false" />
-    <Property Name="CGST" Type="float" Nullable="false" />
-    <Property Name="SGST" Type="float" Nullable="false" />
-    <Property Name="IGST" Type="float" Nullable="false" />
-    <Property Name="TDS" Type="float" Nullable="false" />
-    <Property Name="Receivable" Type="float" Nullable="false" />
-    <Property Name="PaidAmount" Type="int" Nullable="false" />
-    <Property Name="PaidDate" Type="datetime" Nullable="false" />
-    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
-    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.NewViewSellInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="NewViewSellInvoice">
-    <Key>
-      <PropertyRef Name="OrgId" />
-      <PropertyRef Name="ProjectId" />
-      <PropertyRef Name="InvoiceId" />
-      <PropertyRef Name="InvoiceNumber" />
-      <PropertyRef Name="InvoiceDate" />
-      <PropertyRef Name="ServiceCost" />
-      <PropertyRef Name="CGST" />
-      <PropertyRef Name="SGST" />
-      <PropertyRef Name="IGST" />
-      <PropertyRef Name="TDS" />
-      <PropertyRef Name="Receivable" />
-      <PropertyRef Name="ReceivedAmount" />
-      <PropertyRef Name="ReceivedDate" />
-      <PropertyRef Name="ProjectName" />
-      <PropertyRef Name="ClientName" />
-    </Key>
-    <Property Name="OrgId" Type="int" Nullable="false" />
-    <Property Name="ProjectId" Type="int" Nullable="false" />
-    <Property Name="InvoiceId" Type="int" Nullable="false" />
-    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
-    <Property Name="ServiceCost" Type="float" Nullable="false" />
-    <Property Name="CGST" Type="float" Nullable="false" />
-    <Property Name="SGST" Type="float" Nullable="false" />
-    <Property Name="IGST" Type="float" Nullable="false" />
-    <Property Name="TDS" Type="float" Nullable="false" />
-    <Property Name="Receivable" Type="float" Nullable="false" />
-    <Property Name="ReceivedAmount" Type="int" Nullable="false" />
-    <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
-    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
-    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
-  </EntityType>
-  <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewAccount">
     <Key>
@@ -422,18 +326,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewActivity' does not have a primary
     <Property Name="UpdatedOn" Type="datetime" />
     <Property Name="Advance" Type="int" />
     <Property Name="OrgID" Type="int" Nullable="false" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewActivityDashboard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="ViewActivityDashboard">
-    <Key>
-      <PropertyRef Name="EmployeeID" />
-    </Key>
-    <Property Name="ActivitiesCount" Type="int" />
-    <Property Name="EmployeeID" Type="int" Nullable="false" />
-    <Property Name="Spent" Type="int" />
-    <Property Name="Received" Type="int" />
-    <Property Name="Advance" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewActivityNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -555,42 +447,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewAdvanceStatus' does not have a pr
     <Property Name="AdvanceModifiedDate" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewDailyExpenseItemEmployee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="ViewDailyExpenseItemEmployee">
-    <Key>
-      <PropertyRef Name="EmployeeID" />
-    </Key>
-    <Property Name="EmployeeID" Type="int" Nullable="false" />
-    <Property Name="ExpensesDate" Type="date" />
-    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
-    <Property Name="expense" Type="int" />
-    <Property Name="Received" Type="int" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewDailyExpenseItemOrganization' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="ViewDailyExpenseItemOrganization">
-    <Key>
-      <PropertyRef Name="OrgID" />
-    </Key>
-    <Property Name="OrgID" Type="int" Nullable="false" />
-    <Property Name="ExpensesDate" Type="date" />
-    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
-    <Property Name="expense" Type="int" />
-    <Property Name="Received" Type="int" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewDailyExpenseItemProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="ViewDailyExpenseItemProject">
-    <Key>
-      <PropertyRef Name="ProjectID" />
-    </Key>
-    <Property Name="ProjectID" Type="int" Nullable="false" />
-    <Property Name="ExpensesDate" Type="date" />
-    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
-    <Property Name="expense" Type="int" />
-    <Property Name="Received" Type="int" />
-  </EntityType>
-  <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemDailyStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewExpenseItemDailyStatus">
     <Key>
@@ -620,19 +476,19 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemStatusActivity' does n
       <PropertyRef Name="ReceiveAmount" />
       <PropertyRef Name="ExpenseDescription" />
       <PropertyRef Name="ExpenseDate" />
-      <PropertyRef Name="Status" />
+      <PropertyRef Name="ItemAction" />
       <PropertyRef Name="ActivityName" />
       <PropertyRef Name="EmployeeID" />
       <PropertyRef Name="ProjectID" />
       <PropertyRef Name="OrgID" />
     </Key>
     <Property Name="ActivityID" Type="int" Nullable="false" />
-    <Property Name="ItemName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ExpenseAmount" Type="int" Nullable="false" />
     <Property Name="ReceiveAmount" Type="int" Nullable="false" />
     <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
-    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ItemAction" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
     <Property Name="UpdatedOn" Type="datetime" />
     <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
@@ -641,6 +497,8 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemStatusActivity' does n
     <Property Name="CreatedBy" Type="int" />
     <Property Name="ApproverID" Type="int" />
     <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" />
+    <Property Name="ProjectOwner" Type="varchar" MaxLength="20" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewGST' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -705,24 +563,22 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewOrganization' does not have a pri
 warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentGiven' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewPaymentGiven">
     <Key>
-      <PropertyRef Name="ProjectId" />
-      <PropertyRef Name="PInvoiceId" />
+      <PropertyRef Name="InvoiceId" />
     </Key>
-    <Property Name="ProjectId" Type="int" Nullable="false" />
-    <Property Name="PInvoiceId" Type="int" Nullable="false" />
-    <Property Name="PaidAmount" Type="float" />
+    <Property Name="ProjectId" Type="int" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="PaidAmount" Type="int" />
     <Property Name="PaidDate" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentReceived' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewPaymentReceived">
     <Key>
-      <PropertyRef Name="ProjectId" />
       <PropertyRef Name="InvoiceId" />
     </Key>
-    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" />
     <Property Name="InvoiceId" Type="int" Nullable="false" />
-    <Property Name="ReceivedAmount" Type="float" />
+    <Property Name="ReceivedAmount" Type="int" />
     <Property Name="ReceivedDate" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
@@ -814,7 +670,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewPurchaseInvoice' does not have a 
     <Property Name="IGST" Type="float" Nullable="false" />
     <Property Name="TDS" Type="float" Nullable="false" />
     <Property Name="Receivable" Type="float" Nullable="false" />
-    <Property Name="PaidAmount" Type="float" Nullable="false" />
+    <Property Name="PaidAmount" Type="int" Nullable="false" />
     <Property Name="PaidDate" Type="datetime" Nullable="false" />
     <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
@@ -851,7 +707,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a prim
     <Property Name="IGST" Type="float" Nullable="false" />
     <Property Name="TDS" Type="float" Nullable="false" />
     <Property Name="Receivable" Type="float" Nullable="false" />
-    <Property Name="ReceivedAmount" Type="float" Nullable="false" />
+    <Property Name="ReceivedAmount" Type="int" Nullable="false" />
     <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
     <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
@@ -895,6 +751,8 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransaction' does not have a prim
       <PropertyRef Name="ActivityID" />
       <PropertyRef Name="TransactionID" />
       <PropertyRef Name="OrgID" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="EmployeeID" />
     </Key>
     <Property Name="EntryDate" Type="datetime" Nullable="false" />
     <Property Name="TransactionDate" Type="datetime" Nullable="false" />
@@ -912,6 +770,8 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransaction' does not have a prim
     <Property Name="OrgID" Type="int" Nullable="false" />
     <Property Name="TransType" Type="varchar" MaxLength="20" />
     <Property Name="AccountName" Type="varchar" MaxLength="20" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailyAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -959,15 +819,15 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AdvanceItem" EntityType="Self.AdvanceItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CatchUpUser" EntityType="Self.CatchUpUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ExpenseItem" EntityType="Self.ExpenseItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GST" EntityType="Self.GST" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PaymentGiven" EntityType="Self.PaymentGiven" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PaymentReceived" EntityType="Self.PaymentReceived" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PurchaseInvoice" EntityType="Self.PurchaseInvoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportedIssue" EntityType="Self.ReportedIssue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SellInvoice" EntityType="Self.SellInvoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TDS" EntityType="Self.TDS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
@@ -994,63 +854,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [NewViewActivity].[Advance] AS [Advance], 
     [NewViewActivity].[OrgID] AS [OrgID]
     FROM [dbo].[NewViewActivity] AS [NewViewActivity]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="NewViewPaymentGiven" EntityType="Self.NewViewPaymentGiven" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [NewViewPaymentGiven].[ProjectId] AS [ProjectId], 
-    [NewViewPaymentGiven].[InvoiceId] AS [InvoiceId], 
-    [NewViewPaymentGiven].[PaidAmount] AS [PaidAmount], 
-    [NewViewPaymentGiven].[PaidDate] AS [PaidDate]
-    FROM [dbo].[NewViewPaymentGiven] AS [NewViewPaymentGiven]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="NewViewPaymentReceived" EntityType="Self.NewViewPaymentReceived" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [NewViewPaymentReceived].[ProjectId] AS [ProjectId], 
-    [NewViewPaymentReceived].[InvoiceId] AS [InvoiceId], 
-    [NewViewPaymentReceived].[ReceivedAmount] AS [ReceivedAmount], 
-    [NewViewPaymentReceived].[ReceivedDate] AS [ReceivedDate]
-    FROM [dbo].[NewViewPaymentReceived] AS [NewViewPaymentReceived]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="NewViewPurchaseInvoice" EntityType="Self.NewViewPurchaseInvoice" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [NewViewPurchaseInvoice].[OrgId] AS [OrgId], 
-    [NewViewPurchaseInvoice].[ProjectId] AS [ProjectId], 
-    [NewViewPurchaseInvoice].[VendorName] AS [VendorName], 
-    [NewViewPurchaseInvoice].[InvoiceId] AS [InvoiceId], 
-    [NewViewPurchaseInvoice].[InvoiceNumber] AS [InvoiceNumber], 
-    [NewViewPurchaseInvoice].[InvoiceDate] AS [InvoiceDate], 
-    [NewViewPurchaseInvoice].[ServiceCost] AS [ServiceCost], 
-    [NewViewPurchaseInvoice].[CGST] AS [CGST], 
-    [NewViewPurchaseInvoice].[SGST] AS [SGST], 
-    [NewViewPurchaseInvoice].[IGST] AS [IGST], 
-    [NewViewPurchaseInvoice].[TDS] AS [TDS], 
-    [NewViewPurchaseInvoice].[Receivable] AS [Receivable], 
-    [NewViewPurchaseInvoice].[PaidAmount] AS [PaidAmount], 
-    [NewViewPurchaseInvoice].[PaidDate] AS [PaidDate], 
-    [NewViewPurchaseInvoice].[ProjectName] AS [ProjectName], 
-    [NewViewPurchaseInvoice].[ProjectNumber] AS [ProjectNumber], 
-    [NewViewPurchaseInvoice].[ClientName] AS [ClientName]
-    FROM [dbo].[NewViewPurchaseInvoice] AS [NewViewPurchaseInvoice]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="NewViewSellInvoice" EntityType="Self.NewViewSellInvoice" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [NewViewSellInvoice].[OrgId] AS [OrgId], 
-    [NewViewSellInvoice].[ProjectId] AS [ProjectId], 
-    [NewViewSellInvoice].[InvoiceId] AS [InvoiceId], 
-    [NewViewSellInvoice].[InvoiceNumber] AS [InvoiceNumber], 
-    [NewViewSellInvoice].[InvoiceDate] AS [InvoiceDate], 
-    [NewViewSellInvoice].[ServiceCost] AS [ServiceCost], 
-    [NewViewSellInvoice].[CGST] AS [CGST], 
-    [NewViewSellInvoice].[SGST] AS [SGST], 
-    [NewViewSellInvoice].[IGST] AS [IGST], 
-    [NewViewSellInvoice].[TDS] AS [TDS], 
-    [NewViewSellInvoice].[Receivable] AS [Receivable], 
-    [NewViewSellInvoice].[ReceivedAmount] AS [ReceivedAmount], 
-    [NewViewSellInvoice].[ReceivedDate] AS [ReceivedDate], 
-    [NewViewSellInvoice].[ProjectName] AS [ProjectName], 
-    [NewViewSellInvoice].[ProjectNumber] AS [ProjectNumber], 
-    [NewViewSellInvoice].[ClientName] AS [ClientName]
-    FROM [dbo].[NewViewSellInvoice] AS [NewViewSellInvoice]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewAccount" EntityType="Self.ViewAccount" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1085,15 +888,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewActivity].[Advance] AS [Advance], 
     [ViewActivity].[OrgID] AS [OrgID]
     FROM [dbo].[ViewActivity] AS [ViewActivity]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ViewActivityDashboard" EntityType="Self.ViewActivityDashboard" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ViewActivityDashboard].[ActivitiesCount] AS [ActivitiesCount], 
-    [ViewActivityDashboard].[EmployeeID] AS [EmployeeID], 
-    [ViewActivityDashboard].[Spent] AS [Spent], 
-    [ViewActivityDashboard].[Received] AS [Received], 
-    [ViewActivityDashboard].[Advance] AS [Advance]
-    FROM [dbo].[ViewActivityDashboard] AS [ViewActivityDashboard]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewActivityNames" EntityType="Self.ViewActivityNames" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1174,33 +968,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewAdvanceStatus].[AdvanceModifiedDate] AS [AdvanceModifiedDate]
     FROM [dbo].[ViewAdvanceStatus] AS [ViewAdvanceStatus]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="ViewDailyExpenseItemEmployee" EntityType="Self.ViewDailyExpenseItemEmployee" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ViewDailyExpenseItemEmployee].[EmployeeID] AS [EmployeeID], 
-    [ViewDailyExpenseItemEmployee].[ExpensesDate] AS [ExpensesDate], 
-    [ViewDailyExpenseItemEmployee].[ActivityStatus] AS [ActivityStatus], 
-    [ViewDailyExpenseItemEmployee].[expense] AS [expense], 
-    [ViewDailyExpenseItemEmployee].[Received] AS [Received]
-    FROM [dbo].[ViewDailyExpenseItemEmployee] AS [ViewDailyExpenseItemEmployee]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ViewDailyExpenseItemOrganization" EntityType="Self.ViewDailyExpenseItemOrganization" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ViewDailyExpenseItemOrganization].[OrgID] AS [OrgID], 
-    [ViewDailyExpenseItemOrganization].[ExpensesDate] AS [ExpensesDate], 
-    [ViewDailyExpenseItemOrganization].[ActivityStatus] AS [ActivityStatus], 
-    [ViewDailyExpenseItemOrganization].[expense] AS [expense], 
-    [ViewDailyExpenseItemOrganization].[Received] AS [Received]
-    FROM [dbo].[ViewDailyExpenseItemOrganization] AS [ViewDailyExpenseItemOrganization]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ViewDailyExpenseItemProject" EntityType="Self.ViewDailyExpenseItemProject" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ViewDailyExpenseItemProject].[ProjectID] AS [ProjectID], 
-    [ViewDailyExpenseItemProject].[ExpensesDate] AS [ExpensesDate], 
-    [ViewDailyExpenseItemProject].[ActivityStatus] AS [ActivityStatus], 
-    [ViewDailyExpenseItemProject].[expense] AS [expense], 
-    [ViewDailyExpenseItemProject].[Received] AS [Received]
-    FROM [dbo].[ViewDailyExpenseItemProject] AS [ViewDailyExpenseItemProject]</DefiningQuery>
-    </EntitySet>
     <EntitySet Name="ViewExpenseItemDailyStatus" EntityType="Self.ViewExpenseItemDailyStatus" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [ViewExpenseItemDailyStatus].[OrgID] AS [OrgID], 
@@ -1223,7 +990,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewExpenseItemStatusActivity].[ReceiveAmount] AS [ReceiveAmount], 
     [ViewExpenseItemStatusActivity].[ExpenseDescription] AS [ExpenseDescription], 
     [ViewExpenseItemStatusActivity].[ExpenseDate] AS [ExpenseDate], 
-    [ViewExpenseItemStatusActivity].[Status] AS [Status], 
+    [ViewExpenseItemStatusActivity].[ItemAction] AS [ItemAction], 
     [ViewExpenseItemStatusActivity].[ActivityStatus] AS [ActivityStatus], 
     [ViewExpenseItemStatusActivity].[UpdatedOn] AS [UpdatedOn], 
     [ViewExpenseItemStatusActivity].[ActivityName] AS [ActivityName], 
@@ -1231,7 +998,9 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewExpenseItemStatusActivity].[ProjectID] AS [ProjectID], 
     [ViewExpenseItemStatusActivity].[CreatedBy] AS [CreatedBy], 
     [ViewExpenseItemStatusActivity].[ApproverID] AS [ApproverID], 
-    [ViewExpenseItemStatusActivity].[OrgID] AS [OrgID]
+    [ViewExpenseItemStatusActivity].[OrgID] AS [OrgID], 
+    [ViewExpenseItemStatusActivity].[ProjectName] AS [ProjectName], 
+    [ViewExpenseItemStatusActivity].[ProjectOwner] AS [ProjectOwner]
     FROM [dbo].[ViewExpenseItemStatusActivity] AS [ViewExpenseItemStatusActivity]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewGST" EntityType="Self.ViewGST" store:Type="Views" store:Schema="dbo">
@@ -1276,7 +1045,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     <EntitySet Name="ViewPaymentGiven" EntityType="Self.ViewPaymentGiven" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [ViewPaymentGiven].[ProjectId] AS [ProjectId], 
-    [ViewPaymentGiven].[PInvoiceId] AS [PInvoiceId], 
+    [ViewPaymentGiven].[InvoiceId] AS [InvoiceId], 
     [ViewPaymentGiven].[PaidAmount] AS [PaidAmount], 
     [ViewPaymentGiven].[PaidDate] AS [PaidDate]
     FROM [dbo].[ViewPaymentGiven] AS [ViewPaymentGiven]</DefiningQuery>
@@ -1399,7 +1168,9 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewTransaction].[TransactionRemarks] AS [TransactionRemarks], 
     [ViewTransaction].[OrgID] AS [OrgID], 
     [ViewTransaction].[TransType] AS [TransType], 
-    [ViewTransaction].[AccountName] AS [AccountName]
+    [ViewTransaction].[AccountName] AS [AccountName], 
+    [ViewTransaction].[ActivityName] AS [ActivityName], 
+    [ViewTransaction].[EmployeeID] AS [EmployeeID]
     FROM [dbo].[ViewTransaction] AS [ViewTransaction]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewTransactionDailyAccount" EntityType="Self.ViewTransactionDailyAccount" store:Type="Views" store:Schema="dbo">

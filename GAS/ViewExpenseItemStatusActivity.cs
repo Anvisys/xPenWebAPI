@@ -20,7 +20,7 @@ namespace GAS
         public int ReceiveAmount { get; set; }
         public string ExpenseDescription { get; set; }
         public System.DateTime ExpenseDate { get; set; }
-        public string Action { get; set; }
+        public string ItemAction { get; set; }
         public string ActivityStatus { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string ActivityName { get; set; }
@@ -29,5 +29,7 @@ namespace GAS
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<int> ApproverID { get; set; }
         public int OrgID { get; set; }
+        public string ProjectName { get; set; }
+        public string ProjectOwner { get; set; }
     }
 }
