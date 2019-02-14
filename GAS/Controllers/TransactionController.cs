@@ -225,7 +225,8 @@ namespace GAS.Controllers
                             ctx.SaveChanges();
                         }
                     }
-
+                    dbContextTransaction.Commit();
+                    resp = "{\"Response\":\"OK\"}";
                 }
                 catch (Exception ex)
                 {

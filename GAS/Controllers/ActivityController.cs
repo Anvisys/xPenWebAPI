@@ -381,7 +381,7 @@ namespace GAS.Controllers
                     ints1 = new String[5];
                     ints1[0] = "Paid";
                     var actData = (from tr in ctx.NewViewActivities
-                                   where tr.ProjectID == id && tr.OrgID == OrgID && (tr.Settlement > 0 || tr.ActivityStatus == "Closed")
+                                   where tr.ProjectID == id && tr.OrgID == OrgID && (tr.Settlement > 0 || tr.ActivityStatus == "Paid")
                                    orderby tr.ActivityID descending
                                    select tr).Take(20);
                     return actData;

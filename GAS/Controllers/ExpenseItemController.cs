@@ -27,7 +27,7 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.OrgID == id && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month
-                               orderby ex.UpdatedOn ascending
+                               orderby ex.UpdatedOn descending
                                select ex);
                 return expData;
             }
@@ -48,6 +48,7 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.ProjectID == id
+                               orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
             }
@@ -71,6 +72,7 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.ProjectID == id && ex.EmployeeID == EmployeeID && (ex.ItemAction == "Added" || ex.ItemAction == "Paid")
+                               orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
             }
@@ -80,7 +82,7 @@ namespace GAS.Controllers
             }
         }
 
-        // Get expense list of an employee by month of year
+        // Get expense list of an Activity
         [Route("Activity/{id}")]
         [HttpGet]
         public IEnumerable<ViewExpenseItemStatusActivity> GetByActivity(int id)
@@ -91,7 +93,7 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.ActivityID == id && (ex.ItemAction == "Added" || ex.ItemAction == "Paid")
-                               orderby ex.ExpenseDate ascending
+                               orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
             }
@@ -116,6 +118,7 @@ namespace GAS.Controllers
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.EmployeeID == employeeID && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month 
                                && (ex.ItemAction == "Added" || ex.ItemAction == "Paid")
+                               orderby ex.ExpenseDate descending
                                select ex );
                 return expData;
             }
@@ -142,6 +145,7 @@ namespace GAS.Controllers
                     join prj in ctx.Projects on act.ProjectID equals prj.ProjectID
                     where act.OrgID == orgId && act.EmployeeID == employeeID
                     && eItms.ExpenseDate.Year == year && eItms.ExpenseDate.Month == month
+                    orderby eItms.ExpenseDate descending
                     select new 
                     { 
                         ItemName = eItms.ItemName,
@@ -175,7 +179,7 @@ namespace GAS.Controllers
 
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemDailyStatus
-                               where ex.ApproverID == id 
+                               where ex.ApproverID == id orderby ex.ExpensesDate descending
                                select ex);
                 return expData;
             }
