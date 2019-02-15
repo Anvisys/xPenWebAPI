@@ -34,16 +34,16 @@
     <EntitySet Name="ViewPaymentReceiveds" EntityType="GASModel.ViewPaymentReceived" />
     <EntitySet Name="ViewProjectExpenses" EntityType="GASModel.ViewProjectExpense" />
     <EntitySet Name="ViewProjectStatus" EntityType="GASModel.ViewProjectStatu" />
-    <EntitySet Name="ViewPurchaseInvoices" EntityType="GASModel.ViewPurchaseInvoice" />
-    <EntitySet Name="ViewSellInvoices" EntityType="GASModel.ViewSellInvoice" />
     <EntitySet Name="ViewTDS" EntityType="GASModel.ViewTD" />
     <EntitySet Name="ViewTransactions" EntityType="GASModel.ViewTransaction" />
     <EntitySet Name="ViewTransactionDailyAccounts" EntityType="GASModel.ViewTransactionDailyAccount" />
     <EntitySet Name="ViewTransactionDailyAccountBalances" EntityType="GASModel.ViewTransactionDailyAccountBalance" />
     <EntitySet Name="ViewTransactionDailySummaries" EntityType="GASModel.ViewTransactionDailySummary" />
     <EntitySet Name="Projects" EntityType="GASModel.Project" />
-    <EntitySet Name="ViewExpenseItemStatusActivities" EntityType="GASModel.ViewExpenseItemStatusActivity" />
     <EntitySet Name="ViewProjects" EntityType="GASModel.ViewProject" />
+    <EntitySet Name="ViewExpenseItemStatusActivities" EntityType="GASModel.ViewExpenseItemStatusActivity" />
+    <EntitySet Name="ViewPurchaseInvoices" EntityType="GASModel.ViewPurchaseInvoice" />
+    <EntitySet Name="ViewSellInvoices" EntityType="GASModel.ViewSellInvoice" />
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -569,78 +569,6 @@
     <Property Name="StatusRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="ViewPurchaseInvoice">
-    <Key>
-      <PropertyRef Name="OrgId" />
-      <PropertyRef Name="ProjectId" />
-      <PropertyRef Name="VendorName" />
-      <PropertyRef Name="InvoiceId" />
-      <PropertyRef Name="InvoiceNumber" />
-      <PropertyRef Name="InvoiceDate" />
-      <PropertyRef Name="ServiceCost" />
-      <PropertyRef Name="CGST" />
-      <PropertyRef Name="SGST" />
-      <PropertyRef Name="IGST" />
-      <PropertyRef Name="TDS" />
-      <PropertyRef Name="Receivable" />
-      <PropertyRef Name="PaidAmount" />
-      <PropertyRef Name="PaidDate" />
-      <PropertyRef Name="ProjectName" />
-      <PropertyRef Name="ClientName" />
-    </Key>
-    <Property Name="OrgId" Type="Int32" Nullable="false" />
-    <Property Name="ProjectId" Type="Int32" Nullable="false" />
-    <Property Name="VendorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-    <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ServiceCost" Type="Double" Nullable="false" />
-    <Property Name="CGST" Type="Double" Nullable="false" />
-    <Property Name="SGST" Type="Double" Nullable="false" />
-    <Property Name="IGST" Type="Double" Nullable="false" />
-    <Property Name="TDS" Type="Double" Nullable="false" />
-    <Property Name="Receivable" Type="Double" Nullable="false" />
-    <Property Name="PaidAmount" Type="Int32" Nullable="false" />
-    <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="ViewSellInvoice">
-    <Key>
-      <PropertyRef Name="OrgId" />
-      <PropertyRef Name="ProjectId" />
-      <PropertyRef Name="InvoiceId" />
-      <PropertyRef Name="InvoiceNumber" />
-      <PropertyRef Name="InvoiceDate" />
-      <PropertyRef Name="ServiceCost" />
-      <PropertyRef Name="CGST" />
-      <PropertyRef Name="SGST" />
-      <PropertyRef Name="IGST" />
-      <PropertyRef Name="TDS" />
-      <PropertyRef Name="Receivable" />
-      <PropertyRef Name="ReceivedAmount" />
-      <PropertyRef Name="ReceivedDate" />
-      <PropertyRef Name="ProjectName" />
-      <PropertyRef Name="ClientName" />
-    </Key>
-    <Property Name="OrgId" Type="Int32" Nullable="false" />
-    <Property Name="ProjectId" Type="Int32" Nullable="false" />
-    <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-    <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ServiceCost" Type="Double" Nullable="false" />
-    <Property Name="CGST" Type="Double" Nullable="false" />
-    <Property Name="SGST" Type="Double" Nullable="false" />
-    <Property Name="IGST" Type="Double" Nullable="false" />
-    <Property Name="TDS" Type="Double" Nullable="false" />
-    <Property Name="Receivable" Type="Double" Nullable="false" />
-    <Property Name="ReceivedAmount" Type="Int32" Nullable="false" />
-    <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="ViewTD">
     <Key>
       <PropertyRef Name="ID" />
@@ -747,6 +675,35 @@
     <Property Name="CreatedBy" Type="Int32" Nullable="false" />
     <Property Name="OrgID" Type="Int32" Nullable="false" />
   </EntityType>
+  <EntityType Name="ViewProject">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ClientName" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="ProjectCreationDate" />
+      <PropertyRef Name="StatusOn" />
+      <PropertyRef Name="Status" />
+      <PropertyRef Name="Spent" />
+      <PropertyRef Name="Received" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectValue" Type="Int32" />
+    <Property Name="ProjectCreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProjectDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="StatusOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="WorkCompletion" Type="Int32" />
+    <Property Name="StatusRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Spent" Type="Int32" Nullable="false" />
+    <Property Name="Received" Type="Int32" Nullable="false" />
+    <Property Name="OrgID" Type="Int32" Nullable="false" />
+  </EntityType>
   <EntityType Name="ViewExpenseItemStatusActivity">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -779,33 +736,80 @@
     <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ProjectOwner" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="ViewProject">
+  <EntityType Name="ViewPurchaseInvoice">
     <Key>
-      <PropertyRef Name="ProjectID" />
-      <PropertyRef Name="ClientName" />
+      <PropertyRef Name="OrgId" />
+      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="VendorName" />
+      <PropertyRef Name="InvoiceId" />
+      <PropertyRef Name="InvoiceNumber" />
+      <PropertyRef Name="InvoiceDate" />
+      <PropertyRef Name="ServiceCost" />
+      <PropertyRef Name="CGST" />
+      <PropertyRef Name="SGST" />
+      <PropertyRef Name="IGST" />
+      <PropertyRef Name="TDS" />
+      <PropertyRef Name="Payable" />
+      <PropertyRef Name="PaidAmount" />
+      <PropertyRef Name="PaidDate" />
       <PropertyRef Name="ProjectName" />
-      <PropertyRef Name="ProjectCreationDate" />
-      <PropertyRef Name="StatusOn" />
-      <PropertyRef Name="Status" />
-      <PropertyRef Name="Spent" />
-      <PropertyRef Name="Received" />
-      <PropertyRef Name="OrgID" />
+      <PropertyRef Name="ClientName" />
+      <PropertyRef Name="CreatedBy" />
     </Key>
-    <Property Name="ProjectID" Type="Int32" Nullable="false" />
+    <Property Name="OrgId" Type="Int32" Nullable="false" />
+    <Property Name="ProjectId" Type="Int32" Nullable="false" />
+    <Property Name="VendorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ServiceCost" Type="Double" Nullable="false" />
+    <Property Name="CGST" Type="Double" Nullable="false" />
+    <Property Name="SGST" Type="Double" Nullable="false" />
+    <Property Name="IGST" Type="Double" Nullable="false" />
+    <Property Name="TDS" Type="Double" Nullable="false" />
+    <Property Name="Payable" Type="Double" Nullable="false" />
+    <Property Name="PaidAmount" Type="Int32" Nullable="false" />
+    <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ViewSellInvoice">
+    <Key>
+      <PropertyRef Name="OrgId" />
+      <PropertyRef Name="ProjectId" />
+      <PropertyRef Name="InvoiceId" />
+      <PropertyRef Name="InvoiceNumber" />
+      <PropertyRef Name="InvoiceDate" />
+      <PropertyRef Name="ServiceCost" />
+      <PropertyRef Name="CGST" />
+      <PropertyRef Name="SGST" />
+      <PropertyRef Name="IGST" />
+      <PropertyRef Name="TDS" />
+      <PropertyRef Name="Receivable" />
+      <PropertyRef Name="ReceivedAmount" />
+      <PropertyRef Name="ReceivedDate" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="ClientName" />
+      <PropertyRef Name="CreatedBy" />
+    </Key>
+    <Property Name="OrgId" Type="Int32" Nullable="false" />
+    <Property Name="ProjectId" Type="Int32" Nullable="false" />
+    <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ServiceCost" Type="Double" Nullable="false" />
+    <Property Name="CGST" Type="Double" Nullable="false" />
+    <Property Name="SGST" Type="Double" Nullable="false" />
+    <Property Name="IGST" Type="Double" Nullable="false" />
+    <Property Name="TDS" Type="Double" Nullable="false" />
+    <Property Name="Receivable" Type="Double" Nullable="false" />
+    <Property Name="ReceivedAmount" Type="Int32" Nullable="false" />
+    <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ProjectValue" Type="Int32" />
-    <Property Name="ProjectCreationDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ProjectDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="StatusOn" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="WorkCompletion" Type="Int32" />
-    <Property Name="StatusRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Spent" Type="Int32" Nullable="false" />
-    <Property Name="Received" Type="Int32" Nullable="false" />
-    <Property Name="OrgID" Type="Int32" Nullable="false" />
+    <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

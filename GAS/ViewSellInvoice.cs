@@ -30,5 +30,6 @@ namespace GAS
         public string ProjectName { get; set; }
         public string ProjectNumber { get; set; }
         public string ClientName { get; set; }
+        public int CreatedBy { get; set; }
     }
 }

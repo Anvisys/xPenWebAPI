@@ -657,11 +657,12 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewPurchaseInvoice' does not have a 
             <PropertyRef Name="SGST" />
             <PropertyRef Name="IGST" />
             <PropertyRef Name="TDS" />
-            <PropertyRef Name="Receivable" />
+            <PropertyRef Name="Payable" />
             <PropertyRef Name="PaidAmount" />
             <PropertyRef Name="PaidDate" />
             <PropertyRef Name="ProjectName" />
             <PropertyRef Name="ClientName" />
+            <PropertyRef Name="CreatedBy" />
           </Key>
           <Property Name="OrgId" Type="int" Nullable="false" />
           <Property Name="ProjectId" Type="int" Nullable="false" />
@@ -674,12 +675,13 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewPurchaseInvoice' does not have a 
           <Property Name="SGST" Type="float" Nullable="false" />
           <Property Name="IGST" Type="float" Nullable="false" />
           <Property Name="TDS" Type="float" Nullable="false" />
-          <Property Name="Receivable" Type="float" Nullable="false" />
+          <Property Name="Payable" Type="float" Nullable="false" />
           <Property Name="PaidAmount" Type="int" Nullable="false" />
           <Property Name="PaidDate" Type="datetime" Nullable="false" />
           <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
           <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -700,6 +702,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a prim
             <PropertyRef Name="ReceivedDate" />
             <PropertyRef Name="ProjectName" />
             <PropertyRef Name="ClientName" />
+            <PropertyRef Name="CreatedBy" />
           </Key>
           <Property Name="OrgId" Type="int" Nullable="false" />
           <Property Name="ProjectId" Type="int" Nullable="false" />
@@ -717,6 +720,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a prim
           <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
           <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewTDS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1113,12 +1117,13 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewPurchaseInvoice].[SGST] AS [SGST], 
     [ViewPurchaseInvoice].[IGST] AS [IGST], 
     [ViewPurchaseInvoice].[TDS] AS [TDS], 
-    [ViewPurchaseInvoice].[Receivable] AS [Receivable], 
+    [ViewPurchaseInvoice].[Payable] AS [Payable], 
     [ViewPurchaseInvoice].[PaidAmount] AS [PaidAmount], 
     [ViewPurchaseInvoice].[PaidDate] AS [PaidDate], 
     [ViewPurchaseInvoice].[ProjectName] AS [ProjectName], 
     [ViewPurchaseInvoice].[ProjectNumber] AS [ProjectNumber], 
-    [ViewPurchaseInvoice].[ClientName] AS [ClientName]
+    [ViewPurchaseInvoice].[ClientName] AS [ClientName], 
+    [ViewPurchaseInvoice].[CreatedBy] AS [CreatedBy]
     FROM [dbo].[ViewPurchaseInvoice] AS [ViewPurchaseInvoice]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewSellInvoice" EntityType="Self.ViewSellInvoice" store:Type="Views" store:Schema="dbo">
@@ -1138,7 +1143,8 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewSellInvoice].[ReceivedDate] AS [ReceivedDate], 
     [ViewSellInvoice].[ProjectName] AS [ProjectName], 
     [ViewSellInvoice].[ProjectNumber] AS [ProjectNumber], 
-    [ViewSellInvoice].[ClientName] AS [ClientName]
+    [ViewSellInvoice].[ClientName] AS [ClientName], 
+    [ViewSellInvoice].[CreatedBy] AS [CreatedBy]
     FROM [dbo].[ViewSellInvoice] AS [ViewSellInvoice]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="ViewTDS" EntityType="Self.ViewTDS" store:Type="Views" store:Schema="dbo">
@@ -1248,16 +1254,16 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <EntitySet Name="ViewPaymentReceiveds" EntityType="GASModel.ViewPaymentReceived" />
           <EntitySet Name="ViewProjectExpenses" EntityType="GASModel.ViewProjectExpense" />
           <EntitySet Name="ViewProjectStatus" EntityType="GASModel.ViewProjectStatu" />
-          <EntitySet Name="ViewPurchaseInvoices" EntityType="GASModel.ViewPurchaseInvoice" />
-          <EntitySet Name="ViewSellInvoices" EntityType="GASModel.ViewSellInvoice" />
           <EntitySet Name="ViewTDS" EntityType="GASModel.ViewTD" />
           <EntitySet Name="ViewTransactions" EntityType="GASModel.ViewTransaction" />
           <EntitySet Name="ViewTransactionDailyAccounts" EntityType="GASModel.ViewTransactionDailyAccount" />
           <EntitySet Name="ViewTransactionDailyAccountBalances" EntityType="GASModel.ViewTransactionDailyAccountBalance" />
           <EntitySet Name="ViewTransactionDailySummaries" EntityType="GASModel.ViewTransactionDailySummary" />
           <EntitySet Name="Projects" EntityType="GASModel.Project" />
-          <EntitySet Name="ViewExpenseItemStatusActivities" EntityType="GASModel.ViewExpenseItemStatusActivity" />
           <EntitySet Name="ViewProjects" EntityType="GASModel.ViewProject" />
+          <EntitySet Name="ViewExpenseItemStatusActivities" EntityType="GASModel.ViewExpenseItemStatusActivity" />
+          <EntitySet Name="ViewPurchaseInvoices" EntityType="GASModel.ViewPurchaseInvoice" />
+          <EntitySet Name="ViewSellInvoices" EntityType="GASModel.ViewSellInvoice" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1783,78 +1789,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="StatusRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="ViewPurchaseInvoice">
-          <Key>
-            <PropertyRef Name="OrgId" />
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="VendorName" />
-            <PropertyRef Name="InvoiceId" />
-            <PropertyRef Name="InvoiceNumber" />
-            <PropertyRef Name="InvoiceDate" />
-            <PropertyRef Name="ServiceCost" />
-            <PropertyRef Name="CGST" />
-            <PropertyRef Name="SGST" />
-            <PropertyRef Name="IGST" />
-            <PropertyRef Name="TDS" />
-            <PropertyRef Name="Receivable" />
-            <PropertyRef Name="PaidAmount" />
-            <PropertyRef Name="PaidDate" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="ClientName" />
-          </Key>
-          <Property Name="OrgId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ServiceCost" Type="Double" Nullable="false" />
-          <Property Name="CGST" Type="Double" Nullable="false" />
-          <Property Name="SGST" Type="Double" Nullable="false" />
-          <Property Name="IGST" Type="Double" Nullable="false" />
-          <Property Name="TDS" Type="Double" Nullable="false" />
-          <Property Name="Receivable" Type="Double" Nullable="false" />
-          <Property Name="PaidAmount" Type="Int32" Nullable="false" />
-          <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="ViewSellInvoice">
-          <Key>
-            <PropertyRef Name="OrgId" />
-            <PropertyRef Name="ProjectId" />
-            <PropertyRef Name="InvoiceId" />
-            <PropertyRef Name="InvoiceNumber" />
-            <PropertyRef Name="InvoiceDate" />
-            <PropertyRef Name="ServiceCost" />
-            <PropertyRef Name="CGST" />
-            <PropertyRef Name="SGST" />
-            <PropertyRef Name="IGST" />
-            <PropertyRef Name="TDS" />
-            <PropertyRef Name="Receivable" />
-            <PropertyRef Name="ReceivedAmount" />
-            <PropertyRef Name="ReceivedDate" />
-            <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="ClientName" />
-          </Key>
-          <Property Name="OrgId" Type="Int32" Nullable="false" />
-          <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ServiceCost" Type="Double" Nullable="false" />
-          <Property Name="CGST" Type="Double" Nullable="false" />
-          <Property Name="SGST" Type="Double" Nullable="false" />
-          <Property Name="IGST" Type="Double" Nullable="false" />
-          <Property Name="TDS" Type="Double" Nullable="false" />
-          <Property Name="Receivable" Type="Double" Nullable="false" />
-          <Property Name="ReceivedAmount" Type="Int32" Nullable="false" />
-          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="ViewTD">
           <Key>
             <PropertyRef Name="ID" />
@@ -1961,6 +1895,35 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="OrgID" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="ViewProject">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ClientName" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="ProjectCreationDate" />
+            <PropertyRef Name="StatusOn" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="Spent" />
+            <PropertyRef Name="Received" />
+            <PropertyRef Name="OrgID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectValue" Type="Int32" />
+          <Property Name="ProjectCreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProjectDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StatusOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WorkCompletion" Type="Int32" />
+          <Property Name="StatusRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Spent" Type="Int32" Nullable="false" />
+          <Property Name="Received" Type="Int32" Nullable="false" />
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="ViewExpenseItemStatusActivity">
           <Key>
             <PropertyRef Name="ActivityID" />
@@ -1993,34 +1956,81 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ProjectOwner" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="ViewProject">
+        <EntityType Name="ViewPurchaseInvoice">
           <Key>
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="ClientName" />
+            <PropertyRef Name="OrgId" />
+            <PropertyRef Name="ProjectId" />
+            <PropertyRef Name="VendorName" />
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="InvoiceNumber" />
+            <PropertyRef Name="InvoiceDate" />
+            <PropertyRef Name="ServiceCost" />
+            <PropertyRef Name="CGST" />
+            <PropertyRef Name="SGST" />
+            <PropertyRef Name="IGST" />
+            <PropertyRef Name="TDS" />
+            <PropertyRef Name="Payable" />
+            <PropertyRef Name="PaidAmount" />
+            <PropertyRef Name="PaidDate" />
             <PropertyRef Name="ProjectName" />
-            <PropertyRef Name="ProjectCreationDate" />
-            <PropertyRef Name="StatusOn" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="Spent" />
-            <PropertyRef Name="Received" />
-            <PropertyRef Name="OrgID" />
+            <PropertyRef Name="ClientName" />
+            <PropertyRef Name="CreatedBy" />
           </Key>
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="OrgId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ServiceCost" Type="Double" Nullable="false" />
+          <Property Name="CGST" Type="Double" Nullable="false" />
+          <Property Name="SGST" Type="Double" Nullable="false" />
+          <Property Name="IGST" Type="Double" Nullable="false" />
+          <Property Name="TDS" Type="Double" Nullable="false" />
+          <Property Name="Payable" Type="Double" Nullable="false" />
+          <Property Name="PaidAmount" Type="Int32" Nullable="false" />
+          <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ViewSellInvoice">
+          <Key>
+            <PropertyRef Name="OrgId" />
+            <PropertyRef Name="ProjectId" />
+            <PropertyRef Name="InvoiceId" />
+            <PropertyRef Name="InvoiceNumber" />
+            <PropertyRef Name="InvoiceDate" />
+            <PropertyRef Name="ServiceCost" />
+            <PropertyRef Name="CGST" />
+            <PropertyRef Name="SGST" />
+            <PropertyRef Name="IGST" />
+            <PropertyRef Name="TDS" />
+            <PropertyRef Name="Receivable" />
+            <PropertyRef Name="ReceivedAmount" />
+            <PropertyRef Name="ReceivedDate" />
+            <PropertyRef Name="ProjectName" />
+            <PropertyRef Name="ClientName" />
+            <PropertyRef Name="CreatedBy" />
+          </Key>
+          <Property Name="OrgId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ServiceCost" Type="Double" Nullable="false" />
+          <Property Name="CGST" Type="Double" Nullable="false" />
+          <Property Name="SGST" Type="Double" Nullable="false" />
+          <Property Name="IGST" Type="Double" Nullable="false" />
+          <Property Name="TDS" Type="Double" Nullable="false" />
+          <Property Name="Receivable" Type="Double" Nullable="false" />
+          <Property Name="ReceivedAmount" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectValue" Type="Int32" />
-          <Property Name="ProjectCreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProjectDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedByName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="StatusOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="WorkCompletion" Type="Int32" />
-          <Property Name="StatusRemark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Spent" Type="Int32" Nullable="false" />
-          <Property Name="Received" Type="Int32" Nullable="false" />
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2525,51 +2535,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ViewPurchaseInvoices">
-            <EntityTypeMapping TypeName="GASModel.ViewPurchaseInvoice">
-              <MappingFragment StoreEntitySet="ViewPurchaseInvoice">
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
-                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
-                <ScalarProperty Name="Receivable" ColumnName="Receivable" />
-                <ScalarProperty Name="TDS" ColumnName="TDS" />
-                <ScalarProperty Name="IGST" ColumnName="IGST" />
-                <ScalarProperty Name="SGST" ColumnName="SGST" />
-                <ScalarProperty Name="CGST" ColumnName="CGST" />
-                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ViewSellInvoices">
-            <EntityTypeMapping TypeName="GASModel.ViewSellInvoice">
-              <MappingFragment StoreEntitySet="ViewSellInvoice">
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
-                <ScalarProperty Name="Receivable" ColumnName="Receivable" />
-                <ScalarProperty Name="TDS" ColumnName="TDS" />
-                <ScalarProperty Name="IGST" ColumnName="IGST" />
-                <ScalarProperty Name="SGST" ColumnName="SGST" />
-                <ScalarProperty Name="CGST" ColumnName="CGST" />
-                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ViewTDS">
             <EntityTypeMapping TypeName="GASModel.ViewTD">
               <MappingFragment StoreEntitySet="ViewTDS">
@@ -2663,6 +2628,28 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ViewProjects">
+            <EntityTypeMapping TypeName="GASModel.ViewProject">
+              <MappingFragment StoreEntitySet="ViewProject">
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+                <ScalarProperty Name="Received" ColumnName="Received" />
+                <ScalarProperty Name="Spent" ColumnName="Spent" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StatusRemark" ColumnName="StatusRemark" />
+                <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
+                <ScalarProperty Name="StatusOn" ColumnName="StatusOn" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+                <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
+                <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ViewExpenseItemStatusActivities">
             <EntityTypeMapping TypeName="GASModel.ViewExpenseItemStatusActivity">
               <MappingFragment StoreEntitySet="ViewExpenseItemStatusActivity">
@@ -2686,25 +2673,50 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ViewProjects">
-            <EntityTypeMapping TypeName="GASModel.ViewProject">
-              <MappingFragment StoreEntitySet="ViewProject">
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-                <ScalarProperty Name="Received" ColumnName="Received" />
-                <ScalarProperty Name="Spent" ColumnName="Spent" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="StatusRemark" ColumnName="StatusRemark" />
-                <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
-                <ScalarProperty Name="StatusOn" ColumnName="StatusOn" />
-                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+          <EntitySetMapping Name="ViewPurchaseInvoices">
+            <EntityTypeMapping TypeName="GASModel.ViewPurchaseInvoice">
+              <MappingFragment StoreEntitySet="ViewPurchaseInvoice">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
-                <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
-                <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="ClientName" ColumnName="ClientName" />
                 <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+                <ScalarProperty Name="Payable" ColumnName="Payable" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="IGST" ColumnName="IGST" />
+                <ScalarProperty Name="SGST" ColumnName="SGST" />
+                <ScalarProperty Name="CGST" ColumnName="CGST" />
+                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewSellInvoices">
+            <EntityTypeMapping TypeName="GASModel.ViewSellInvoice">
+              <MappingFragment StoreEntitySet="ViewSellInvoice">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
+                <ScalarProperty Name="Receivable" ColumnName="Receivable" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="IGST" ColumnName="IGST" />
+                <ScalarProperty Name="SGST" ColumnName="SGST" />
+                <ScalarProperty Name="CGST" ColumnName="CGST" />
+                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

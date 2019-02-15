@@ -498,51 +498,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ViewPurchaseInvoices">
-      <EntityTypeMapping TypeName="GASModel.ViewPurchaseInvoice">
-        <MappingFragment StoreEntitySet="ViewPurchaseInvoice">
-          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-          <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-          <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
-          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
-          <ScalarProperty Name="Receivable" ColumnName="Receivable" />
-          <ScalarProperty Name="TDS" ColumnName="TDS" />
-          <ScalarProperty Name="IGST" ColumnName="IGST" />
-          <ScalarProperty Name="SGST" ColumnName="SGST" />
-          <ScalarProperty Name="CGST" ColumnName="CGST" />
-          <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
-          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
-          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-          <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ViewSellInvoices">
-      <EntityTypeMapping TypeName="GASModel.ViewSellInvoice">
-        <MappingFragment StoreEntitySet="ViewSellInvoice">
-          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-          <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-          <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
-          <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
-          <ScalarProperty Name="Receivable" ColumnName="Receivable" />
-          <ScalarProperty Name="TDS" ColumnName="TDS" />
-          <ScalarProperty Name="IGST" ColumnName="IGST" />
-          <ScalarProperty Name="SGST" ColumnName="SGST" />
-          <ScalarProperty Name="CGST" ColumnName="CGST" />
-          <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
-          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-          <ScalarProperty Name="OrgId" ColumnName="OrgId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ViewTDS">
       <EntityTypeMapping TypeName="GASModel.ViewTD">
         <MappingFragment StoreEntitySet="ViewTDS">
@@ -636,6 +591,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ViewProjects">
+      <EntityTypeMapping TypeName="GASModel.ViewProject">
+        <MappingFragment StoreEntitySet="ViewProject">
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="Received" ColumnName="Received" />
+          <ScalarProperty Name="Spent" ColumnName="Spent" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StatusRemark" ColumnName="StatusRemark" />
+          <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
+          <ScalarProperty Name="StatusOn" ColumnName="StatusOn" />
+          <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+          <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
+          <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ViewExpenseItemStatusActivities">
       <EntityTypeMapping TypeName="GASModel.ViewExpenseItemStatusActivity">
         <MappingFragment StoreEntitySet="ViewExpenseItemStatusActivity">
@@ -659,25 +636,50 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ViewProjects">
-      <EntityTypeMapping TypeName="GASModel.ViewProject">
-        <MappingFragment StoreEntitySet="ViewProject">
-          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-          <ScalarProperty Name="Received" ColumnName="Received" />
-          <ScalarProperty Name="Spent" ColumnName="Spent" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="StatusRemark" ColumnName="StatusRemark" />
-          <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
-          <ScalarProperty Name="StatusOn" ColumnName="StatusOn" />
-          <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+    <EntitySetMapping Name="ViewPurchaseInvoices">
+      <EntityTypeMapping TypeName="GASModel.ViewPurchaseInvoice">
+        <MappingFragment StoreEntitySet="ViewPurchaseInvoice">
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
-          <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
-          <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
-          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
           <ScalarProperty Name="ClientName" ColumnName="ClientName" />
           <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="Payable" ColumnName="Payable" />
+          <ScalarProperty Name="TDS" ColumnName="TDS" />
+          <ScalarProperty Name="IGST" ColumnName="IGST" />
+          <ScalarProperty Name="SGST" ColumnName="SGST" />
+          <ScalarProperty Name="CGST" ColumnName="CGST" />
+          <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewSellInvoices">
+      <EntityTypeMapping TypeName="GASModel.ViewSellInvoice">
+        <MappingFragment StoreEntitySet="ViewSellInvoice">
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+          <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
+          <ScalarProperty Name="Receivable" ColumnName="Receivable" />
+          <ScalarProperty Name="TDS" ColumnName="TDS" />
+          <ScalarProperty Name="IGST" ColumnName="IGST" />
+          <ScalarProperty Name="SGST" ColumnName="SGST" />
+          <ScalarProperty Name="CGST" ColumnName="CGST" />
+          <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="OrgId" ColumnName="OrgId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

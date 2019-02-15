@@ -11,4 +11,3 @@ C:\aaWork\Code\Git\xpenWebApi\GAPResources\obj\Debug\en-US\GAPResources.resource
 C:\aaWork\Code\Git\xpenWebApi\GAPResources\obj\Debug\fr-FR\GAPResources.resources.dll
 C:\aaWork\Code\Git\xpenWebApi\GAPResources\obj\Debug\GAPResources.dll
 C:\aaWork\Code\Git\xpenWebApi\GAPResources\obj\Debug\GAPResources.pdb
-C:\aaWork\Code\Git\xpenWebApi\GAPResources\obj\Debug\GAPResources.csprojAssemblyReference.cache

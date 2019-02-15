@@ -52,8 +52,73 @@ namespace GAS.Controllers
             }
         }
 
-        // Get Today Expense for an Employee
 
+        // Get unpaid Expenses for Manager
+
+        [Route("UnpaidExpense/{orgId}/Manager/{mgrId}")]
+        [HttpGet]
+        public IEnumerable<Expenses> GetUnpaidByManager(int orgId, int mgrId)
+        {
+            try
+            {
+
+                var ctx = new GASEntities();
+                var expData = (from ex in ctx.ViewActivities
+                               where ex.CreatedBy == mgrId 
+                               && ex.OrgID == orgId
+                               && (ex.ActivityStatus == "Added" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved")
+                               group ex by new { ex.EmployeeID, ex.ActivityStatus }
+                                   into groupEmpStatus
+
+                               select new Expenses
+                               {
+                                   EmployeeID = groupEmpStatus.Key.EmployeeID,
+                                   Status = groupEmpStatus.Key.ActivityStatus,
+                                   ExpenseAmount = (Int32)groupEmpStatus.Sum(x => x.Expenses),
+                                   ReceiveAmount = (Int32)groupEmpStatus.Sum(x => x.Received),
+                                   ActivityCount = groupEmpStatus.Select(c => c.ActivityID).Distinct().Count()
+                               });
+                return expData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        // Get unpaid Expenses for an Employee
+
+        [Route("UnpaidExpense/{orgId}")]
+        [HttpGet]
+        public IEnumerable<Expenses> GetUnpaidForAdmin(int orgId)
+        {
+            try
+            {
+
+                var ctx = new GASEntities();
+                var expData = (from ex in ctx.ViewActivities
+                               where ex.OrgID == orgId
+                               && (ex.ActivityStatus == "Added" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved")
+                               group ex by new { ex.EmployeeID, ex.ActivityStatus }
+                                   into groupEmpStatus
+
+                               select new Expenses
+                               {
+                                   EmployeeID = groupEmpStatus.Key.EmployeeID,
+                                   Status = groupEmpStatus.Key.ActivityStatus,
+                                   ExpenseAmount = (Int32)groupEmpStatus.Sum(x => x.Expenses),
+                                   ReceiveAmount = (Int32)groupEmpStatus.Sum(x => x.Received),
+                                   ActivityCount = groupEmpStatus.Select(c => c.ActivityID).Distinct().Count()
+                               });
+                return expData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        // Get Today Expense for an Employee
         [Route("TodayExpense/{orgId}/Employee/{employeeID}")]
         [HttpGet]
         public IEnumerable<Expenses> GetTodayExpenseOfEmployee(int orgId, int employeeID)
@@ -85,11 +150,75 @@ namespace GAS.Controllers
             }
         }
 
+        // Get Today Expense for Manager
+        [Route("TodayExpense/{orgId}/Manager/{mgrId}")]
+        [HttpGet]
+        public IEnumerable<Expenses> GetTodayExpenseOfManager(int orgId, int mgrId)
+        {
+            try
+            {
+                var ctx = new GASEntities();
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                               where ex.ApproverID == mgrId
+                               && DbFunctions.TruncateTime(ex.ExpenseDate) == DateTime.Today.Date
+                               && (ex.ActivityStatus == "Paid" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved")
+                               group ex by new { ex.ActivityStatus }
+                                   into groupEmpExpense
+
+                               select new Expenses
+                               {
+                                   Status = groupEmpExpense.Key.ActivityStatus,
+                                   ExpenseAmount = (Int32)groupEmpExpense.Sum(x => x.ExpenseAmount),
+                                   ReceiveAmount = (Int32)groupEmpExpense.Sum(x => x.ReceiveAmount),
+
+                               });
+
+                return expData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        // Get Today Expense for an Employee
+        [Route("Running/{orgId}/Employee/{employeeID}")]
+        [HttpGet]
+        public IEnumerable<ActiveProject> GetRunningProjectsOfEmployee(int orgId, int employeeID)
+        {
+            try
+            {
+
+                var ctx = new GASEntities();
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                               where ex.EmployeeID == employeeID
+                               && (ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved" || ex.ActivityStatus == "Initiated")
+                               select new ActiveProject {
+                                   ProjectID = ex.ProjectID,
+                                   ProjectName = ex.ProjectName,
+                                   ProjectManager = ex.ProjectOwner
+                               }).Distinct();
+
+                return expData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+
+
+
+
+
         // Get Active Projects for an Employee
 
         [Route("ActiveProjects/{orgId}/Employee/{employeeID}")]
         [HttpGet]
-        public IEnumerable<ActiveProject> GetActiveProjectsOfEmployee(int orgId, int employeeID)
+        public IEnumerable<ViewExpenseItemStatusActivity> GetActiveProjectsOfEmployee(int orgId, int employeeID)
         {
             try
             {
@@ -99,13 +228,8 @@ namespace GAS.Controllers
                     var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                     where ex.EmployeeID == employeeID
                                      && (ex.ActivityStatus != "Paid")
-                                     select new ActiveProject
-                                     {
-                                         ProjectID = ex.ProjectID,
-                                         Name = ex.ProjectName,
-                                         Manager = ex.ProjectOwner
-                                     }
-                                        ).Distinct().ToList();
+                                     select ex
+                                        ).ToList();
 
                     //var expData = (from prj in ctx.Projects.Where(p => expData1.Contains(p.ProjectID))
                     //               select new ActiveProject()
@@ -137,6 +261,57 @@ namespace GAS.Controllers
                 throw ex;
             }
         }
+
+
+
+
+        // Get IP Sales for Manager
+        [Route("IPSalesInvoice/{orgId}/Employee/{MgrId}/{Margin}")]
+        [HttpGet]
+        public IEnumerable<ViewSellInvoice> GetIPSalesInvoice(int orgId, int MgrId, int Margin)
+        {
+            try
+            {
+
+                var ctx = new GASEntities();
+                var invData = (from inv in ctx.ViewSellInvoices
+                               where inv.CreatedBy == MgrId
+                               && inv.OrgId == orgId
+                               && (inv.Receivable - Margin >= inv.ReceivedAmount)
+                               select inv);
+
+                return invData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        // Get IP Purchase for Manager
+        [Route("IPPurchaseInvoice/{orgId}/Employee/{MgrId}/{Margin}")]
+        [HttpGet]
+        public IEnumerable<ViewPurchaseInvoice> GetIPPurchaseInvoice(int orgId, int MgrId, int Margin)
+        {
+            try
+            {
+
+                var ctx = new GASEntities();
+                var invData = (from inv in ctx.ViewPurchaseInvoices
+                               where inv.CreatedBy == MgrId
+                               && inv.OrgId == orgId
+                               && (inv.Payable - Margin >= inv.PaidAmount)
+                               select inv);
+
+                return invData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
 
     }
 }

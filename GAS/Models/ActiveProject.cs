@@ -8,8 +8,8 @@ namespace GAS.Models
     public class ActiveProject
     {
         public int ProjectID { get; set; }
-        public string Name { get; set; }
-        public string Manager { get; set; }
+        public string ProjectName { get; set; }
+        public string ProjectManager { get; set; }
 
     }
 }

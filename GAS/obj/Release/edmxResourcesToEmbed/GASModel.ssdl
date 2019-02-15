@@ -652,11 +652,12 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewPurchaseInvoice' does not have a 
       <PropertyRef Name="SGST" />
       <PropertyRef Name="IGST" />
       <PropertyRef Name="TDS" />
-      <PropertyRef Name="Receivable" />
+      <PropertyRef Name="Payable" />
       <PropertyRef Name="PaidAmount" />
       <PropertyRef Name="PaidDate" />
       <PropertyRef Name="ProjectName" />
       <PropertyRef Name="ClientName" />
+      <PropertyRef Name="CreatedBy" />
     </Key>
     <Property Name="OrgId" Type="int" Nullable="false" />
     <Property Name="ProjectId" Type="int" Nullable="false" />
@@ -669,12 +670,13 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewPurchaseInvoice' does not have a 
     <Property Name="SGST" Type="float" Nullable="false" />
     <Property Name="IGST" Type="float" Nullable="false" />
     <Property Name="TDS" Type="float" Nullable="false" />
-    <Property Name="Receivable" Type="float" Nullable="false" />
+    <Property Name="Payable" Type="float" Nullable="false" />
     <Property Name="PaidAmount" Type="int" Nullable="false" />
     <Property Name="PaidDate" Type="datetime" Nullable="false" />
     <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
     <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -695,6 +697,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a prim
       <PropertyRef Name="ReceivedDate" />
       <PropertyRef Name="ProjectName" />
       <PropertyRef Name="ClientName" />
+      <PropertyRef Name="CreatedBy" />
     </Key>
     <Property Name="OrgId" Type="int" Nullable="false" />
     <Property Name="ProjectId" Type="int" Nullable="false" />
@@ -712,6 +715,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a prim
     <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
     <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'LetsMeet.dbo.ViewTDS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1108,12 +1112,13 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewPurchaseInvoice].[SGST] AS [SGST], 
     [ViewPurchaseInvoice].[IGST] AS [IGST], 
     [ViewPurchaseInvoice].[TDS] AS [TDS], 
-    [ViewPurchaseInvoice].[Receivable] AS [Receivable], 
+    [ViewPurchaseInvoice].[Payable] AS [Payable], 
     [ViewPurchaseInvoice].[PaidAmount] AS [PaidAmount], 
     [ViewPurchaseInvoice].[PaidDate] AS [PaidDate], 
     [ViewPurchaseInvoice].[ProjectName] AS [ProjectName], 
     [ViewPurchaseInvoice].[ProjectNumber] AS [ProjectNumber], 
-    [ViewPurchaseInvoice].[ClientName] AS [ClientName]
+    [ViewPurchaseInvoice].[ClientName] AS [ClientName], 
+    [ViewPurchaseInvoice].[CreatedBy] AS [CreatedBy]
     FROM [dbo].[ViewPurchaseInvoice] AS [ViewPurchaseInvoice]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewSellInvoice" EntityType="Self.ViewSellInvoice" store:Type="Views" store:Schema="dbo">
@@ -1133,7 +1138,8 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewSellInvoice].[ReceivedDate] AS [ReceivedDate], 
     [ViewSellInvoice].[ProjectName] AS [ProjectName], 
     [ViewSellInvoice].[ProjectNumber] AS [ProjectNumber], 
-    [ViewSellInvoice].[ClientName] AS [ClientName]
+    [ViewSellInvoice].[ClientName] AS [ClientName], 
+    [ViewSellInvoice].[CreatedBy] AS [CreatedBy]
     FROM [dbo].[ViewSellInvoice] AS [ViewSellInvoice]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewTDS" EntityType="Self.ViewTDS" store:Type="Views" store:Schema="dbo">

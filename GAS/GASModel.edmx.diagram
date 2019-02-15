@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6aed07014b574f63a69ac3bb30e1a532" Name="Diagram1" ZoomLevel="57">
+      <Diagram DiagramId="6aed07014b574f63a69ac3bb30e1a532" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="GASModel.User" Width="1.5" PointX="2.75" PointY="0.625" />
         <EntityTypeShape EntityType="GASModel.ViewOrganization" Width="1.5" PointX="0.5" PointY="0.5" />
         <EntityTypeShape EntityType="GASModel.Transaction" Width="1.5" PointX="8.625" PointY="0.5" />
@@ -38,16 +38,16 @@
         <EntityTypeShape EntityType="GASModel.ViewPaymentReceived" Width="1.5" PointX="8.75" PointY="16.75" />
         <EntityTypeShape EntityType="GASModel.ViewProjectExpense" Width="1.5" PointX="16.75" PointY="11.75" />
         <EntityTypeShape EntityType="GASModel.ViewProjectStatu" Width="1.5" PointX="12.75" PointY="16.75" />
-        <EntityTypeShape EntityType="GASModel.ViewPurchaseInvoice" Width="1.5" PointX="16.75" PointY="14.75" />
-        <EntityTypeShape EntityType="GASModel.ViewSellInvoice" Width="1.5" PointX="18.75" PointY="0.75" />
         <EntityTypeShape EntityType="GASModel.ViewTD" Width="1.5" PointX="18.75" PointY="5.75" />
         <EntityTypeShape EntityType="GASModel.ViewTransaction" Width="1.5" PointX="18.75" PointY="9.75" />
         <EntityTypeShape EntityType="GASModel.ViewTransactionDailyAccount" Width="1.5" PointX="18.75" PointY="15.75" />
         <EntityTypeShape EntityType="GASModel.ViewTransactionDailyAccountBalance" Width="1.5" PointX="0.75" PointY="19.75" />
         <EntityTypeShape EntityType="GASModel.ViewTransactionDailySummary" Width="1.5" PointX="2.75" PointY="19.75" />
         <EntityTypeShape EntityType="GASModel.Project" Width="1.5" PointX="5.375" PointY="19.75" />
-        <EntityTypeShape EntityType="GASModel.ViewExpenseItemStatusActivity" Width="1.5" PointX="7.375" PointY="19.75" />
         <EntityTypeShape EntityType="GASModel.ViewProject" Width="1.5" PointX="9.375" PointY="19.75" />
+        <EntityTypeShape EntityType="GASModel.ViewExpenseItemStatusActivity" Width="1.5" PointX="11.375" PointY="19.75" />
+        <EntityTypeShape EntityType="GASModel.ViewPurchaseInvoice" Width="1.5" PointX="15.375" PointY="16.75" />
+        <EntityTypeShape EntityType="GASModel.ViewSellInvoice" Width="1.5" PointX="17.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

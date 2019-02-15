@@ -70,7 +70,7 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                             var expData = (from ex in ctx.ViewExpenseItemDailyStatus
                                where ex.ProjectID == id
-                               orderby ex.ExpensesDate descending
+                               orderby ex.ExpensesDate ascending
                                group ex by new { ex.ExpensesDate, ex.ActivityStatus }
                                 into dailyEx
                                select new DailyExpense
@@ -91,18 +91,20 @@ namespace GAS.Controllers
         }
 
 
-        [Route("Employee/{id}")]
+        [Route("{OrgId}/Employee/{id}")]
         [HttpGet]
-        public IEnumerable<DailyExpense> GetByEmployee(int id)
+        public IEnumerable<DailyExpense> GetByEmployee(int OrgId, int id)
         {
             try
             {
 
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemDailyStatus
-                               where ex.EmployeeID == id orderby ex.ExpensesDate descending
+                               where ex.EmployeeID == id && ex.OrgID == OrgId
+                               orderby ex.ExpensesDate descending
                                group ex by new { ex.ExpensesDate, ex.ActivityStatus }
                                    into dailyEx
+                                   orderby dailyEx.Key.ExpensesDate
                                select new DailyExpense
                                {
                                    ExpenseDate = (DateTime)dailyEx.Key.ExpensesDate,

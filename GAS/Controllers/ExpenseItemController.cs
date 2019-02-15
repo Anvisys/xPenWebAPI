@@ -58,7 +58,27 @@ namespace GAS.Controllers
             }
         }
 
-     
+        // Get expense list of an employee in an Organization
+
+        [Route("{OrgId}/Employee/{EmployeeID}")]
+        [HttpGet]
+        public IEnumerable<ViewExpenseItemStatusActivity> GetExpensesEmployee(int OrgId, int EmployeeID)
+        {
+            try
+            {
+
+                var ctx = new GASEntities();
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                               where ex.OrgID == OrgId && ex.EmployeeID == EmployeeID && (ex.ItemAction == "Added" )
+                               orderby ex.ExpenseDate descending
+                               select ex).Take(5);
+                return expData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         // Get expense list of an employee in a project
 
