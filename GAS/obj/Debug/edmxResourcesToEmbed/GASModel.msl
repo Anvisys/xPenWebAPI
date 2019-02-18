@@ -431,22 +431,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ViewExpenseItemDailyStatus">
-      <EntityTypeMapping TypeName="GASModel.ViewExpenseItemDailyStatu">
-        <MappingFragment StoreEntitySet="ViewExpenseItemDailyStatus">
-          <ScalarProperty Name="Received" ColumnName="Received" />
-          <ScalarProperty Name="Expense" ColumnName="Expense" />
-          <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
-          <ScalarProperty Name="ExpensesDate" ColumnName="ExpensesDate" />
-          <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ViewMonthCumulativeExpenses">
       <EntityTypeMapping TypeName="GASModel.ViewMonthCumulativeExpense">
         <MappingFragment StoreEntitySet="ViewMonthCumulativeExpense">
@@ -680,6 +664,22 @@
           <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
           <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
           <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewExpenseItemDailyStatus">
+      <EntityTypeMapping TypeName="GASModel.ViewExpenseItemDailyStatu">
+        <MappingFragment StoreEntitySet="ViewExpenseItemDailyStatus">
+          <ScalarProperty Name="Received" ColumnName="Received" />
+          <ScalarProperty Name="Expense" ColumnName="Expense" />
+          <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+          <ScalarProperty Name="ExpensesDate" ColumnName="ExpensesDate" />
+          <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

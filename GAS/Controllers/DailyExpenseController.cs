@@ -90,6 +90,35 @@ namespace GAS.Controllers
             }
         }
 
+        [Route("{OrgId}/Manager/{id}")]
+        [HttpGet]
+        public IEnumerable<DailyExpense> GetByManager(int OrgId, int id)
+        {
+            try
+            {
+                var ctx = new GASEntities();
+                var expData = (from ex in ctx.ViewExpenseItemDailyStatus
+                               where ex.ApproverID == id && ex.OrgID == OrgId 
+                               orderby ex.ExpensesDate ascending
+                               group ex by new { ex.ExpensesDate, ex.ActivityStatus }
+                    into dailyEx
+                               select new DailyExpense
+                               {
+                                   ExpenseDate = (DateTime)dailyEx.Key.ExpensesDate,
+                                   Status = dailyEx.Key.ActivityStatus,
+                                   ExpenseAmount = (int)dailyEx.Sum(x => x.Expense),
+                                   ReceiveAmount = (int)dailyEx.Sum(x => x.Received)
+                               }).Take(10);
+
+
+                return expData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
 
         [Route("{OrgId}/Employee/{id}")]
         [HttpGet]

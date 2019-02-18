@@ -134,7 +134,8 @@ namespace GAS.Controllers
                     ints1[1] = "Added";
                     ints1[2] = "Initiated";
                     ints1[3] = "Submitted";
-                    ints1[4] = "Approved";
+                    ints1[4] = "Quick";
+                    ints1[5] = "Approved";
                     var actData = (from tr in ctx.NewViewActivities
                                    where tr.OrgID == OrgID
                                    orderby tr.ActivityID descending
@@ -148,6 +149,7 @@ namespace GAS.Controllers
                     ints1[1] = "Initiated";
                     ints1[2] = "Submitted";
                     ints1[3] = "Approved";
+                    ints1[4] = "Quick";
                     var actData = (from tr in ctx.NewViewActivities
                                    where  tr.OrgID == OrgID && ints1.Contains(tr.ActivityStatus) && tr.Settlement == 0
                                    orderby tr.ActivityID descending
@@ -200,6 +202,7 @@ namespace GAS.Controllers
                     ints1[2] = "Initiated";
                     ints1[3] = "Submitted";
                     ints1[4] = "Approved";
+                    ints1[5] = "Quick";
 
                     var actData = (from tr in ctx.NewViewActivities
                                    where tr.Approver == id && tr.OrgID == OrgID 
@@ -212,6 +215,7 @@ namespace GAS.Controllers
                     ints1 = new String[4];
                     ints1[0] = "Submitted";
                     ints1[1] = "Approved";
+                    ints1[2] = "Quick";
                     var actData = (from tr in ctx.NewViewActivities
                                    where tr.Approver == id && tr.OrgID == OrgID && ints1.Contains(tr.ActivityStatus) && tr.Settlement==0
                                    orderby tr.ActivityID descending
@@ -264,7 +268,8 @@ namespace GAS.Controllers
                     ints1[1] = "Added";
                     ints1[2] = "Initiated";
                     ints1[3] = "Submitted";
-                    ints1[4] = "Approved";
+                    ints1[4] = "Quick";
+                    ints1[5] = "Approved";
                     var actData = (from tr in ctx.NewViewActivities
                                    where tr.EmployeeID == id && tr.OrgID == OrgID
                                    orderby tr.ActivityID descending
@@ -278,6 +283,7 @@ namespace GAS.Controllers
                     ints1[1] = "Initiated";
                     ints1[2] = "Submitted";
                     ints1[3] = "Approved";
+                    ints1[4] = "Quick";
                     var actData = (from tr in ctx.NewViewActivities
                                    where tr.EmployeeID == id && tr.OrgID == OrgID && ints1.Contains(tr.ActivityStatus) && tr.Settlement == 0
                                    orderby tr.ActivityID descending
@@ -355,7 +361,8 @@ namespace GAS.Controllers
                     ints1[1] = "Added";
                     ints1[2] = "Initiated";
                     ints1[3] = "Submitted";
-                    ints1[4] = "Approved";
+                    ints1[4] = "Quick";
+                    ints1[5] = "Approved";
                     var actData = (from tr in ctx.NewViewActivities
                                    where tr.ProjectID == id && tr.OrgID == OrgID
                                    orderby tr.ActivityID descending
@@ -369,6 +376,7 @@ namespace GAS.Controllers
                     ints1[1] = "Initiated";
                     ints1[2] = "Submitted";
                     ints1[3] = "Approved";
+                    ints1[4] = "Quick";
                     var actData = (from tr in ctx.NewViewActivities
                                    where tr.ProjectID == id && tr.OrgID == OrgID && ints1.Contains(tr.ActivityStatus) && tr.Settlement == 0
                                    orderby tr.ActivityID descending

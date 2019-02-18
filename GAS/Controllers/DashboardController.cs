@@ -160,8 +160,8 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.ApproverID == mgrId
-                               && DbFunctions.TruncateTime(ex.ExpenseDate) == DateTime.Today.Date
-                               && (ex.ActivityStatus == "Paid" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved")
+                               && DbFunctions.TruncateTime(ex.ExpenseDate) == DbFunctions.TruncateTime(DateTime.Today.Date)
+                               && (ex.ItemAction == "Added" || ex.ItemAction == "Submitted" )
                                group ex by new { ex.ActivityStatus }
                                    into groupEmpExpense
 

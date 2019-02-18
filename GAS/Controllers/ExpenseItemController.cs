@@ -27,6 +27,7 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.OrgID == id && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month
+                                && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
                                orderby ex.UpdatedOn descending
                                select ex);
                 return expData;
@@ -48,6 +49,7 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
                                where ex.ProjectID == id
+                                && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
@@ -69,7 +71,8 @@ namespace GAS.Controllers
 
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.OrgID == OrgId && ex.EmployeeID == EmployeeID && (ex.ItemAction == "Added" )
+                               where ex.OrgID == OrgId && ex.EmployeeID == EmployeeID
+                               && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex).Take(5);
                 return expData;
@@ -91,7 +94,8 @@ namespace GAS.Controllers
 
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.ProjectID == id && ex.EmployeeID == EmployeeID && (ex.ItemAction == "Added" || ex.ItemAction == "Paid")
+                               where ex.ProjectID == id && ex.EmployeeID == EmployeeID 
+                               && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
@@ -112,7 +116,7 @@ namespace GAS.Controllers
 
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.ActivityID == id && (ex.ItemAction == "Added" || ex.ItemAction == "Paid")
+                               where ex.ActivityID == id && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
@@ -136,8 +140,8 @@ namespace GAS.Controllers
 
                 var ctx = new GASEntities();
                 var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.EmployeeID == employeeID && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month 
-                               && (ex.ItemAction == "Added" || ex.ItemAction == "Paid")
+                               where ex.EmployeeID == employeeID && ((DateTime)ex.ExpenseDate).Year == year && ((DateTime)ex.ExpenseDate).Month == month
+                                 && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex );
                 return expData;
@@ -152,34 +156,38 @@ namespace GAS.Controllers
 
         [Route("Organization/{orgId}/Employee/{employeeID}/{year}/{month}")]
         [HttpGet]
-        public IEnumerable<dynamic> GetByDate(int orgId, int employeeID, int year, int month)
+        public HttpResponseMessage GetByDate(int orgId, int employeeID, int year, int month)
         {
             try
             {
-                 
-                using (var ctx = new GASEntities())
-                {
-                    var query =
-                    from act in ctx.Activities
-                    join eItms in ctx.ExpenseItems on act.ActivityID equals eItms.ActivityID
-                    join prj in ctx.Projects on act.ProjectID equals prj.ProjectID
-                    where act.OrgID == orgId && act.EmployeeID == employeeID
-                    && eItms.ExpenseDate.Year == year && eItms.ExpenseDate.Month == month
-                    orderby eItms.ExpenseDate descending
-                    select new 
-                    { 
-                        ItemName = eItms.ItemName,
-                        ExpenseAmount = eItms.ExpenseAmount,
-                        ExpenseDate = eItms.ExpenseDate,
-                        ActivityName = act.ActivityName,
-                        ProjectName = prj.ProjectName
- 
-                    };
 
-                    return query.ToList();
-                }
+                /*  using (var ctx = new GASEntities())
+                  {
+                      var query =
+                      from act in ctx.Activities
+                      join eItms in ctx.ExpenseItems on act.ActivityID equals eItms.ActivityID
+                      join prj in ctx.Projects on act.ProjectID equals prj.ProjectID
+                      where act.OrgID == orgId && act.EmployeeID == employeeID
+                      && eItms.ExpenseDate.Year == year && eItms.ExpenseDate.Month == month
+                      orderby eItms.ExpenseDate descending
+                      select new 
+                      { 
+                          ItemName = eItms.ItemName,
+                          ExpenseAmount = eItms.ExpenseAmount,
+                          ExpenseDate = eItms.ExpenseDate,
+                          ActivityName = act.ActivityName,
+                          ProjectName = prj.ProjectName
 
-                
+                      };
+
+                      return query.ToList();
+                  }*/
+
+                String resp = "{\"Response\":\"Undefine\"}";
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(resp, System.Text.Encoding.UTF8, "application/json");
+                return response;
+
             }
             catch (Exception ex)
             {
@@ -192,14 +200,16 @@ namespace GAS.Controllers
 
         [Route("Manager/{id}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemDailyStatu> GetByManager(int id)
+        public IEnumerable<ViewExpenseItemStatusActivity> GetByManager(int id)
         {
             try
             {
 
                 var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemDailyStatus
-                               where ex.ApproverID == id orderby ex.ExpensesDate descending
+                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                               where ex.ApproverID == id 
+                               && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
+                               orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
             }

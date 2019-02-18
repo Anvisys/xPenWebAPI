@@ -1248,7 +1248,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <EntitySet Name="ViewAdvances" EntityType="GASModel.ViewAdvance" />
           <EntitySet Name="ViewAdvanceItemNames" EntityType="GASModel.ViewAdvanceItemName" />
           <EntitySet Name="ViewAdvanceStatus" EntityType="GASModel.ViewAdvanceStatu" />
-          <EntitySet Name="ViewExpenseItemDailyStatus" EntityType="GASModel.ViewExpenseItemDailyStatu" />
           <EntitySet Name="ViewMonthCumulativeExpenses" EntityType="GASModel.ViewMonthCumulativeExpense" />
           <EntitySet Name="ViewPaymentGivens" EntityType="GASModel.ViewPaymentGiven" />
           <EntitySet Name="ViewPaymentReceiveds" EntityType="GASModel.ViewPaymentReceived" />
@@ -1264,6 +1263,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <EntitySet Name="ViewExpenseItemStatusActivities" EntityType="GASModel.ViewExpenseItemStatusActivity" />
           <EntitySet Name="ViewPurchaseInvoices" EntityType="GASModel.ViewPurchaseInvoice" />
           <EntitySet Name="ViewSellInvoices" EntityType="GASModel.ViewSellInvoice" />
+          <EntitySet Name="ViewExpenseItemDailyStatus" EntityType="GASModel.ViewExpenseItemDailyStatu" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1723,24 +1723,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="AdvanceStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="AdvanceModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="ViewExpenseItemDailyStatu">
-          <Key>
-            <PropertyRef Name="OrgID" />
-            <PropertyRef Name="ProjectID" />
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="EmployeeID" />
-          </Key>
-          <Property Name="OrgID" Type="Int32" Nullable="false" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="ApproverID" Type="Int32" />
-          <Property Name="ExpensesDate" Type="DateTime" Precision="0" />
-          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Expense" Type="Int32" />
-          <Property Name="Received" Type="Int32" />
-        </EntityType>
         <EntityType Name="ViewMonthCumulativeExpense">
           <Key>
             <PropertyRef Name="UserID" />
@@ -2031,6 +2013,24 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
           <Property Name="ProjectNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ViewExpenseItemDailyStatu">
+          <Key>
+            <PropertyRef Name="OrgID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="ActivityID" />
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="OrgID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ApproverID" Type="Int32" />
+          <Property Name="ExpensesDate" Type="DateTime" Precision="0" />
+          <Property Name="ActivityStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Expense" Type="Int32" />
+          <Property Name="Received" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2468,22 +2468,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ViewExpenseItemDailyStatus">
-            <EntityTypeMapping TypeName="GASModel.ViewExpenseItemDailyStatu">
-              <MappingFragment StoreEntitySet="ViewExpenseItemDailyStatus">
-                <ScalarProperty Name="Received" ColumnName="Received" />
-                <ScalarProperty Name="Expense" ColumnName="Expense" />
-                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
-                <ScalarProperty Name="ExpensesDate" ColumnName="ExpensesDate" />
-                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ViewMonthCumulativeExpenses">
             <EntityTypeMapping TypeName="GASModel.ViewMonthCumulativeExpense">
               <MappingFragment StoreEntitySet="ViewMonthCumulativeExpense">
@@ -2717,6 +2701,22 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
                 <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewExpenseItemDailyStatus">
+            <EntityTypeMapping TypeName="GASModel.ViewExpenseItemDailyStatu">
+              <MappingFragment StoreEntitySet="ViewExpenseItemDailyStatus">
+                <ScalarProperty Name="Received" ColumnName="Received" />
+                <ScalarProperty Name="Expense" ColumnName="Expense" />
+                <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+                <ScalarProperty Name="ExpensesDate" ColumnName="ExpensesDate" />
+                <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="OrgID" ColumnName="OrgID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
