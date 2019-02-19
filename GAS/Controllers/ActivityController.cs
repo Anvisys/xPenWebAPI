@@ -27,7 +27,7 @@ namespace GAS.Controllers
 
                 if (Status == "Show All")
                 {
-                    ints1 = new String[5];
+                    ints1 = new String[6];
                     ints1[0] = "Paid";
                     ints1[1] = "Added";
                     ints1[2] = "Initiated";
@@ -36,9 +36,12 @@ namespace GAS.Controllers
                 }
                 else if (Status == "Open")
                 {
-                    ints1 = new String[4];
-                    ints1[0] = "Submitted";
-                    ints1[1] = "Approved";
+                    ints1 = new String[5];
+                    ints1[0] = "Added";
+                    ints1[1] = "Initiated";
+                    ints1[2] = "Submitted";
+                    ints1[3] = "Approved";
+                    ints1[4] = "Quick";
                 }
                 else if (Status == "Closed")
                 {
@@ -129,7 +132,7 @@ namespace GAS.Controllers
 
                 if (Status == "Show All")
                 {
-                    ints1 = new String[5];
+                    ints1 = new String[6];
                     ints1[0] = "Paid";
                     ints1[1] = "Added";
                     ints1[2] = "Initiated";
@@ -144,7 +147,7 @@ namespace GAS.Controllers
                 }
                 else if (Status == "Open")
                 {
-                    ints1 = new String[4];
+                    ints1 = new String[5];
                     ints1[0] = "Added";
                     ints1[1] = "Initiated";
                     ints1[2] = "Submitted";
@@ -196,7 +199,7 @@ namespace GAS.Controllers
                 
                 if (Status == "Show All")
                 {
-                    ints1 = new String[5];
+                    ints1 = new String[6];
                     ints1[0] = "Paid";
                     ints1[1] = "Added";
                     ints1[2] = "Initiated";
@@ -212,10 +215,12 @@ namespace GAS.Controllers
                 }
                 else if (Status == "Open")
                 {
-                    ints1 = new String[4];
+                    ints1 = new String[5];
                     ints1[0] = "Submitted";
                     ints1[1] = "Approved";
                     ints1[2] = "Quick";
+                    ints1[3] = "Added";
+                    ints1[4] = "Initiated";
                     var actData = (from tr in ctx.NewViewActivities
                                    where tr.Approver == id && tr.OrgID == OrgID && ints1.Contains(tr.ActivityStatus) && tr.Settlement==0
                                    orderby tr.ActivityID descending
@@ -263,7 +268,7 @@ namespace GAS.Controllers
                 
                 if (Status == "Show All")
                 {
-                    ints1 = new String[5];
+                    ints1 = new String[6];
                     ints1[0] = "Paid";
                     ints1[1] = "Added";
                     ints1[2] = "Initiated";
@@ -278,7 +283,7 @@ namespace GAS.Controllers
                 }
                 else if (Status== "Open")
                 {
-                    ints1 = new String[4];
+                    ints1 = new String[5];
                     ints1[0] = "Added";
                     ints1[1] = "Initiated";
                     ints1[2] = "Submitted";
@@ -356,7 +361,7 @@ namespace GAS.Controllers
 
                 if (Status == "Show All")
                 {
-                    ints1 = new String[5];
+                    ints1 = new String[6];
                     ints1[0] = "Paid";
                     ints1[1] = "Added";
                     ints1[2] = "Initiated";
@@ -371,7 +376,7 @@ namespace GAS.Controllers
                 }
                 else if (Status == "Open")
                 {
-                    ints1 = new String[4];
+                    ints1 = new String[5];
                     ints1[0] = "Added";
                     ints1[1] = "Initiated";
                     ints1[2] = "Submitted";
