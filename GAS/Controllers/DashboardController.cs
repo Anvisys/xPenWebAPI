@@ -313,5 +313,53 @@ namespace GAS.Controllers
         }
 
 
+
+        // Get IP Sales for Admin
+        [Route("IPSalesInvoice/{orgId}/{Margin}")]
+        [HttpGet]
+        public IEnumerable<ViewSellInvoice> GetIPSalesInvoiceForAdmin(int orgId, int Margin)
+        {
+            try
+            {
+
+                var ctx = new GASEntities();
+                var invData = (from inv in ctx.ViewSellInvoices
+                               where inv.OrgId == orgId
+                               && (inv.Receivable - Margin >= inv.ReceivedAmount)
+                               select inv);
+
+                return invData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        // Get IP Purchase for Admin
+        [Route("IPPurchaseInvoice/{orgId}/{Margin}")]
+        [HttpGet]
+        public IEnumerable<ViewPurchaseInvoice> GetIPPurchaseInvoiceForAdmin(int orgId, int Margin)
+        {
+            try
+            {
+
+                var ctx = new GASEntities();
+                var invData = (from inv in ctx.ViewPurchaseInvoices
+                               where inv.OrgId == orgId
+                               && (inv.Payable - Margin >= inv.PaidAmount)
+                               select inv);
+
+                return invData;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+
     }
 }
