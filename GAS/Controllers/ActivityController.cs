@@ -17,7 +17,7 @@ namespace GAS.Controllers
         // GET: api/Activity/ByOrg/id
         [Route("Organization/{id}/Status/{Status}")]
         [HttpGet]
-        public IEnumerable<NewViewActivity> GetByOrg(int id, String Status)
+        public IHttpActionResult GetByOrg(int id, String Status)
         {
             try
             {
@@ -53,11 +53,11 @@ namespace GAS.Controllers
                                where tr.OrgID == id && ints1.Contains(tr.ActivityStatus)
                                orderby tr.ActivityID descending
                                select tr).Take(20);
-                return actData;
+                return Ok(actData);
             }
             catch (Exception ex)
             {
-                return null;
+                return InternalServerError();
             }
         }
 
