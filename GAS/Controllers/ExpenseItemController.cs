@@ -7,7 +7,9 @@ using System.Web.Http;
 
 using System.Web.Http.Cors;
 using GAS.Models;
-using System.Data.Entity.Core.Objects;
+
+using GAS.Infrastructure;
+
 
 namespace GAS.Controllers
 {
@@ -255,28 +257,32 @@ namespace GAS.Controllers
         public HttpResponseMessage PostAddItem([FromBody]ExpenseItem eItem)
         {
             String resp = "{\"Response\":\"Undefine\"}";
-            try
+            var ctx = new GASEntities();
+            using (var dbContextTransaction = ctx.Database.BeginTransaction())
             {
-                var ctx = new GASEntities();
-
-                if (eItem != null)
+                try
                 {
-                    var id = ctx.ExpenseItems.Add(eItem);
+                    if (eItem != null)
+                    {
 
-                    ctx.SaveChanges();
-                    resp = "{\"Response\":\"OK\"}";
+                        var id = ctx.ExpenseItems.Add(eItem);
+                        ctx.SaveChanges();
+                        var transaction = Common.CreateTransactionForExpenseSettlement(eItem, ctx);
+                        ctx.Transactions.Add(transaction);
+                        ctx.SaveChanges();
+                        dbContextTransaction.Commit();
+                        resp = "{\"Response\":\"OK\"}";
+                    }
                 }
-            }
-            catch (Exception ex)
+                 catch (Exception ex)
             {
-                Utility.log(ex.Message);
-                int a = 1;
+                dbContextTransaction.Rollback();
                 resp = "{\"Response\":\"Fail\"}";
-
             }
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(resp, System.Text.Encoding.UTF8, "application/json");
-            return response;
+            }
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(resp, System.Text.Encoding.UTF8, "application/json");
+                return response;
         }
 
         // Select a single Expense Item

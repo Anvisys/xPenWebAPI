@@ -40,7 +40,7 @@ namespace GAS.Controllers
                 var ctx = new GASEntities();
                 var accData = (from tr in ctx.ViewAccounts
                                where tr.OrgID == id
-                               select tr).Take(10);
+                               select tr).Take(10).ToList<ViewAccount>();
                 return accData;
             }
             catch (Exception ex)

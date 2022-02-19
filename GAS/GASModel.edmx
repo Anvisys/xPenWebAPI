@@ -73,6 +73,9 @@
           <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
           <Property Name="SelectedRow" Type="bit" Nullable="false" />
           <Property Name="Action" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrganizationId" Type="int" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Expenses">
           <Key>
@@ -1219,7 +1222,6 @@ warning 6002: The table/view 'xPen.dbo.ViewTransactionDailySummary' does not hav
           <EntitySet Name="Activities" EntityType="GASModel.Activity" />
           <EntitySet Name="AdvanceItems" EntityType="GASModel.AdvanceItem" />
           <EntitySet Name="CatchUpUsers" EntityType="GASModel.CatchUpUser" />
-          <EntitySet Name="ExpenseItems" EntityType="GASModel.ExpenseItem" />
           <EntitySet Name="Expenses" EntityType="GASModel.Expens" />
           <EntitySet Name="Organizations" EntityType="GASModel.Organization" />
           <EntitySet Name="ProjectStatus" EntityType="GASModel.ProjectStatu" />
@@ -1252,6 +1254,7 @@ warning 6002: The table/view 'xPen.dbo.ViewTransactionDailySummary' does not hav
           <EntitySet Name="ViewSellInvoices" EntityType="GASModel.ViewSellInvoice" />
           <EntitySet Name="ViewExpenseItemDailyStatus" EntityType="GASModel.ViewExpenseItemDailyStatu" />
           <EntitySet Name="NewViewActivities" EntityType="GASModel.NewViewActivity" />
+          <EntitySet Name="ExpenseItems" EntityType="GASModel.ExpenseItem" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -1402,20 +1405,6 @@ warning 6002: The table/view 'xPen.dbo.ViewTransactionDailySummary' does not hav
           <Property Name="Location" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Function" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="ExpenseItem">
-          <Key>
-            <PropertyRef Name="ItemID" />
-          </Key>
-          <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
-          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
-          <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
-          <Property Name="Action" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Expens">
           <Key>
@@ -2013,6 +2002,23 @@ warning 6002: The table/view 'xPen.dbo.ViewTransactionDailySummary' does not hav
           <Property Name="Advance" Type="Int32" Nullable="false" />
           <Property Name="OrgID" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="ExpenseItem">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpenseAmount" Type="Int32" Nullable="false" />
+          <Property Name="ReceiveAmount" Type="Int32" Nullable="false" />
+          <Property Name="ExpenseDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SelectedRow" Type="Boolean" Nullable="false" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OrganizationId" Type="Int32" Nullable="false" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2164,21 +2170,6 @@ warning 6002: The table/view 'xPen.dbo.ViewTransactionDailySummary' does not hav
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ExpenseItems">
-            <EntityTypeMapping TypeName="GASModel.ExpenseItem">
-              <MappingFragment StoreEntitySet="ExpenseItem">
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
-                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
-                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
-                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
-                <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2689,6 +2680,24 @@ warning 6002: The table/view 'xPen.dbo.ViewTransactionDailySummary' does not hav
                 <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
                 <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
                 <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpenseItems">
+            <EntityTypeMapping TypeName="GASModel.ExpenseItem">
+              <MappingFragment StoreEntitySet="ExpenseItem">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+                <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+                <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,7 +14,6 @@
         <EntityTypeShape EntityType="GASModel.Activity" Width="1.5" PointX="2.75" PointY="4.75" />
         <EntityTypeShape EntityType="GASModel.AdvanceItem" Width="1.5" PointX="4.75" PointY="4.75" />
         <EntityTypeShape EntityType="GASModel.CatchUpUser" Width="1.5" PointX="6.75" PointY="5.75" />
-        <EntityTypeShape EntityType="GASModel.ExpenseItem" Width="1.5" PointX="0.75" PointY="8.75" />
         <EntityTypeShape EntityType="GASModel.Expens" Width="1.5" PointX="2.75" PointY="8.75" />
         <EntityTypeShape EntityType="GASModel.Organization" Width="1.5" PointX="8.75" PointY="5.75" />
         <EntityTypeShape EntityType="GASModel.ProjectStatu" Width="1.5" PointX="6.75" PointY="9.75" />
@@ -47,6 +46,7 @@
         <EntityTypeShape EntityType="GASModel.ViewSellInvoice" Width="1.5" PointX="17.375" PointY="19.75" />
         <EntityTypeShape EntityType="GASModel.ViewExpenseItemDailyStatu" Width="1.5" PointX="16.375" PointY="0.75" />
         <EntityTypeShape EntityType="GASModel.NewViewActivity" Width="1.5" PointX="19.375" PointY="19.75" />
+        <EntityTypeShape EntityType="GASModel.ExpenseItem" Width="1.5" PointX="18.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
