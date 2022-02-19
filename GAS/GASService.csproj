@@ -283,9 +283,6 @@
     <Compile Include="ViewProject.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewProjectExpense.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewProjectStatu.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
