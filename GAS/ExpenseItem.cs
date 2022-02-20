@@ -23,5 +23,8 @@ namespace GAS
         public System.DateTime ExpenseDate { get; set; }
         public bool SelectedRow { get; set; }
         public string Action { get; set; }
+        public int OrganizationId { get; set; }
+        public int AccountId { get; set; }
+        public int ProjectID { get; set; }
     }
 }

@@ -68,6 +68,9 @@
     <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
     <Property Name="SelectedRow" Type="bit" Nullable="false" />
     <Property Name="Action" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="OrganizationId" Type="int" Nullable="false" />
+    <Property Name="AccountId" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Expenses">
     <Key>
@@ -241,7 +244,7 @@
     <Property Name="SolutionType" Type="varchar" MaxLength="20" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.NewViewActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.NewViewActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="NewViewActivity">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -250,6 +253,7 @@ warning 6002: The table/view 'LetsMeet.dbo.NewViewActivity' does not have a prim
       <PropertyRef Name="EmployeeID" />
       <PropertyRef Name="ProjectID" />
       <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="Approver" />
       <PropertyRef Name="Settlement" />
       <PropertyRef Name="PaidDate" />
       <PropertyRef Name="Advance" />
@@ -264,18 +268,19 @@ warning 6002: The table/view 'LetsMeet.dbo.NewViewActivity' does not have a prim
     <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
-    <Property Name="Approver" Type="int" />
+    <Property Name="Approver" Type="int" Nullable="false" />
     <Property Name="ApproverName" Type="varchar" MaxLength="20" />
     <Property Name="Settlement" Type="int" Nullable="false" />
     <Property Name="PaidDate" Type="datetime" Nullable="false" />
     <Property Name="Expenses" Type="int" />
+    <Property Name="Received" Type="int" />
     <Property Name="Balance" Type="int" />
     <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
     <Property Name="Advance" Type="int" Nullable="false" />
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewAccount">
     <Key>
       <PropertyRef Name="AccID" />
@@ -297,7 +302,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewAccount' does not have a primary 
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewActivity">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -317,7 +322,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewActivity' does not have a primary
     <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
-    <Property Name="Approver" Type="int" />
+    <Property Name="Approver" Type="int" Nullable="false" />
     <Property Name="ApproverName" Type="varchar" MaxLength="20" />
     <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
     <Property Name="Expenses" Type="int" />
@@ -328,7 +333,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewActivity' does not have a primary
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewActivityNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewActivityNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewActivityNames">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -346,7 +351,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewActivityNames' does not have a pr
     <Property Name="CreationDate" Type="datetime" Nullable="false" />
     <Property Name="ProjectID" Type="int" Nullable="false" />
     <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Approver" Type="int" />
+    <Property Name="Approver" Type="int" Nullable="false" />
     <Property Name="ApproverName" Type="varchar" MaxLength="20" />
     <Property Name="EmployeeID" Type="int" Nullable="false" />
     <Property Name="Employee" Type="varchar" MaxLength="20" />
@@ -355,7 +360,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewActivityNames' does not have a pr
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewActivityStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewActivityStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewActivityStatus">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -365,7 +370,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewActivityStatus' does not have a p
     <Property Name="UpdatedOn" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewActivitySummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewActivitySummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewActivitySummary">
     <Key>
       <PropertyRef Name="RowID" />
@@ -378,7 +383,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewActivitySummary' does not have a 
     <Property Name="Received" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewAdvance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewAdvance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewAdvance">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -401,12 +406,12 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewAdvance' does not have a primary 
     <Property Name="AdvanceName" Type="varchar" MaxLength="20" />
     <Property Name="AdvanceStatus" Type="varchar" MaxLength="20" />
     <Property Name="AdvanceModifiedDate" Type="datetime" />
-    <Property Name="Approver" Type="int" />
+    <Property Name="Approver" Type="int" Nullable="false" />
     <Property Name="ApproverName" Type="varchar" MaxLength="20" />
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewAdvanceItemNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewAdvanceItemNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewAdvanceItemNames">
     <Key>
       <PropertyRef Name="AdvanceID" />
@@ -432,11 +437,11 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewAdvanceItemNames' does not have a
     <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Employee" Type="varchar" MaxLength="20" />
     <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
-    <Property Name="Approver" Type="int" />
+    <Property Name="Approver" Type="int" Nullable="false" />
     <Property Name="ApproverName" Type="varchar" MaxLength="20" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewAdvanceStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewAdvanceStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewAdvanceStatus">
     <Key>
       <PropertyRef Name="ActivityNumber" />
@@ -447,7 +452,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewAdvanceStatus' does not have a pr
     <Property Name="AdvanceModifiedDate" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemDailyStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewExpenseItemDailyStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewExpenseItemDailyStatus">
     <Key>
       <PropertyRef Name="OrgID" />
@@ -467,7 +472,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemDailyStatus' does not 
     <Property Name="Received" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemStatusActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewExpenseItemStatusActivity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewExpenseItemStatusActivity">
     <Key>
       <PropertyRef Name="ActivityID" />
@@ -501,7 +506,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewExpenseItemStatusActivity' does n
     <Property Name="ProjectOwner" Type="varchar" MaxLength="20" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewGST' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewGST' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewGST">
     <Key>
       <PropertyRef Name="GSTId" />
@@ -531,7 +536,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewGST' does not have a primary key 
     <Property Name="TransactionDate" Type="datetime" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewMonthCumulativeExpense' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewMonthCumulativeExpense' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewMonthCumulativeExpense">
     <Key>
       <PropertyRef Name="UserID" />
@@ -542,7 +547,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewMonthCumulativeExpense' does not 
     <Property Name="expense" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewOrganization' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewOrganization' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewOrganization">
     <Key>
       <PropertyRef Name="OrganizationID" />
@@ -560,7 +565,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewOrganization' does not have a pri
     <Property Name="UserMobile" Type="varchar" MaxLength="20" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentGiven' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewPaymentGiven' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewPaymentGiven">
     <Key>
       <PropertyRef Name="InvoiceId" />
@@ -571,7 +576,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentGiven' does not have a pri
     <Property Name="PaidDate" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentReceived' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewPaymentReceived' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewPaymentReceived">
     <Key>
       <PropertyRef Name="InvoiceId" />
@@ -582,7 +587,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewPaymentReceived' does not have a 
     <Property Name="ReceivedDate" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewProject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewProject">
     <Key>
       <PropertyRef Name="ProjectID" />
@@ -602,7 +607,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewProject' does not have a primary 
     <Property Name="ProjectValue" Type="int" />
     <Property Name="ProjectCreationDate" Type="datetime" Nullable="false" />
     <Property Name="ProjectDescription" Type="varchar" MaxLength="50" />
-    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
     <Property Name="StatusOn" Type="datetime" Nullable="false" />
     <Property Name="WorkCompletion" Type="int" />
@@ -613,18 +618,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewProject' does not have a primary 
     <Property Name="OrgID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewProjectExpense' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="ViewProjectExpense">
-    <Key>
-      <PropertyRef Name="ProjectID" />
-    </Key>
-    <Property Name="ProjectID" Type="int" Nullable="false" />
-    <Property Name="Expense" Type="int" />
-    <Property Name="ReceiveAmount" Type="int" />
-    <Property Name="exdate" Type="date" />
-  </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewProjectStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewProjectStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewProjectStatus">
     <Key>
       <PropertyRef Name="ProjectID" />
@@ -638,7 +632,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewProjectStatus' does not have a pr
     <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewPurchaseInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewPurchaseInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewPurchaseInvoice">
     <Key>
       <PropertyRef Name="OrgId" />
@@ -679,7 +673,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewPurchaseInvoice' does not have a 
     <Property Name="CreatedBy" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewSellInvoice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewSellInvoice">
     <Key>
       <PropertyRef Name="OrgId" />
@@ -718,7 +712,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewSellInvoice' does not have a prim
     <Property Name="CreatedBy" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewTDS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewTDS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewTDS">
     <Key>
       <PropertyRef Name="ID" />
@@ -742,7 +736,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTDS' does not have a primary key 
     <Property Name="TransactionDate" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewTransaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewTransaction' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewTransaction">
     <Key>
       <PropertyRef Name="EntryDate" />
@@ -778,7 +772,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransaction' does not have a prim
     <Property Name="EmployeeID" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailyAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewTransactionDailyAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewTransactionDailyAccount">
     <Key>
       <PropertyRef Name="OrgID" />
@@ -794,7 +788,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailyAccount' does not
     <Property Name="tTime" Type="time" Precision="7" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailyAccountBalance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewTransactionDailyAccountBalance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewTransactionDailyAccountBalance">
     <Key>
       <PropertyRef Name="AccID" />
@@ -808,7 +802,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailyAccountBalance' d
     <Property Name="tTime" Type="time" Precision="7" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'xPen.dbo.ViewTransactionDailySummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ViewTransactionDailySummary">
     <Key>
       <PropertyRef Name="OrgID" />
@@ -853,6 +847,7 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [NewViewActivity].[Settlement] AS [Settlement], 
     [NewViewActivity].[PaidDate] AS [PaidDate], 
     [NewViewActivity].[Expenses] AS [Expenses], 
+    [NewViewActivity].[Received] AS [Received], 
     [NewViewActivity].[Balance] AS [Balance], 
     [NewViewActivity].[ActivityStatus] AS [ActivityStatus], 
     [NewViewActivity].[Advance] AS [Advance], 
@@ -1081,14 +1076,6 @@ warning 6002: The table/view 'LetsMeet.dbo.ViewTransactionDailySummary' does not
     [ViewProject].[Received] AS [Received], 
     [ViewProject].[OrgID] AS [OrgID]
     FROM [dbo].[ViewProject] AS [ViewProject]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="ViewProjectExpense" EntityType="Self.ViewProjectExpense" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [ViewProjectExpense].[ProjectID] AS [ProjectID], 
-    [ViewProjectExpense].[Expense] AS [Expense], 
-    [ViewProjectExpense].[ReceiveAmount] AS [ReceiveAmount], 
-    [ViewProjectExpense].[exdate] AS [exdate]
-    FROM [dbo].[ViewProjectExpense] AS [ViewProjectExpense]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewProjectStatus" EntityType="Self.ViewProjectStatus" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

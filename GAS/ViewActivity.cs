@@ -23,7 +23,7 @@ namespace GAS
         public string ProjectName { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public string CreatedByName { get; set; }
-        public Nullable<int> Approver { get; set; }
+        public int Approver { get; set; }
         public string ApproverName { get; set; }
         public string ActivityStatus { get; set; }
         public Nullable<int> Expenses { get; set; }

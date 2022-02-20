@@ -120,6 +120,7 @@
     <Compile Include="AdvanceItem.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
+    <Content Include="Infrastructure\GasCommon.cs" />
     <Compile Include="Attributes\AutherizeAttribute.cs" />
     <Compile Include="Attributes\ClosingProjectFilter.cs" />
     <Compile Include="Attributes\WebAPIExceptionFilter.cs" />
@@ -132,12 +133,16 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\NewExpenseController.cs" />
     <Compile Include="Controllers\TaxController.cs" />
+    <Compile Include="ExpenseItem.cs">
+      <DependentUpon>GASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="GST.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\UserToken.cs" />
     <Compile Include="Models\ActiveActivity.cs" />
     <Compile Include="Models\Advance.cs" />
+    <Compile Include="Models\Common.cs" />
     <Compile Include="Models\Expenses.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ActiveProject.cs" />
@@ -204,9 +209,6 @@
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Expens.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ExpenseItem.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="GASModel.Context.cs">
@@ -281,9 +283,6 @@
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewProject.cs">
-      <DependentUpon>GASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ViewProjectExpense.cs">
       <DependentUpon>GASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewProjectStatu.cs">
