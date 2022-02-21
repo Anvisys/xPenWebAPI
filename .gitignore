@@ -28,3 +28,9 @@ GAPResources/bin/Debug/GAPResources.dll
 *.dll
 GAS/bin/en-US/GAPResources.resources.dll
 GAS/bin/fr-FR/GAPResources.resources.dll
+*.config
+*.ide
+*.ide-shm
+*.ide-wal
+/.vs/GAS/v16/.suo
+/GAS/obj/Debug/build.force
