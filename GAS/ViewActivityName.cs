@@ -20,7 +20,7 @@ namespace GAS
         public System.DateTime CreationDate { get; set; }
         public int ProjectID { get; set; }
         public string ProjectName { get; set; }
-        public Nullable<int> Approver { get; set; }
+        public int Approver { get; set; }
         public string ApproverName { get; set; }
         public int EmployeeID { get; set; }
         public string Employee { get; set; }

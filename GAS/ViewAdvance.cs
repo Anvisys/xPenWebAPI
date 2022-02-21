@@ -27,7 +27,7 @@ namespace GAS
         public string AdvanceName { get; set; }
         public string AdvanceStatus { get; set; }
         public Nullable<System.DateTime> AdvanceModifiedDate { get; set; }
-        public Nullable<int> Approver { get; set; }
+        public int Approver { get; set; }
         public string ApproverName { get; set; }
         public int OrgID { get; set; }
     }

@@ -26,7 +26,7 @@ namespace GAS
         public string ProjectName { get; set; }
         public string Employee { get; set; }
         public string CreatedByName { get; set; }
-        public Nullable<int> Approver { get; set; }
+        public int Approver { get; set; }
         public string ApproverName { get; set; }
     }
 }
