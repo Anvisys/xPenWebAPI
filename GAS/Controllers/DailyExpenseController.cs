@@ -34,19 +34,19 @@ namespace GAS.Controllers
             try
             {
 
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
           
-                var expData = (from ex in ctx.ViewExpenseItemDailyStatus
-                               where ex.OrgID == id
-                               orderby ex.ExpensesDate descending
-                               group ex by new { ex.ExpensesDate, ex.ActivityStatus }
+                var expData = (from ex in ctx.ExpenseItems
+                               where ex.OrganizationId == id
+                               orderby ex.ExpenseDate descending
+                               group ex by new { ex.ExpenseDate, ex.Status }
                             into dailyEx
                                select new DailyExpense
                                {
-                                   ExpenseDate = (DateTime)dailyEx.Key.ExpensesDate,
-                                   Status = dailyEx.Key.ActivityStatus,
-                                   ExpenseAmount = (int)dailyEx.Sum(x => x.Expense),
-                                   ReceiveAmount = (int)dailyEx.Sum(x => x.Received)
+                                   ExpenseDate = (DateTime)dailyEx.Key.ExpenseDate,
+                                   Status = dailyEx.Key.Status,
+                                   ExpenseAmount = (int)dailyEx.Sum(x => x.ExpenseAmount),
+                                   ReceiveAmount = (int)dailyEx.Sum(x => x.ReceiveAmount)
                                }).Take(10);
 
 
@@ -67,18 +67,18 @@ namespace GAS.Controllers
             try
             {
 
-                var ctx = new GASEntities();
-                            var expData = (from ex in ctx.ViewExpenseItemDailyStatus
-                               where ex.ProjectID == id
-                               orderby ex.ExpensesDate ascending
-                               group ex by new { ex.ExpensesDate, ex.ActivityStatus }
+                var ctx = new XPenEntities();
+                            var expData = (from ex in ctx.ExpenseItems
+                                           where ex.ProjectID == id
+                               orderby ex.ExpenseDate ascending
+                               group ex by new { ex.ExpenseDate, ex.Status }
                                 into dailyEx
                                select new DailyExpense
                                {
-                                   ExpenseDate = (DateTime)dailyEx.Key.ExpensesDate,
-                                   Status = dailyEx.Key.ActivityStatus,
-                                   ExpenseAmount = (int)dailyEx.Sum(x => x.Expense),
-                                   ReceiveAmount = (int)dailyEx.Sum(x => x.Received)
+                                   ExpenseDate = (DateTime)dailyEx.Key.ExpenseDate,
+                                   Status = dailyEx.Key.Status,
+                                   ExpenseAmount = (int)dailyEx.Sum(x => x.ExpenseAmount),
+                                   ReceiveAmount = (int)dailyEx.Sum(x => x.ReceiveAmount)
                                }).Take(10);
 
 
@@ -96,18 +96,18 @@ namespace GAS.Controllers
         {
             try
             {
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemDailyStatus
-                               where ex.ApproverID == id && ex.OrgID == OrgId 
-                               orderby ex.ExpensesDate ascending
-                               group ex by new { ex.ExpensesDate, ex.ActivityStatus }
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
+                               where ex.ApproverID == id && ex.OrganizationId == OrgId 
+                               orderby ex.ExpenseDate ascending
+                               group ex by new { ex.ExpenseDate, ex.Status }
                     into dailyEx
                                select new DailyExpense
                                {
-                                   ExpenseDate = (DateTime)dailyEx.Key.ExpensesDate,
-                                   Status = dailyEx.Key.ActivityStatus,
-                                   ExpenseAmount = (int)dailyEx.Sum(x => x.Expense),
-                                   ReceiveAmount = (int)dailyEx.Sum(x => x.Received)
+                                   ExpenseDate = (DateTime)dailyEx.Key.ExpenseDate,
+                                   Status = dailyEx.Key.Status,
+                                   ExpenseAmount = (int)dailyEx.Sum(x => x.ExpenseAmount),
+                                   ReceiveAmount = (int)dailyEx.Sum(x => x.ReceiveAmount)
                                }).Take(10);
 
 
@@ -127,19 +127,19 @@ namespace GAS.Controllers
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemDailyStatus
-                               where ex.EmployeeID == id && ex.OrgID == OrgId
-                               orderby ex.ExpensesDate descending
-                               group ex by new { ex.ExpensesDate, ex.ActivityStatus }
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
+                               where ex.EmployeeID == id && ex.OrganizationId == OrgId
+                               orderby ex.ExpenseDate descending
+                               group ex by new { ex.ExpenseDate, ex.Status }
                                    into dailyEx
-                                   orderby dailyEx.Key.ExpensesDate
+                                   orderby dailyEx.Key.ExpenseDate
                                select new DailyExpense
                                {
-                                   ExpenseDate = (DateTime)dailyEx.Key.ExpensesDate,
-                                   Status = dailyEx.Key.ActivityStatus,
-                                   ExpenseAmount = (int)dailyEx.Sum(x => x.Expense),
-                                   ReceiveAmount = (int)dailyEx.Sum(x => x.Received)
+                                   ExpenseDate = (DateTime)dailyEx.Key.ExpenseDate,
+                                   Status = dailyEx.Key.Status,
+                                   ExpenseAmount = (int)dailyEx.Sum(x => x.ExpenseAmount),
+                                   ReceiveAmount = (int)dailyEx.Sum(x => x.ReceiveAmount)
                                }).Take(10);
                 return expData;
             }

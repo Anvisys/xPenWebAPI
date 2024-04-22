@@ -30,18 +30,18 @@ namespace GAS.Controllers
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewActivities
-                               where ex.EmployeeID == employeeID && (ex.ActivityStatus == "Added" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved" || ex.ActivityStatus == "Quick")
-                               group ex by new { ex.EmployeeID, ex.ActivityStatus }
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.Activities
+                               where ex.EmployeeID == employeeID /*&& (ex.Status == "Added" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved" || ex.ActivityStatus == "Quick")*/
+                               group ex by new { ex.EmployeeID,/* ex.ActivityStatus*/ }
                                    into groupEmpStatus
 
                                    select new Expenses
                                    {
                                        EmployeeID = groupEmpStatus.Key.EmployeeID,
-                                       Status = groupEmpStatus.Key.ActivityStatus,
-                                       ExpenseAmount = (Int32)groupEmpStatus.Sum(x => x.Expenses),
-                                       ReceiveAmount = (Int32)groupEmpStatus.Sum(x => x.Received),
+                                       //Status = groupEmpStatus.Key.ActivityStatus,
+                                       //ExpenseAmount = (Int32)groupEmpStatus.Sum(x => x.Expenses),
+                                       //ReceiveAmount = (Int32)groupEmpStatus.Sum(x => x.Received),
                                        ActivityCount = groupEmpStatus.Select(c => c.ActivityID).Distinct().Count()
                                    });
                 return expData;
@@ -62,11 +62,11 @@ namespace GAS.Controllers
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewActivities
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.Activities
                                where ex.CreatedBy == mgrId 
                                && ex.OrgID == orgId
-                               && (ex.ActivityStatus == "Added" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved")
+                               //&& (ex.ActivityStatus == "Added" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved")
                                group ex by new { ex.EmployeeID, ex.ActivityStatus }
                                    into groupEmpStatus
 
@@ -74,8 +74,8 @@ namespace GAS.Controllers
                                {
                                    EmployeeID = groupEmpStatus.Key.EmployeeID,
                                    Status = groupEmpStatus.Key.ActivityStatus,
-                                   ExpenseAmount = (Int32)groupEmpStatus.Sum(x => x.Expenses),
-                                   ReceiveAmount = (Int32)groupEmpStatus.Sum(x => x.Received),
+                                   ExpenseAmount = 999,// (Int32)groupEmpStatus.Sum(x => x.Expenses),
+                                   ReceiveAmount = 999, //(Int32)groupEmpStatus.Sum(x => x.Received),
                                    ActivityCount = groupEmpStatus.Select(c => c.ActivityID).Distinct().Count()
                                });
                 return expData;
@@ -95,8 +95,8 @@ namespace GAS.Controllers
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewActivities
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.Activities
                                where ex.OrgID == orgId
                                && (ex.ActivityStatus == "Added" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved")
                                group ex by new { ex.EmployeeID, ex.ActivityStatus }
@@ -106,8 +106,8 @@ namespace GAS.Controllers
                                {
                                    EmployeeID = groupEmpStatus.Key.EmployeeID,
                                    Status = groupEmpStatus.Key.ActivityStatus,
-                                   ExpenseAmount = (Int32)groupEmpStatus.Sum(x => x.Expenses),
-                                   ReceiveAmount = (Int32)groupEmpStatus.Sum(x => x.Received),
+                                   ExpenseAmount = 999, // (Int32)groupEmpStatus.Sum(x => x.Expenses),
+                                   ReceiveAmount = 999,// (Int32)groupEmpStatus.Sum(x => x.Received),
                                    ActivityCount = groupEmpStatus.Select(c => c.ActivityID).Distinct().Count()
                                });
                 return expData;
@@ -126,17 +126,17 @@ namespace GAS.Controllers
             try
             {
 
-                var ctx = new GASEntities();
-                var expData =  (from ex in ctx.ViewExpenseItemStatusActivities
+                var ctx = new XPenEntities();
+                var expData =  (from ex in ctx.ExpenseItems
                                where ex.EmployeeID == employeeID
                                && DbFunctions.TruncateTime(ex.ExpenseDate) == DateTime.Today.Date
-                               && (ex.ActivityStatus == "Paid" || ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved" || ex.ActivityStatus == "Quick")
-                               group ex by new {ex.ActivityStatus }
+                               && (ex.Status == "Paid" || ex.Status == "Submitted" || ex.Status == "Approved" || ex.Status == "Quick")
+                               group ex by new {ex.Status }
                                    into groupEmpExpense
 
                                select new Expenses
                                {
-                                   Status = groupEmpExpense.Key.ActivityStatus,
+                                   Status = groupEmpExpense.Key.Status,
                                    ExpenseAmount = (Int32)groupEmpExpense.Sum(x => x.ExpenseAmount),
                                    ReceiveAmount = (Int32)groupEmpExpense.Sum(x => x.ReceiveAmount),
                                   
@@ -157,17 +157,17 @@ namespace GAS.Controllers
         {
             try
             {
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
                                where ex.ApproverID == mgrId
                                && DbFunctions.TruncateTime(ex.ExpenseDate) == DbFunctions.TruncateTime(DateTime.Today.Date)
-                               && (ex.ItemAction == "Added" || ex.ItemAction == "Submitted" )
-                               group ex by new { ex.ActivityStatus }
+                               && (ex.Action == "Added" || ex.Action == "Submitted" )
+                               group ex by new { ex.Status }
                                    into groupEmpExpense
 
                                select new Expenses
                                {
-                                   Status = groupEmpExpense.Key.ActivityStatus,
+                                   Status = groupEmpExpense.Key.Status,
                                    ExpenseAmount = (Int32)groupEmpExpense.Sum(x => x.ExpenseAmount),
                                    ReceiveAmount = (Int32)groupEmpExpense.Sum(x => x.ReceiveAmount),
 
@@ -190,14 +190,14 @@ namespace GAS.Controllers
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
                                where ex.EmployeeID == employeeID
-                               && (ex.ActivityStatus == "Submitted" || ex.ActivityStatus == "Approved" || ex.ActivityStatus == "Initiated")
+                               && (ex.Status == "Submitted" || ex.Status == "Approved" || ex.Status == "Initiated")
                                select new ActiveProject {
                                    ProjectID = ex.ProjectID,
-                                   ProjectName = ex.ProjectName,
-                                   ProjectManager = ex.ProjectOwner
+                                   ProjectName = "Test", //ex.ProjectName,
+                                   ProjectManager = "Test",// ex.ProjectOwner
                                }).Distinct();
 
                 return expData;
@@ -218,16 +218,16 @@ namespace GAS.Controllers
 
         [Route("ActiveProjects/{orgId}/Employee/{employeeID}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetActiveProjectsOfEmployee(int orgId, int employeeID)
+        public IEnumerable<ExpenseItem> GetActiveProjectsOfEmployee(int orgId, int employeeID)
         {
             try
             {
 
-                using (var ctx = new GASEntities())
+                using (var ctx = new XPenEntities())
                 {
-                    var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                                    where ex.EmployeeID == employeeID
-                                     && (ex.ActivityStatus != "Paid")
+                    var expData = (from ex in ctx.ExpenseItems
+                                   where ex.EmployeeID == employeeID
+                                     && (ex.Status != "Paid")
                                      select ex
                                         ).ToList();
 
@@ -268,16 +268,16 @@ namespace GAS.Controllers
         // Get IP Sales for Manager
         [Route("IPSalesInvoice/{orgId}/Employee/{MgrId}/{Margin}")]
         [HttpGet]
-        public IEnumerable<ViewSellInvoice> GetIPSalesInvoice(int orgId, int MgrId, int Margin)
+        public IEnumerable<SalesInvoice> GetIPSalesInvoice(int orgId, int MgrId, int Margin)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var invData = (from inv in ctx.ViewSellInvoices
-                               where inv.CreatedBy == MgrId
+                var ctx = new XPenEntities();
+                var invData = (from inv in ctx.SalesInvoices
+                               where inv.ProjectId == MgrId
                                && inv.OrgId == orgId
-                               && (inv.Receivable - Margin >= inv.ReceivedAmount)
+                               && (inv.ServiceCost - Margin >= inv.ServiceCost)
                                select inv);
 
                 return invData;
@@ -292,16 +292,16 @@ namespace GAS.Controllers
         // Get IP Purchase for Manager
         [Route("IPPurchaseInvoice/{orgId}/Employee/{MgrId}/{Margin}")]
         [HttpGet]
-        public IEnumerable<ViewPurchaseInvoice> GetIPPurchaseInvoice(int orgId, int MgrId, int Margin)
+        public IEnumerable<PurchaseInvoice> GetIPPurchaseInvoice(int orgId, int MgrId, int Margin)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var invData = (from inv in ctx.ViewPurchaseInvoices
-                               where inv.CreatedBy == MgrId
+                var ctx = new XPenEntities();
+                var invData = (from inv in ctx.PurchaseInvoices
+                               where inv.ProjectId == MgrId
                                && inv.OrgId == orgId
-                               && (inv.Payable - Margin >= inv.PaidAmount)
+                               && (inv.ServiceCost - Margin >= inv.ServiceCost)
                                select inv);
 
                 return invData;
@@ -317,15 +317,15 @@ namespace GAS.Controllers
         // Get IP Sales for Admin
         [Route("IPSalesInvoice/{orgId}/{Margin}")]
         [HttpGet]
-        public IEnumerable<ViewSellInvoice> GetIPSalesInvoiceForAdmin(int orgId, int Margin)
+        public IEnumerable<SalesInvoice> GetIPSalesInvoiceForAdmin(int orgId, int Margin)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var invData = (from inv in ctx.ViewSellInvoices
+                var ctx = new XPenEntities();
+                var invData = (from inv in ctx.SalesInvoices
                                where inv.OrgId == orgId
-                               && (inv.Receivable - Margin >= inv.ReceivedAmount)
+                               //&& (inv.Receivable - Margin >= inv.ReceivedAmount)
                                select inv);
 
                 return invData;
@@ -340,15 +340,15 @@ namespace GAS.Controllers
         // Get IP Purchase for Admin
         [Route("IPPurchaseInvoice/{orgId}/{Margin}")]
         [HttpGet]
-        public IEnumerable<ViewPurchaseInvoice> GetIPPurchaseInvoiceForAdmin(int orgId, int Margin)
+        public IEnumerable<PurchaseInvoice> GetIPPurchaseInvoiceForAdmin(int orgId, int Margin)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var invData = (from inv in ctx.ViewPurchaseInvoices
+                var ctx = new XPenEntities();
+                var invData = (from inv in ctx.PurchaseInvoices
                                where inv.OrgId == orgId
-                               && (inv.Payable - Margin >= inv.PaidAmount)
+                               //&& (inv.Payable - Margin >= inv.PaidAmount)
                                select inv);
 
                 return invData;

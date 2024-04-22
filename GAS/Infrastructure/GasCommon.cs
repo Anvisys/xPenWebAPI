@@ -7,8 +7,8 @@ namespace GAS.Infrastructure
 {
     public class GasCommon
     {
-        private static GASEntities _ctx;
-        public static Transaction CreateTransactionForExpenseSettlement(ExpenseItem expen, GASEntities ctx)
+        private static XPenEntities _ctx;
+        public static Transaction CreateTransactionForExpenseSettlement(ExpenseItem expen, XPenEntities ctx)
         {
             _ctx = ctx;
             var trans = new Transaction();

@@ -15,12 +15,12 @@ namespace GAS.Controllers
     {
         // GET: api/Account
        
-        public IEnumerable<ViewAccount> GetAll()
+        public IEnumerable<Account> GetAll()
         {
             try
             {
-                var ctx = new GASEntities();
-                var accData = (from tr in ctx.ViewAccounts
+                var ctx = new XPenEntities();
+                var accData = (from tr in ctx.Accounts
                                select tr).Take(10);
                 return accData;
             }
@@ -33,14 +33,14 @@ namespace GAS.Controllers
         // GET: api/Account/5
             [Route("Organization/{id}")]
             [HttpGet]
-            public IEnumerable<ViewAccount> GetByOrg(int id)
+            public IEnumerable<Account> GetByOrg(int id)
         {
             try
             {
-                var ctx = new GASEntities();
-                var accData = (from tr in ctx.ViewAccounts
+                var ctx = new XPenEntities();
+                var accData = (from tr in ctx.Accounts
                                where tr.OrgID == id
-                               select tr).Take(10).ToList<ViewAccount>();
+                               select tr).Take(10).ToList<Account>();
                 return accData;
             }
             catch (Exception ex)
@@ -57,7 +57,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
                 if (acc != null)
                 {
                     ctx.Accounts.Add(acc);

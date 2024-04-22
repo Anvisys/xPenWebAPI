@@ -92,7 +92,7 @@ namespace GAS.Infrastructure
                            hmac.ComputeHash(Encoding.UTF8.GetBytes(hash));
                            hashLeft = Convert.ToBase64String(hmac.Hash);
                         }
-                        using (var ctx = new GASEntities())
+                        using (var ctx = new XPenEntities())
                         {
                             
                             if (username.All(char.IsDigit))

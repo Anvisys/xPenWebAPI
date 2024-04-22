@@ -24,5 +24,6 @@ namespace GAS
         public bool SelectedRow { get; set; }
         public int OrgID { get; set; }
         public Nullable<int> ApproverID { get; set; }
+        public string ActivityStatus { get; set; }
     }
 }

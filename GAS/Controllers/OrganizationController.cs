@@ -14,12 +14,12 @@ namespace GAS.Controllers
     public class OrganizationController : ApiController
     {
         // Get List of Organizations enrolled
-          public IEnumerable<ViewOrganization> Get()
+          public IEnumerable<Organization> Get()
         {
             try
             {
-                var ctx = new GASEntities();
-                var accData = (from tr in ctx.ViewOrganizations
+                var ctx = new XPenEntities();
+                var accData = (from tr in ctx.Organizations
                                select tr).Take(20);
                 return accData;
             }
@@ -30,12 +30,12 @@ namespace GAS.Controllers
         }
 
         // Get organization details by Organization Id
-          public ViewOrganization Get(int id)
+          public Organization Get(int id)
         {
             try
             {
-                var ctx = new GASEntities();
-                var accData = (from tr in ctx.ViewOrganizations
+                var ctx = new XPenEntities();
+                var accData = (from tr in ctx.Organizations
                                where tr.OrganizationID == id
                                select tr).First();
                 return accData;
@@ -55,7 +55,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
                 if (org != null)
                 {
                     org.StartDate = DateTime.UtcNow;
@@ -86,7 +86,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
                 if (org != null)
                 {
                     var reg = (from o in ctx.Organizations

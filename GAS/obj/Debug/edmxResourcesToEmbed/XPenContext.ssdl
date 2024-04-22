@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="XPenModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="AccID" />
+    </Key>
+    <Property Name="AccID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Number" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccountDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Activities">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ActivityDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="ApproverID" Type="int" />
+    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="AdvanceItems">
+    <Key>
+      <PropertyRef Name="AdvanceID" />
+    </Key>
+    <Property Name="AdvanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="AdvanceName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RequestAmount" Type="int" Nullable="false" />
+    <Property Name="ReceiveAmount" Type="int" Nullable="false" />
+    <Property Name="AdvanceRemarks" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CatchUpUsers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+    <Property Name="MobileNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="30" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="GCMCode" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Location" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Function" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExpenseItems">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseAmount" Type="int" Nullable="false" />
+    <Property Name="ReceiveAmount" Type="int" Nullable="false" />
+    <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="OrganizationId" Type="int" Nullable="false" />
+    <Property Name="AccountId" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="ApproverID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Expenses">
+    <Key>
+      <PropertyRef Name="ExpenseID" />
+    </Key>
+    <Property Name="ExpenseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExpenseType" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ExpenseAmount" Type="int" Nullable="false" />
+    <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GSTs">
+    <Key>
+      <PropertyRef Name="GSTId" />
+    </Key>
+    <Property Name="GSTId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="GSTReceived" Type="int" Nullable="false" />
+    <Property Name="GSTInput" Type="int" Nullable="false" />
+    <Property Name="PreviousGSTDues" Type="int" Nullable="false" />
+    <Property Name="Penalty" Type="int" Nullable="false" />
+    <Property Name="GSTPayable" Type="int" Nullable="false" />
+    <Property Name="TaxMonth" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NewViewActivities">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="ActivityName" />
+      <PropertyRef Name="ActivityDescription" />
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="ProjectName" />
+      <PropertyRef Name="Approver" />
+      <PropertyRef Name="Settlement" />
+      <PropertyRef Name="PaidDate" />
+      <PropertyRef Name="Advance" />
+      <PropertyRef Name="OrgID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ActivityDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="Employee" Type="varchar" MaxLength="20" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedByName" Type="varchar" MaxLength="20" />
+    <Property Name="Approver" Type="int" Nullable="false" />
+    <Property Name="ApproverName" Type="varchar" MaxLength="20" />
+    <Property Name="Settlement" Type="int" Nullable="false" />
+    <Property Name="PaidDate" Type="datetime" Nullable="false" />
+    <Property Name="Expenses" Type="int" />
+    <Property Name="Received" Type="int" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
+    <Property Name="Advance" Type="int" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Organizations">
+    <Key>
+      <PropertyRef Name="OrganizationID" />
+    </Key>
+    <Property Name="OrganizationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrganizationNumber" Type="varchar" MaxLength="20" />
+    <Property Name="OrganizationName" Type="varchar" MaxLength="50" />
+    <Property Name="Employee" Type="int" />
+    <Property Name="Address" Type="varchar" MaxLength="100" />
+    <Property Name="ContactPerson" Type="varchar" MaxLength="20" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ContactEmail" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectNumber" Type="varchar" MaxLength="20" />
+    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProjectValue" Type="int" />
+    <Property Name="ProjectDescription" Type="varchar" MaxLength="50" />
+    <Property Name="ProjectCreationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="ProjectStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkCompletion" Type="int" />
+    <Property Name="Remarks" Type="varchar" MaxLength="200" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchaseInvoices">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="VendorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="ServiceCost" Type="float" Nullable="false" />
+    <Property Name="CGST" Type="float" Nullable="false" />
+    <Property Name="SGST" Type="float" Nullable="false" />
+    <Property Name="IGST" Type="float" Nullable="false" />
+    <Property Name="TDS" Type="float" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="InvoiceType" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReportedIssues">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeviceID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lattitude" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="Longitude" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="severity" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ModifiedAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SalesInvoices">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrgId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="ServiceCost" Type="float" Nullable="false" />
+    <Property Name="CGST" Type="float" Nullable="false" />
+    <Property Name="SGST" Type="float" Nullable="false" />
+    <Property Name="IGST" Type="float" Nullable="false" />
+    <Property Name="TDS" Type="float" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="InvoiceType" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TDS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="TDSDeducted" Type="int" Nullable="false" />
+    <Property Name="TDSPayable" Type="int" Nullable="false" />
+    <Property Name="PreviousTDS" Type="int" Nullable="false" />
+    <Property Name="Penalty" Type="float" Nullable="false" />
+    <Property Name="TaxMonth" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transactions">
+    <Key>
+      <PropertyRef Name="TransID" />
+    </Key>
+    <Property Name="TransID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TransName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccID" Type="int" Nullable="false" />
+    <Property Name="Deposit" Type="int" Nullable="false" />
+    <Property Name="Withdraw" Type="int" Nullable="false" />
+    <Property Name="EntryDate" Type="datetime" Nullable="false" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="AccountBalance" Type="int" />
+    <Property Name="ProjectID" Type="int" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="TransactionID" Type="int" Nullable="false" />
+    <Property Name="TransactionRemarks" Type="varchar" MaxLength="50" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="TransType" Type="varchar" MaxLength="20" />
+    <Property Name="InvoiceID" Type="int" Nullable="false" />
+    <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserImages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Profile_image" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserLogin" Type="varchar" MaxLength="50" />
+    <Property Name="OrganizationID" Type="int" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Role" Type="varchar" MaxLength="20" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+    <Property Name="UserMobile" Type="varchar" MaxLength="20" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+    <Property Name="OrgName" Type="varchar" MaxLength="50" />
+    <Property Name="SolutionType" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityContainer Name="XPenModelStoreContainer">
+    <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdvanceItems" EntityType="Self.AdvanceItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CatchUpUsers" EntityType="Self.CatchUpUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExpenseItems" EntityType="Self.ExpenseItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GSTs" EntityType="Self.GSTs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NewViewActivities" EntityType="Self.NewViewActivities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseInvoices" EntityType="Self.PurchaseInvoices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportedIssues" EntityType="Self.ReportedIssues" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SalesInvoices" EntityType="Self.SalesInvoices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TDS" EntityType="Self.TDS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserImages" EntityType="Self.UserImages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

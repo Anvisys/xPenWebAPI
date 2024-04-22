@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GASModelStoreContainer" CdmEntityContainer="GASEntities">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="GASModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="SolutionType" ColumnName="SolutionType" />
+          <ScalarProperty Name="OrgName" ColumnName="OrgName" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserMobile" ColumnName="UserMobile" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+          <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="GASModel.Account">
+        <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="AccID" ColumnName="AccID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Expenses">
+      <EntityTypeMapping TypeName="GASModel.Expens">
+        <MappingFragment StoreEntitySet="Expenses">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+          <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+          <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+          <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
+          <ScalarProperty Name="ExpenseID" ColumnName="ExpenseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectStatus">
+      <EntityTypeMapping TypeName="GASModel.ProjectStatu">
+        <MappingFragment StoreEntitySet="ProjectStatus">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TDS">
+      <EntityTypeMapping TypeName="GASModel.TD">
+        <MappingFragment StoreEntitySet="TDS">
+          <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
+          <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+          <ScalarProperty Name="PreviousTDS" ColumnName="PreviousTDS" />
+          <ScalarProperty Name="TDSPayable" ColumnName="TDSPayable" />
+          <ScalarProperty Name="TDSDeducted" ColumnName="TDSDeducted" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Activities">
+      <EntityTypeMapping TypeName="GASModel.Activity">
+        <MappingFragment StoreEntitySet="Activities">
+          <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+          <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExpenseItems">
+      <EntityTypeMapping TypeName="GASModel.ExpenseItem">
+        <MappingFragment StoreEntitySet="ExpenseItems">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+          <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+          <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+          <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

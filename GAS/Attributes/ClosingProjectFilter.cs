@@ -20,7 +20,7 @@ namespace GAS.Attributes
                     //validate project if request is to close it.
                     var stats = paramValue as ProjectStatu;
                    int projID = stats.ProjectID;
-                    using(var ctx = new GASEntities() )
+                    using(var ctx = new XPenEntities() )
                     {
                         var activities = ctx.NewViewActivities.Where(c => c.ProjectID == projID).ToList();
                         //if (activities != null && activities.All(a => a.ActivityStatus.ToLower() != "initiated" && a.ActivityStatus.ToLower() != "added" && (a.ActivityStatus.ToLower() == "approved" && a.Settlement!=0)))
@@ -29,7 +29,7 @@ namespace GAS.Attributes
                            
                         //}
 
-                        if (activities != null && activities.All(a => a.ActivityStatus.ToLower() == "initiated" || a.ActivityStatus.ToLower() == "added" && (a.ActivityStatus.ToLower() == "approved" && a.Settlement== 0)))
+                        if ((activities != null && activities.Count() != 0) && activities.All(a => a.ActivityStatus.ToLower() == "initiated" || a.ActivityStatus.ToLower() == "added" && (a.ActivityStatus.ToLower() == "approved" && a.Settlement== 0)))
                         {
                             isValidAction = false;
 

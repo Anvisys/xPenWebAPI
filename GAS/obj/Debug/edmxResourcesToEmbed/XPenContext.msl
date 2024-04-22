@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="XPenModelStoreContainer" CdmEntityContainer="XPenEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="XPenModel.Account">
+        <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="AccID" ColumnName="AccID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="AccountDescription" ColumnName="AccountDescription" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Activities">
+      <EntityTypeMapping TypeName="XPenModel.Activity">
+        <MappingFragment StoreEntitySet="Activities">
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+          <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdvanceItems">
+      <EntityTypeMapping TypeName="XPenModel.AdvanceItem">
+        <MappingFragment StoreEntitySet="AdvanceItems">
+          <ScalarProperty Name="AdvanceID" ColumnName="AdvanceID" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="AdvanceName" ColumnName="AdvanceName" />
+          <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
+          <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+          <ScalarProperty Name="AdvanceRemarks" ColumnName="AdvanceRemarks" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CatchUpUsers">
+      <EntityTypeMapping TypeName="XPenModel.CatchUpUser">
+        <MappingFragment StoreEntitySet="CatchUpUsers">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="GCMCode" ColumnName="GCMCode" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Function" ColumnName="Function" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Expenses">
+      <EntityTypeMapping TypeName="XPenModel.Expens">
+        <MappingFragment StoreEntitySet="Expenses">
+          <ScalarProperty Name="ExpenseID" ColumnName="ExpenseID" />
+          <ScalarProperty Name="ExpenseType" ColumnName="ExpenseType" />
+          <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+          <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+          <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GSTs">
+      <EntityTypeMapping TypeName="XPenModel.GST">
+        <MappingFragment StoreEntitySet="GSTs">
+          <ScalarProperty Name="GSTId" ColumnName="GSTId" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="GSTReceived" ColumnName="GSTReceived" />
+          <ScalarProperty Name="GSTInput" ColumnName="GSTInput" />
+          <ScalarProperty Name="PreviousGSTDues" ColumnName="PreviousGSTDues" />
+          <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+          <ScalarProperty Name="GSTPayable" ColumnName="GSTPayable" />
+          <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewViewActivities">
+      <EntityTypeMapping TypeName="XPenModel.NewViewActivity">
+        <MappingFragment StoreEntitySet="NewViewActivities">
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Employee" ColumnName="Employee" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+          <ScalarProperty Name="Approver" ColumnName="Approver" />
+          <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
+          <ScalarProperty Name="Settlement" ColumnName="Settlement" />
+          <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+          <ScalarProperty Name="Expenses" ColumnName="Expenses" />
+          <ScalarProperty Name="Received" ColumnName="Received" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="ActivityStatus" ColumnName="ActivityStatus" />
+          <ScalarProperty Name="Advance" ColumnName="Advance" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Organizations">
+      <EntityTypeMapping TypeName="XPenModel.Organization">
+        <MappingFragment StoreEntitySet="Organizations">
+          <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+          <ScalarProperty Name="OrganizationNumber" ColumnName="OrganizationNumber" />
+          <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+          <ScalarProperty Name="Employee" ColumnName="Employee" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectStatus">
+      <EntityTypeMapping TypeName="XPenModel.ProjectStatu">
+        <MappingFragment StoreEntitySet="ProjectStatus">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="WorkCompletion" ColumnName="WorkCompletion" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseInvoices">
+      <EntityTypeMapping TypeName="XPenModel.PurchaseInvoice">
+        <MappingFragment StoreEntitySet="PurchaseInvoices">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+          <ScalarProperty Name="CGST" ColumnName="CGST" />
+          <ScalarProperty Name="SGST" ColumnName="SGST" />
+          <ScalarProperty Name="IGST" ColumnName="IGST" />
+          <ScalarProperty Name="TDS" ColumnName="TDS" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReportedIssues">
+      <EntityTypeMapping TypeName="XPenModel.ReportedIssue">
+        <MappingFragment StoreEntitySet="ReportedIssues">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+          <ScalarProperty Name="Lattitude" ColumnName="Lattitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="severity" ColumnName="severity" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TDS">
+      <EntityTypeMapping TypeName="XPenModel.TD">
+        <MappingFragment StoreEntitySet="TDS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="TDSDeducted" ColumnName="TDSDeducted" />
+          <ScalarProperty Name="TDSPayable" ColumnName="TDSPayable" />
+          <ScalarProperty Name="PreviousTDS" ColumnName="PreviousTDS" />
+          <ScalarProperty Name="Penalty" ColumnName="Penalty" />
+          <ScalarProperty Name="TaxMonth" ColumnName="TaxMonth" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="XPenModel.Transaction">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="TransID" ColumnName="TransID" />
+          <ScalarProperty Name="TransName" ColumnName="TransName" />
+          <ScalarProperty Name="AccID" ColumnName="AccID" />
+          <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+          <ScalarProperty Name="Withdraw" ColumnName="Withdraw" />
+          <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="TransactionRemarks" ColumnName="TransactionRemarks" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="TransType" ColumnName="TransType" />
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserImages">
+      <EntityTypeMapping TypeName="XPenModel.UserImage">
+        <MappingFragment StoreEntitySet="UserImages">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Profile_image" ColumnName="Profile_image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="XPenModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+          <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserMobile" ColumnName="UserMobile" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+          <ScalarProperty Name="OrgName" ColumnName="OrgName" />
+          <ScalarProperty Name="SolutionType" ColumnName="SolutionType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExpenseItems">
+      <EntityTypeMapping TypeName="XPenModel.ExpenseItem">
+        <MappingFragment StoreEntitySet="ExpenseItems">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ApproverID" ColumnName="ApproverID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="SelectedRow" ColumnName="SelectedRow" />
+          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+          <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+          <ScalarProperty Name="ReceiveAmount" ColumnName="ReceiveAmount" />
+          <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="XPenModel.Project">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="OrgID" ColumnName="OrgID" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ProjectCreationDate" ColumnName="ProjectCreationDate" />
+          <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+          <ScalarProperty Name="ProjectValue" ColumnName="ProjectValue" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ProjectNumber" ColumnName="ProjectNumber" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalesInvoices">
+      <EntityTypeMapping TypeName="XPenModel.SalesInvoice">
+        <MappingFragment StoreEntitySet="SalesInvoices">
+          <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="TDS" ColumnName="TDS" />
+          <ScalarProperty Name="IGST" ColumnName="IGST" />
+          <ScalarProperty Name="SGST" ColumnName="SGST" />
+          <ScalarProperty Name="CGST" ColumnName="CGST" />
+          <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
