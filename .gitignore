@@ -34,3 +34,8 @@ GAS/bin/fr-FR/GAPResources.resources.dll
 *.ide-wal
 /.vs/GAS/v16/.suo
 /GAS/obj/Debug/build.force
+/.vs/GAS
+/GAPResources/.vs
+/GAPResources/obj/Debug
+/GAS/.vs
+/GAS/bin

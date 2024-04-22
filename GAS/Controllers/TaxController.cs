@@ -17,21 +17,21 @@ namespace GAS.Controllers
         // Get latest TDS data for an organization
         [Route("TDS/{OrgID}")]
         [HttpGet]
-        public ViewTD GetTDS(int OrgID)
+        public TD GetTDS(int OrgID)
         {
             try
             {
-                var ctx = new GASEntities();
-                var tdsData = (from tds in ctx.ViewTDS
+                var ctx = new XPenEntities();
+                var tdsData = (from tds in ctx.TDS
                                where tds.OrgID == OrgID  orderby tds.TaxMonth descending
                                select tds ).FirstOrDefault();
                 if (tdsData == null)
                 {
-                    return new ViewTD { TransactionRemarks = "NoData" };
+                    return new TD ();
                 }
 
                 DateTime da2 = tdsData.TaxMonth.AddMonths(-1);
-                var tdsPrev = (from t in ctx.ViewTDS
+                var tdsPrev = (from t in ctx.TDS
                                where t.OrgID == OrgID && t.TaxMonth.Year == da2.Year && t.TaxMonth.Month == da2.Month
                                select t).FirstOrDefault();
                 if (tdsPrev == null)
@@ -40,7 +40,7 @@ namespace GAS.Controllers
                 }
                 else
                 {
-                    tdsData.PreviousTDS = (Int32)(tdsPrev.TDSPayable - tdsPrev.TDS_Paid);
+                    tdsData.PreviousTDS = (Int32)(tdsPrev.TDSPayable - tdsPrev.TDSDeducted);
                 }
 
                 return tdsData;
@@ -54,22 +54,22 @@ namespace GAS.Controllers
         // Get latest GST data for an organization
         [Route("GST/{OrgID}")]
         [HttpGet]
-        public ViewGST GetGST(int OrgID)
+        public GST GetGST(int OrgID)
         {
             try
             {
                
-                var ctx = new GASEntities();
-                var gstData = (from gst in ctx.ViewGSTs
+                var ctx = new XPenEntities();
+                var gstData = (from gst in ctx.GSTs
                                where gst.OrgID == OrgID orderby gst.TaxMonth descending
                                select gst).FirstOrDefault();
 
                 if (gstData == null)
                     {
-                        return new ViewGST { TransactionRemarks = "NoData" };
+                        return new GST();
                     }
                 DateTime da2 = gstData.TaxMonth.AddMonths(-1);
-                var gstPrev = (from g in ctx.ViewGSTs
+                var gstPrev = (from g in ctx.GSTs
                                where g.OrgID == OrgID && g.TaxMonth.Year == da2.Year && g.TaxMonth.Month == da2.Month
                                select g).FirstOrDefault();
                 if (gstPrev == null)
@@ -78,13 +78,13 @@ namespace GAS.Controllers
                 }
                 else
                 {
-                    gstData.PreviousGSTDues = (Int32)(gstPrev.GSTPayable - gstPrev.GST_Paid);
+                    gstData.PreviousGSTDues = (Int32)(gstPrev.GSTPayable - gstPrev.GSTReceived);
                 }
                 return gstData;
             }
             catch (Exception ex)
             {
-                return new ViewGST { TransactionRemarks="NoData",};
+                return new GST ();
 
             }
         }
@@ -93,23 +93,23 @@ namespace GAS.Controllers
         // Get  TDS data of an organization by year and month
         [Route("TDS/{OrgID}/{Year}/{Month}")]
         [HttpGet]
-        public ViewTD GetTDS(int OrgID, int Year, int Month)
+        public TD GetTDS(int OrgID, int Year, int Month)
         {
             try
             {
                 DateTime d1 = new DateTime(Year, Month, 2);
 
                 DateTime da2 = d1.AddMonths(-1);
-                var ctx = new GASEntities();
-                var tdsData = (from tds in ctx.ViewTDS
+                var ctx = new XPenEntities();
+                var tdsData = (from tds in ctx.TDS
                                where tds.OrgID == OrgID && tds.TaxMonth.Year == Year && tds.TaxMonth.Month == Month
                                select tds).FirstOrDefault();
                 if (tdsData == null)
                 {
-                    return new ViewTD { TransactionRemarks = "NoData" };
+                    return new TD();
                 }
 
-                var tdsPrev = (from t in ctx.ViewTDS
+                var tdsPrev = (from t in ctx.TDS
                                where t.OrgID == OrgID && t.TaxMonth.Year == da2.Year && t.TaxMonth.Month == da2.Month
                                select t).FirstOrDefault();
                 if (tdsPrev == null)
@@ -118,37 +118,37 @@ namespace GAS.Controllers
                 }
                 else
                 {
-                    tdsData.PreviousTDS = (Int32)(tdsPrev.TDSPayable - tdsPrev.TDS_Paid);
+                    tdsData.PreviousTDS = (Int32)(tdsPrev.TDSPayable - tdsPrev.TDSDeducted);
                 }
 
                 return tdsData;
             }
             catch (Exception ex)
             {
-                return new ViewTD {TransactionRemarks = "NoData" };
+                return new TD ();
             }
         }
 
         // Get  GST data of an organization by year and month
         [Route("GST/{OrgID}/{Year}/{Month}")]
         [HttpGet]
-        public ViewGST GetGST(int OrgID, int Year, int Month)
+        public GST GetGST(int OrgID, int Year, int Month)
         {
             try
             {
                 DateTime d1 = new DateTime(Year, Month, 2);
 
                 DateTime da2 = d1.AddMonths(-1);
-                var ctx = new GASEntities();
-                var gstData = (from gst in ctx.ViewGSTs
+                var ctx = new XPenEntities();
+                var gstData = (from gst in ctx.GSTs
                                where gst.OrgID == OrgID && gst.TaxMonth.Year == Year && gst.TaxMonth.Month == Month
                                select gst).FirstOrDefault();
 
                 if (gstData == null)
                 {
-                    return new ViewGST { TransactionRemarks = "NoData" };
+                    return new GST();
                 }
-                var gstPrev = (from g in ctx.ViewGSTs
+                var gstPrev = (from g in ctx.GSTs
                                where g.OrgID == OrgID && g.TaxMonth.Year == da2.Year && g.TaxMonth.Month == da2.Month
                                select g).FirstOrDefault();
                 if (gstPrev == null)
@@ -157,7 +157,7 @@ namespace GAS.Controllers
                 }
                 else
                 {
-                    gstData.PreviousGSTDues = (Int32)(gstPrev.GSTPayable - gstPrev.GST_Paid);
+                    gstData.PreviousGSTDues = (Int32)(gstPrev.GSTPayable - gstPrev.GSTReceived);
                 }
                 return gstData;
             }
@@ -177,7 +177,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
                 ctx.TDS.Add(tds);
                 ctx.SaveChanges();
                 resp = "{\"Response\":\"OK\"}";
@@ -199,7 +199,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
                 ctx.GSTs.Add(gst);
                 ctx.SaveChanges();
                 resp = "{\"Response\":\"OK\"}";

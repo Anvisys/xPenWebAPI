@@ -26,5 +26,8 @@ namespace GAS
         public int OrganizationId { get; set; }
         public int AccountId { get; set; }
         public int ProjectID { get; set; }
+        public int EmployeeID { get; set; }
+        public int ApproverID { get; set; }
+        public string Status { get; set; }
     }
 }

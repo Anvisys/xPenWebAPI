@@ -1,10 +1,13 @@
-﻿using System;
+﻿using GAS.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices.ComTypes;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.UI.WebControls;
 
 namespace GAS.Controllers
 {
@@ -28,13 +31,13 @@ namespace GAS.Controllers
         // Get all Unpaid sales invoice for an organization
         [Route("Sell/Organization/{OrgID}/Unpaid")]
         [HttpGet]
-        public IEnumerable<ViewSellInvoice> GetUnpaidSellInvoice(int OrgID)
+        public IEnumerable<SalesInvoice> GetUnpaidSellInvoice(int OrgID)
         {
             try
             {
-                var ctx = new GASEntities();
-                var invoiceData = (from inv in ctx.ViewSellInvoices
-                                   where inv.OrgId == OrgID && (inv.Receivable - inv.ReceivedAmount>100)
+                var ctx = new XPenEntities();
+                var invoiceData = (from inv in ctx.SalesInvoices
+                                       //where inv.OrgId == OrgID && (inv.Receivable - inv.ReceivedAmount>100)
                                    select inv);
                 return invoiceData;
             }
@@ -48,15 +51,43 @@ namespace GAS.Controllers
         // Get all Sales Invoice for a project
         [Route("Sell/Organization/{OrgID}/Project/{ProjectID}")]
         [HttpGet]
-        public IEnumerable<ViewSellInvoice> GetSellInvoice(int OrgID, int ProjectID)
+        public IEnumerable<InvoiceDTO> GetSellInvoice(int OrgID, int ProjectID)
         {
             try
             {
-                var ctx = new GASEntities();
-                var projectData = (from inv in ctx.ViewSellInvoices
+                var ctx = new XPenEntities();
+                var saleInvoice = (from inv in ctx.SalesInvoices.AsEnumerable()
                                    where inv.OrgId == OrgID && inv.ProjectId == ProjectID
-                                   select inv);
-                return projectData;
+                                   select inv).ToList();
+                var transactionData = ctx.Transactions.AsEnumerable()
+                                .Where(x=> x.ProjectID == ProjectID)
+                                .GroupBy(x => x.InvoiceID)
+                                .Select(x => new { InvoiceID = x.Key, Received = x.Sum(v => v.Deposit), Paid = x.Sum(v => v.Withdraw) }).ToList();
+                
+                var saleInvoiceData = (from s in saleInvoice
+                                       join t in transactionData
+                                   on s.ID equals t.InvoiceID
+                                   into invoiceTransaction
+                                   from sales in invoiceTransaction.DefaultIfEmpty( new { InvoiceID = s.ID, Received = 0, Paid = 0 })
+
+                                   select new InvoiceDTO
+                                   {
+                                       InvoiceId = s.ID,
+                                       InvoiceNumber = s.InvoiceNumber,
+                                       OrgId = s.OrgId,
+                                       ProjectId = s.ProjectId,
+                                       ServiceCost = s.ServiceCost,
+                                       CGST = s.CGST,
+                                       SGST = s.SGST,
+                                       IGST = (int)s.IGST,
+                                       TDS = s.TDS,
+                                       InvoiceDate = s.InvoiceDate,
+                                       InvoiceType = (int)s.InvoiceType,
+                                       Paid = sales.Paid,
+                                       Received = sales.Received
+                                   }).ToList();
+
+                return saleInvoiceData;
             }
             catch (Exception ex)
             {
@@ -68,15 +99,43 @@ namespace GAS.Controllers
         // Get all purchase Invoice for a project
         [Route("Purchase/Organization/{OrgID}/Project/{ProjectID}")]
         [HttpGet]
-        public IEnumerable<ViewPurchaseInvoice> GetPurchaseInvoice(int OrgID, int ProjectID)
+        public IEnumerable<InvoiceDTO> GetPurchaseInvoice(int OrgID, int ProjectID)
         {
             try
             {
-                var ctx = new GASEntities();
-                var projectData = (from inv in ctx.ViewPurchaseInvoices
+                var ctx = new XPenEntities();
+                var saleInvoice = (from inv in ctx.PurchaseInvoices.AsEnumerable()
                                    where inv.OrgId == OrgID && inv.ProjectId == ProjectID
-                                   select inv);
-                return projectData;
+                                   select inv).ToList();
+                var transactionData = ctx.Transactions.AsEnumerable()
+                                .Where(x => x.ProjectID == ProjectID)
+                                .GroupBy(x => x.InvoiceID)
+                                .Select(x => new { InvoiceID = x.Key, Received = x.Sum(v => v.Deposit), Paid = x.Sum(v => v.Withdraw) }).ToList();
+
+                var saleInvoiceData = (from s in saleInvoice
+                                       join t in transactionData
+                                   on s.ID equals t.InvoiceID
+                                   into invoiceTransaction
+                                       from sales in invoiceTransaction.DefaultIfEmpty(new { InvoiceID = s.ID, Received = 0, Paid = 0 })
+
+                                       select new InvoiceDTO
+                                       {
+                                           InvoiceId = s.ID,
+                                           InvoiceNumber = s.InvoiceNumber,
+                                           OrgId = s.OrgId,
+                                           ProjectId = s.ProjectId,
+                                           ServiceCost = s.ServiceCost,
+                                           CGST = s.CGST,
+                                           SGST = s.SGST,
+                                           IGST = (int)s.IGST,
+                                           TDS = s.TDS,
+                                           InvoiceDate = s.InvoiceDate,
+                                           InvoiceType = (int)s.InvoiceType,
+                                           Paid = sales.Paid,
+                                           Received = sales.Received
+                                       }).ToList();
+
+                return saleInvoiceData;
             }
             catch (Exception ex)
             {
@@ -88,12 +147,12 @@ namespace GAS.Controllers
         // Get all purchase Invoice of a Organization by Year and Month
         [Route("Purchase/Organization/{OrgID}/{Year}/{Month}")]
         [HttpGet]
-        public IEnumerable<ViewPurchaseInvoice> GetPurchaseForMonth(int OrgID, int Year, int Month)
+        public IEnumerable<PurchaseInvoice> GetPurchaseForMonth(int OrgID, int Year, int Month)
         {
             try
             {
-                var ctx = new GASEntities();
-                var tdsData = (from tds in ctx.ViewPurchaseInvoices
+                var ctx = new XPenEntities();
+                var tdsData = (from tds in ctx.PurchaseInvoices
                                where tds.OrgId == OrgID && tds.InvoiceDate.Year == Year && tds.InvoiceDate.Month == Month
                                    select tds);
                 return tdsData;
@@ -108,12 +167,12 @@ namespace GAS.Controllers
         // Get all Sales Invoice of a Organization by Year and Month
         [Route("Sell/Organization/{OrgID}/{Year}/{Month}")]
         [HttpGet]
-        public IEnumerable<ViewSellInvoice> GetSellForMonth(int OrgID, int Year, int Month)
+        public IEnumerable<SalesInvoice> GetSellForMonth(int OrgID, int Year, int Month)
         {
             try
             {
-                var ctx = new GASEntities();
-                var tdsData = (from inv in ctx.ViewSellInvoices
+                var ctx = new XPenEntities();
+                var tdsData = (from inv in ctx.SalesInvoices
                                where inv.OrgId == OrgID && inv.InvoiceDate.Year == Year && inv.InvoiceDate.Month == Month
                                select inv);
                 return tdsData;
@@ -128,18 +187,18 @@ namespace GAS.Controllers
         // Add new Sales Invoice
         [Route("SellInvoice")]
         [HttpPost]
-        public HttpResponseMessage Post([FromBody]SellInvoice inv)
+        public HttpResponseMessage Post([FromBody] SalesInvoice inv)
         {
 
             String resp = "{\"Response\":\"Undefine\"}";
             var response = Request.CreateResponse(HttpStatusCode.OK);
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
 
                 if (inv != null)
                 {
-                    ctx.SellInvoices.Add(inv);
+                    ctx.SalesInvoices.Add(inv);
                     ctx.SaveChanges();
                    
                     resp = "{\"Response\":\"OK\"}";
@@ -168,7 +227,7 @@ namespace GAS.Controllers
         //    var response = Request.CreateResponse(HttpStatusCode.OK);
         //    try
         //    {
-        //        var ctx = new GASEntities();
+        //        var ctx = new XPenEntities();
 
         //        if (pr != null)
         //        {
@@ -201,7 +260,7 @@ namespace GAS.Controllers
             var response = Request.CreateResponse(HttpStatusCode.OK);
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
 
                 if (inv != null)
                 {
@@ -234,7 +293,7 @@ namespace GAS.Controllers
         //    var response = Request.CreateResponse(HttpStatusCode.OK);
         //    try
         //    {
-        //        var ctx = new GASEntities();
+        //        var ctx = new XPenEntities();
 
         //        if (pg != null)
         //        {

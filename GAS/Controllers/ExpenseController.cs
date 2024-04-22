@@ -25,13 +25,13 @@ namespace GAS.Controllers
         {
             try
             {
-                var ctx = new GASEntities();
-                var exData = (from tr in ctx.ViewMonthCumulativeExpenses
+                var ctx = new XPenEntities();
+                var exData = (from tr in ctx.Expenses
                               where tr.UserID == id
                               select (new MonthExpense { 
-                              Year = (int)tr.year,
-                              Month = (int)tr.month,
-                              Expense = (int)tr.expense
+                              Year = (int)tr.ExpenseDate.Year,
+                              Month = (int)tr.ExpenseDate.Month,
+                              Expense = (int)tr.ExpenseAmount
                               }));
                 return exData;
             }
@@ -48,7 +48,7 @@ namespace GAS.Controllers
         {
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
                 var exData = (from tr in ctx.Expenses
                               where tr.UserID == id
                               select tr).Take(10);
@@ -66,7 +66,7 @@ namespace GAS.Controllers
         {
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
                 var exData = (from tr in ctx.Expenses
                               where tr.UserID == id && tr.ExpenseDate.Year == year && tr.ExpenseDate.Month == month
                               select tr).Take(10);
@@ -85,7 +85,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
                 ctx.Expenses.Add(value);
                 ctx.SaveChanges();
                 resp = "{\"Response\":\"OK\"}";

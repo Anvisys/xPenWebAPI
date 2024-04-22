@@ -37,8 +37,8 @@ namespace GAS.Controllers
             try
             {
                
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
                                where ex.EmployeeID == employeeID
                                group ex by new { ex.EmployeeID, sDate= EntityFunctions.TruncateTime(ex.ExpenseDate)  }
                                    into groupEmpStatus

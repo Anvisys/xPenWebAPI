@@ -23,5 +23,6 @@ namespace GAS
         public System.DateTime ProjectCreationDate { get; set; }
         public int CreatedBy { get; set; }
         public int OrgID { get; set; }
+        public string Status { get; set; }
     }
 }

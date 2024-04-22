@@ -14,11 +14,11 @@ namespace GAS.Controllers
        [RoutePrefix("api/Advance")]
     public class AdvanceController : ApiController
     {
-       GASEntities ctx;
+       XPenEntities ctx;
       // get advance request in an Organization by Status
       [Route("Organization/{OrgID}/Status/{Status}")]
            [HttpGet]
-           public IEnumerable<ViewAdvance> GetAll(int OrgID, String Status)
+           public IEnumerable<AdvanceItem> GetAll(int OrgID, String Status)
         {
             try
             {
@@ -43,10 +43,10 @@ namespace GAS.Controllers
                         ints1 = new String[5];
                         ints1[0] = "Paid";
                     }
-                ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewAdvances
+                ctx = new XPenEntities();
+                var expData = (from ex in ctx.AdvanceItems
                                orderby ex.ActivityID ascending
-                               where ex.AdvanceStatus != "Deleted" && ex.OrgID == OrgID && ints1.Contains(ex.AdvanceStatus)
+                               where ex.Status != "Deleted"
                                select ex);
                 return expData;
             }
@@ -59,12 +59,12 @@ namespace GAS.Controllers
            //Get Advance for an Activity
         [Route("Organization/{OrgID}/Activity/{id}")]
         [HttpGet]
-           public IEnumerable<ViewAdvanceItemName> GetByActivity(int id)
+           public IEnumerable<AdvanceItem> GetByActivity(int id)
         {
             try
             {
-                ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewAdvanceItemNames
+                ctx = new XPenEntities();
+                var expData = (from ex in ctx.AdvanceItems
                                where ex.ActivityID == id && ex.Status != "Deleted"
                                select ex);
                 return expData;
@@ -78,7 +78,7 @@ namespace GAS.Controllers
            // Get Advance by Approver/Manager and status
         [Route("Organization/{OrgID}/Approver/{id}/Status/{Status}")]
         [HttpGet]
-        public IEnumerable<ViewAdvance> GetByApprover(int id, int OrgID, String Status)
+        public IEnumerable<AdvanceItem> GetByApprover(int id, int OrgID, String Status)
         {
             try
             {
@@ -103,10 +103,10 @@ namespace GAS.Controllers
                     ints1 = new String[5];
                     ints1[0] = "Paid";
                 }
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewAdvances
-                               orderby ex.AdvanceModifiedDate ascending
-                               where ex.Approver == id && ex.OrgID == OrgID && ex.AdvanceStatus != "Deleted" && ints1.Contains(ex.AdvanceStatus)
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.AdvanceItems
+                               orderby ex.CreationDate ascending
+                               //where ex.Approver == id && ex.OrgID == OrgID && ex.AdvanceStatus != "Deleted" && ints1.Contains(ex.AdvanceStatus)
                                select ex);
                 return expData;
             }
@@ -125,7 +125,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                ctx = new GASEntities();
+                ctx = new XPenEntities();
                
                 using (var dbContextTransaction = ctx.Database.BeginTransaction())
                 {

@@ -26,7 +26,7 @@ namespace GAS.Controllers
         {
             try
             {
-                var context = new GASEntities();
+                var context = new XPenEntities();
                 var Image = (from res in context.UserImages
                              where (res.UserID == id)
                              select new Image() { UserID = res.UserID, ImageByte = res.Profile_image }).First();
@@ -48,7 +48,7 @@ namespace GAS.Controllers
             try
             {
 
-                using (var context = new GASEntities())
+                using (var context = new XPenEntities())
                 {
 
                     List<UserImage> users = (from u in context.UserImages

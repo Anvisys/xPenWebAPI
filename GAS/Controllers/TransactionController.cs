@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 
 using System.Web.Http.Cors;
+using System.Web.UI.WebControls;
+using System.Xml.Linq;
 using GAS.Models;
 
 namespace GAS.Controllers
@@ -15,15 +17,15 @@ namespace GAS.Controllers
     public class TransactionController : ApiController
     {
 
-        GASEntities ctx;
+        XPenEntities ctx;
 
         // Get Transaction for an organization
         [Route("Organization/{OrgID}")]
         [HttpGet]
-        public IEnumerable<ViewTransaction> GetAll(int OrgID)
+        public IEnumerable<Transaction> GetAll(int OrgID)
         {
-            var ctx = new GASEntities();
-            var expData = (from tr in ctx.ViewTransactions
+            var ctx = new XPenEntities();
+            var expData = (from tr in ctx.Transactions
                            where tr.OrgID == OrgID
                            orderby tr.TransID descending
                            select tr).Take(20);
@@ -34,10 +36,10 @@ namespace GAS.Controllers
         // Get Transaction for a Project
         [Route("Organization/{OrgID}/{PrjID}")]
         [HttpGet]
-        public IEnumerable<ViewTransaction> GetAllForProject(int OrgID, int PrjID)
+        public IEnumerable<Transaction> GetAllForProject(int OrgID, int PrjID)
         {
-            var ctx = new GASEntities();
-            var expData = (from tr in ctx.ViewTransactions
+            var ctx = new XPenEntities();
+            var expData = (from tr in ctx.Transactions
                            where tr.ProjectID == PrjID && tr.OrgID == OrgID
                            orderby tr.TransID descending
                            select tr);
@@ -49,13 +51,36 @@ namespace GAS.Controllers
         [HttpGet]
         public IEnumerable<DailyExpense> GetDaySummary(int OrgID)
         {
-            var ctx = new GASEntities();
-            var expData = (from tr in ctx.ViewTransactionDailySummaries
-                           where tr.OrgID == OrgID
-                           orderby tr.AgrregateDate ascending
-                           select new DailyExpense { ExpenseDate = (DateTime)tr.AgrregateDate, ExpenseAmount = (int)tr.Withdraw, 
-                               ReceiveAmount = (int)tr.Deposit, Balance = (int)tr.Balance }).Take(20);
-            return expData;
+            try
+            {
+                var ctx = new XPenEntities();
+
+                var rows = ctx.Transactions.Where(tr => tr.OrgID == OrgID).Count();
+
+                if (rows > 0)
+                { 
+                    var count = rows > 20 ? 20 : rows;
+                    var expData = (from tr in ctx.Transactions
+                                   where tr.OrgID == OrgID
+                                   orderby tr.TransactionDate ascending
+                                   select new DailyExpense
+                                   {
+                                       ExpenseDate = (DateTime)tr.TransactionDate,
+                                       ExpenseAmount = (int)tr.Withdraw,
+                                       ReceiveAmount = (int)tr.Deposit,
+                                       Balance = (int)tr.Balance
+                                   }).Take(count);
+                    return expData;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
 
@@ -64,11 +89,11 @@ namespace GAS.Controllers
         [HttpGet]
         public IEnumerable<DailyExpense> GetDailyAccount(int OrgID, int AccID)
         {
-            var ctx = new GASEntities();
-            var expData = (from tr in ctx.ViewTransactionDailyAccounts
+            var ctx = new XPenEntities();
+            var expData = (from tr in ctx.Transactions
                            where tr.OrgID == OrgID && tr.AccID == AccID
-                           orderby tr.AgrregateDate ascending
-                           select new DailyExpense { ExpenseDate = (DateTime)tr.AgrregateDate, ExpenseAmount = (int)tr.Withdraw, 
+                           orderby tr.EntryDate ascending
+                           select new DailyExpense { ExpenseDate = (DateTime)tr.EntryDate, ExpenseAmount = (int)tr.Withdraw, 
                                ReceiveAmount = (int)tr.Deposit, Balance = (int)tr.Balance }).Take(20);
             return expData;
         }
@@ -77,13 +102,13 @@ namespace GAS.Controllers
       
         [Route("Organization/{OrgID}/Date/{date}")]
         [HttpGet]
-        public IEnumerable<ViewTransaction> GetByDate(int OrgID, String date)
+        public IEnumerable<Transaction> GetByDate(int OrgID, String date)
         {
             try
             {
                 DateTime day = DateTime.Parse(date);
-                var ctx = new GASEntities();
-                var expData = (from tr in ctx.ViewTransactions
+                var ctx = new XPenEntities();
+                var expData = (from tr in ctx.Transactions
                                where System.Data.Entity.DbFunctions.TruncateTime(tr.TransactionDate) == day.Date
                                orderby tr.TransID descending
                                select tr);
@@ -98,12 +123,12 @@ namespace GAS.Controllers
         // Get 10 transactions in an organization by index
         [Route("Organization/{OrgID}/Page/{id}")]
         [HttpGet]
-        public IEnumerable<ViewTransaction> GetByPage(int OrgID, int id)
+        public IEnumerable<Transaction> GetByPage(int OrgID, int id)
         {
             var startIndex = (id - 1) * 10;
             var endIndex = id * 10;
-            var ctx = new GASEntities();
-            var expData = (from tr in ctx.ViewTransactions
+            var ctx = new XPenEntities();
+            var expData = (from tr in ctx.Transactions
                            orderby tr.TransID descending
                            select tr).Skip(startIndex).Take(11);
             return expData;
@@ -112,11 +137,11 @@ namespace GAS.Controllers
         // Get transactions in an organization by month
         [Route("Organization/{OrgID}/Year/{year}/Month/{month}")]
         [HttpGet]
-        public IEnumerable<ViewTransaction> GetByMonth(int OrgID, int year, int month)
+        public IEnumerable<Transaction> GetByMonth(int OrgID, int year, int month)
         {
             
-            ctx = new GASEntities();
-            var expData = (from tr in ctx.ViewTransactions
+            ctx = new XPenEntities();
+            var expData = (from tr in ctx.Transactions
                            where tr.OrgID == OrgID && tr.EntryDate.Year == year && tr.EntryDate.Month == month
                            orderby tr.TransID descending
                            select tr);
@@ -126,11 +151,11 @@ namespace GAS.Controllers
         // Get tax (GST or TDS) transactions in an organization by month
         [Route("Tax/Organization/{OrgID}/Year/{year}/Month/{month}")]
         [HttpGet]
-        public IEnumerable<ViewTransaction> GetTaxByMonth(int OrgID, int year, int month)
+        public IEnumerable<Transaction> GetTaxByMonth(int OrgID, int year, int month)
         {
 
-           ctx = new GASEntities();
-            var expData = (from tr in ctx.ViewTransactions
+           ctx = new XPenEntities();
+            var expData = (from tr in ctx.Transactions
                            where tr.OrgID == OrgID  && tr.TransactionDate.Year == year && tr.TransactionDate.Month == month
                            && (tr.TransType == "TDS" || tr.TransType=="GST" )
                            orderby tr.TransID descending
@@ -144,7 +169,7 @@ namespace GAS.Controllers
         public HttpResponseMessage PostTransfer([FromBody]Transaction transfer)
         {
             String resp = "{\"Response\":\"Undefine\"}";
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             using (var dbContextTransaction = ctx.Database.BeginTransaction())
                 {
                         try
@@ -210,7 +235,7 @@ namespace GAS.Controllers
         public HttpResponseMessage PostTransactions([FromBody]Transaction[] transfer)
         {
             String resp = "{\"Response\":\"Udefine\"}";
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
 
             using (var dbContextTransaction = ctx.Database.BeginTransaction())
             {
@@ -250,7 +275,7 @@ namespace GAS.Controllers
         public HttpResponseMessage PostPayment([FromBody]Transaction transaction)
         {
             String resp = "{\"Response\":\"Undefine\"}";
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
            var dbContextTransaction= ctx.Database.BeginTransaction();
             try
             {
@@ -318,7 +343,7 @@ namespace GAS.Controllers
 
         private int Transaction(String name, int FromAccountID, int withdraw, int deposit, int ProjectID, int ActivityID, int TransactionID, String Remarks, int OrgID, String TransactionType, DateTime  TransactionDate)
         {
-            GASEntities ctx = new GASEntities();
+            XPenEntities ctx = new XPenEntities();
             var prevBalance = 0;
             var prevT = (from tr in ctx.Transactions
                          where tr.OrgID == OrgID

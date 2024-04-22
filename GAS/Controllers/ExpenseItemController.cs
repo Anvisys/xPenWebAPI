@@ -22,15 +22,15 @@ namespace GAS.Controllers
         // Get expense list of an Organization in given month of a year
         [Route("Organization/{id}/{year}/{month}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetByOrgMonth(int id, int year, int month)
+        public IEnumerable<ExpenseItem> GetByOrgMonth(int id, int year, int month)
         {
             try {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.OrgID == id && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month
-                                && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
-                               orderby ex.UpdatedOn descending
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
+                               where ex.OrganizationId == id && ex.ExpenseDate.Year == year && ex.ExpenseDate.Month == month
+                                && (ex.Action == "Added" || ex.Action == "Quick" || ex.Action == "Paid")
+                               orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
             }
@@ -44,14 +44,14 @@ namespace GAS.Controllers
 
         [Route("Project/{id}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetByProject(int id)
+        public IEnumerable<ExpenseItem> GetByProject(int id)
         {
             try
             {
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
                                where ex.ProjectID == id
-                                && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
+                                && (ex.Action == "Added" || ex.Action == "Quick" || ex.Action == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
@@ -66,15 +66,15 @@ namespace GAS.Controllers
 
         [Route("{OrgId}/Employee/{EmployeeID}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetExpensesEmployee(int OrgId, int EmployeeID)
+        public IEnumerable<ExpenseItem> GetExpensesEmployee(int OrgId, int EmployeeID)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.OrgID == OrgId && ex.EmployeeID == EmployeeID
-                               && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
+                               where ex.OrganizationId == OrgId && ex.EmployeeID == EmployeeID
+                               && (ex.Action == "Added" || ex.Action == "Quick" || ex.Action == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex).Take(5);
                 return expData;
@@ -89,15 +89,15 @@ namespace GAS.Controllers
 
         [Route("Project/{id}/Employee/{EmployeeID}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetProjectByEmployee(int id, int EmployeeID)
+        public IEnumerable<ExpenseItem> GetProjectByEmployee(int id, int EmployeeID)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
                                where ex.ProjectID == id && ex.EmployeeID == EmployeeID 
-                               && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
+                               && (ex.Action == "Added" || ex.Action == "Quick" || ex.Action == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
@@ -111,14 +111,14 @@ namespace GAS.Controllers
         // Get expense list of an Activity
         [Route("Activity/{id}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetByActivity(int id)
+        public IEnumerable<ExpenseItem> GetByActivity(int id)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
-                               where ex.ActivityID == id && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
+                               where ex.ActivityID == id && (ex.Action == "Added" || ex.Action == "Quick" || ex.Action == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
@@ -135,15 +135,15 @@ namespace GAS.Controllers
 
         [Route("Organization/{orgId}/Employee/{employeeID}/Year/{year}/{month}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetByEmployee(int orgId, int employeeID, int year, int month)
+        public IEnumerable<ExpenseItem> GetByEmployee(int orgId, int employeeID, int year, int month)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
                                where ex.EmployeeID == employeeID && ((DateTime)ex.ExpenseDate).Year == year && ((DateTime)ex.ExpenseDate).Month == month
-                                 && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
+                                 && (ex.Action == "Added" || ex.Action == "Quick" || ex.Action == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex );
                 return expData;
@@ -163,7 +163,7 @@ namespace GAS.Controllers
             try
             {
 
-                /*  using (var ctx = new GASEntities())
+                /*  using (var ctx = new XPenEntities())
                   {
                       var query =
                       from act in ctx.Activities
@@ -202,15 +202,15 @@ namespace GAS.Controllers
 
         [Route("Manager/{id}")]
         [HttpGet]
-        public IEnumerable<ViewExpenseItemStatusActivity> GetByManager(int id)
+        public IEnumerable<ExpenseItem> GetByManager(int id)
         {
             try
             {
 
-                var ctx = new GASEntities();
-                var expData = (from ex in ctx.ViewExpenseItemStatusActivities
+                var ctx = new XPenEntities();
+                var expData = (from ex in ctx.ExpenseItems
                                where ex.ApproverID == id 
-                               && (ex.ItemAction == "Added" || ex.ItemAction == "Quick" || ex.ItemAction == "Paid")
+                               && (ex.Action == "Added" || ex.Action == "Quick" || ex.Action == "Paid")
                                orderby ex.ExpenseDate descending
                                select ex);
                 return expData;
@@ -230,7 +230,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
 
                 if (eItem != null)
                 {
@@ -257,7 +257,7 @@ namespace GAS.Controllers
         public HttpResponseMessage PostAddItem([FromBody]ExpenseItem eItem)
         {
             String resp = "{\"Response\":\"Undefine\"}";
-            var ctx = new GASEntities();
+            var ctx = new XPenEntities();
             using (var dbContextTransaction = ctx.Database.BeginTransaction())
             {
                 try
@@ -293,7 +293,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
 
                 if (eItem != null)
                 {

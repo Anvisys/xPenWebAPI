@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using GAS.Models;
 using GAS.Attributes;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace GAS.Controllers
 {
@@ -18,12 +19,12 @@ namespace GAS.Controllers
         // Get List of all projects
 
         [APIAuthorizeAttribute]
-        public IEnumerable<ViewProject> GetAll()
+        public IEnumerable<Project> GetAll()
         {
             try
             {
-                var ctx = new GASEntities();
-                var projectData = (from o in ctx.ViewProjects
+                var ctx = new XPenEntities();
+                var projectData = (from o in ctx.Projects
                                  select o).Take(20);
                 return projectData;
             }
@@ -37,15 +38,31 @@ namespace GAS.Controllers
         // Get project details by project id
         [Route("Organization/{OrgID}/Project/{ProjectID}")]
         [HttpGet]
-        public IEnumerable<ViewProject> GetProject(int OrgID, int ProjectID)
+        public IEnumerable<ProjectDTO> GetProject(int OrgID, int ProjectID)
         {
             try
             {
-                var ctx = new GASEntities();
-                var projectData = (from prj in ctx.ViewProjects
+                var ctx = new XPenEntities();
+
+                var status = ctx.ProjectStatus.AsEnumerable()
+                    .OrderByDescending(x => x.UpdateDate).GroupBy(x => x.ProjectID).Select(x => x.First()).ToList();
+                var project = (from prj in ctx.Projects
                                    where prj.OrgID == OrgID && prj.ProjectID == ProjectID
-                                   select prj);
+                                   select prj).ToList();
+                var projectData = (from p in project
+                             join s in status.DefaultIfEmpty()
+                             on p.ProjectID equals s.ProjectID
+                             select new ProjectDTO {
+                                 ProjectName = p.ProjectName,
+                                 ProjectNumber = p.ProjectNumber,
+                                 ClientName = p.ClientName,
+                                 CreatedBy = p.CreatedBy,
+                                 ProjectValue = p.ProjectValue,
+                                 Status = s.Status,
+                                 WorkCompletion = (int)s.WorkCompletion
+                             }).ToList();
                 return projectData;
+
             }
             catch (Exception ex)
             {
@@ -59,44 +76,79 @@ namespace GAS.Controllers
         [Route("Organization/{OrgID}/Status/{status}")]
         [HttpGet]
         [APIAuthorizeAttribute]
-        public IEnumerable<ViewProject> GetByOrg(int OrgID, String status)
+        public IEnumerable<ProjectDTO> GetByOrg(int OrgID, String status)
         {
             try
             {
-               
                 //DateTime lastSyncTime = DateTime.Parse(synctime);
+                var ctx = new XPenEntities();
+                var statusData = ctx.ProjectStatus.AsEnumerable()
+                    .OrderByDescending(x => x.UpdateDate).GroupBy(x => x.ProjectID).Select(x => x.First()).ToList();
+                var salesData = ctx.SalesInvoices.AsEnumerable()
+                    .GroupBy(x => x.ProjectId).Select(x => new { ProjectID = x.Key, Received =x.Sum(v => v.ServiceCost) }).ToList();
+
+                var purchaseData = ctx.PurchaseInvoices.AsEnumerable()
+                    .GroupBy(x => x.ProjectId).Select(x => new { ProjectID = x.Key, Paid = x.Sum(v => v.ServiceCost) }).ToList();
+
+                var orderData = (from o in ctx.Projects
+                                 where o.OrgID == OrgID
+                                 select o).ToList();
+
                 if (status == "Open")
                 {
                     String[] ints1 = new String[5];
                     ints1[0] = "Ongoing";
-                    var ctx = new GASEntities();
-                    var orderData = (from o in ctx.ViewProjects
+
+                    orderData = (from o in ctx.Projects
                                      where o.OrgID == OrgID && ints1.Contains(o.Status)
-                                     select o);
-                    return orderData;
+                                     select o).ToList();
+
                 }
                 else if (status == "Closed")
                 {
                     String[] ints1 = new String[5];
                     ints1[0] = "Completed";
                     ints1[0] = "OnHold";
-                    var ctx = new GASEntities();
-                    var orderData = (from o in ctx.ViewProjects
+
+                    orderData = (from o in ctx.Projects
                                      where o.OrgID == OrgID && ints1.Contains(o.Status)
-                                     select o);
-                    return orderData;
-                
+                                     select o).ToList();
+
                 }
                 else
                 {
-                    var ctx = new GASEntities();
-                    var orderData = (from o in ctx.ViewProjects
-                                     where o.OrgID == OrgID 
-                                     select o);
-                    return orderData;
+  
+                    orderData = (from o in ctx.Projects
+                                     where o.OrgID == OrgID
+                                     select o).ToList();
                 }
+                var projectData = (from p in orderData
+                                  join s in statusData
+                                  on p.ProjectID equals s.ProjectID
+                                  join si in salesData
+                                  on p.ProjectID equals si.ProjectID
+                                  into salesGroup
+                                  from sales in salesGroup.DefaultIfEmpty(new {ProjectID = p.ProjectID , Received= 0.00})
+                                  join purchase in purchaseData
+                                  on p.ProjectID equals purchase.ProjectID
+                                  into purchaseGroup
+                                  from purchase in purchaseGroup.DefaultIfEmpty(new { ProjectID = p.ProjectID, Paid = 0.00 })
+                                  select new ProjectDTO
+                                  {
+                                      ProjectID = p.ProjectID,
+                                      ProjectName = p.ProjectName,
+                                      ProjectNumber = p.ProjectNumber,
+                                      ClientName = p.ClientName,
+                                      CreatedBy = p.CreatedBy,
+                                      ProjectValue = p.ProjectValue,
+                                      Status = s.Status,
+                                      WorkCompletion = (int)s.WorkCompletion,
+                                      Received = sales.Received,
+                                      Spent = purchase.Paid
+                                  }).ToList();
 
-                
+                return projectData;
+
             }
             catch (Exception ex)
             {
@@ -111,7 +163,7 @@ namespace GAS.Controllers
         [Route("Organization/{OrgID}/Manager/{id}/Status/{status}")]
         [HttpGet]
         [APIAuthorizeAttribute]
-        public IEnumerable<ViewProject> GetByManager(int OrgID, int id, String status)
+        public IEnumerable<Project> GetByManager(int OrgID, int id, String status)
         {
             try
             {
@@ -121,8 +173,8 @@ namespace GAS.Controllers
                 {
                     String[] ints1 = new String[5];
                     ints1[0] = "Ongoing";
-                    var ctx = new GASEntities();
-                    var orderData = (from o in ctx.ViewProjects
+                    var ctx = new XPenEntities();
+                    var orderData = (from o in ctx.Projects
                                      where o.OrgID == OrgID && o.CreatedBy == id && ints1.Contains(o.Status)
                                      select o);
                     return orderData;
@@ -132,8 +184,8 @@ namespace GAS.Controllers
                     String[] ints1 = new String[5];
                     ints1[0] = "Completed";
                     ints1[0] = "OnHold";
-                    var ctx = new GASEntities();
-                    var orderData = (from o in ctx.ViewProjects
+                    var ctx = new XPenEntities();
+                    var orderData = (from o in ctx.Projects
                                      where o.OrgID == OrgID && o.CreatedBy == id && ints1.Contains(o.Status)
                                      select o);
                     return orderData;
@@ -141,8 +193,8 @@ namespace GAS.Controllers
                 }
                 else
                 {
-                    var ctx = new GASEntities();
-                    var orderData = (from o in ctx.ViewProjects
+                    var ctx = new XPenEntities();
+                    var orderData = (from o in ctx.Projects
                                      where o.OrgID == OrgID && o.CreatedBy == id
                                      select o);
                     return orderData;
@@ -168,7 +220,7 @@ namespace GAS.Controllers
             var response = Request.CreateResponse(HttpStatusCode.OK);
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
 
                 prj.ProjectCreationDate = DateTime.UtcNow;
                 
@@ -214,7 +266,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                var ctx = new GASEntities();
+                var ctx = new XPenEntities();
 
                 prjStatus.UpdateDate = DateTime.UtcNow;
 

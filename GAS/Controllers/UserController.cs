@@ -17,7 +17,7 @@ namespace GAS.Controllers
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
-        GASEntities ctx;
+        XPenEntities ctx;
 
 
         // get List of All users
@@ -25,7 +25,7 @@ namespace GAS.Controllers
         [HttpGet]
         public IEnumerable<UserInfo> Get()
         {
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             try
             {
                 var userList = (from u in ctx.Users
@@ -54,7 +54,7 @@ namespace GAS.Controllers
         [HttpGet]
         public IEnumerable<UserInfo> GetByOrg(int OrgID)
         {
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             try
             {
                 var userList = (from u in ctx.Users
@@ -84,7 +84,7 @@ namespace GAS.Controllers
         [HttpGet]
         public UserInfo GetByMobile(string mobile)
         {
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             try
             {
                 var userList = (from u in ctx.Users
@@ -116,7 +116,7 @@ namespace GAS.Controllers
         [HttpPost]
         public HttpResponseMessage PostIfExist([FromBody]User user)
         {
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             bool mail = true;
             bool mobile = true;
             String resp = "{\"Response\":\"Undefine\",\"IsMail\":" + mail + ",\"IsMobile:\"" + mobile + "}";
@@ -146,7 +146,7 @@ namespace GAS.Controllers
             String resp = "{\"Response\":\"Undefine\"}";
             try
             {
-                ctx = new GASEntities();
+                ctx = new XPenEntities();
 
                 bool MobileValid = IsMobile(user.UserMobile);
                 bool EmailValid = IsEmail(user.UserEmail);
@@ -159,7 +159,7 @@ namespace GAS.Controllers
                     String password = user.Password;
                     String newPassword = UserToken.GetHashedPassword(user.Password);  //Utility.EncryptPassword(user.UserEmail.ToLower(), user.Password);
                     user.Password = newPassword;
-                    ctx = new GASEntities();
+                    ctx = new XPenEntities();
                     user.RegisterDate = DateTime.UtcNow;
                     ctx.Users.Add(user);
                     ctx.SaveChanges();
@@ -183,7 +183,7 @@ namespace GAS.Controllers
         [HttpGet]
         public UserInfo GetValidate(int OrgID, String login, String password)
         {
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             String Email;
             if (login.All(char.IsDigit))
             { 
@@ -234,7 +234,7 @@ namespace GAS.Controllers
         public HttpResponseMessage GetChange(int id, String pwd)
         {
             String resp = "{\"Response\":\"Undefine\"}";
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             try
             {
                 var user = (from u in ctx.Users
@@ -266,7 +266,7 @@ namespace GAS.Controllers
         public HttpResponseMessage GetForgot(String Email, String Mobile)
         {
             String resp = "{\"Response\":\"Undefine\"}";
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             try
             {
                 var user = (from u in ctx.Users
@@ -306,7 +306,7 @@ namespace GAS.Controllers
         [HttpPost]
         public UserInfo PostValidateUser(Login login)
         {
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             String Email;
             if (login.User_Login.All(char.IsDigit))
             {
@@ -323,21 +323,25 @@ namespace GAS.Controllers
             {
                 String enPassword = UserToken.GetHashedPassword(login.User_Password); //Utility.EncryptPassword(Email.ToLower(), login.User_Password);
 
-                var userList = (from u in ctx.Users
-                                where u.UserLogin.ToLower() == Email.ToLower() && u.Password == enPassword
-                                select new UserInfo
-                                {
-                                    UserId = u.UserID,
-                                    UserLogin = u.UserLogin,
-                                    UserName = u.UserName,
-                                    UserEmail = u.UserEmail,
-                                    UserMobile = u.UserMobile,
-                                    UserRole = u.Role,
-                                    OrgId = (int)u.OrganizationID,
-                                    OrgName = u.OrgName,
-                                    AccountType = u.SolutionType
-                                }
-                                    ).First();
+                var user = (from u in ctx.Users
+                                where u.UserEmail.ToLower() == Email.ToLower()  && u.Password == enPassword
+                                select u).First();
+
+                var userList = new UserInfo()
+                {
+                    UserId = user.UserID,
+                    UserLogin = user.UserLogin,
+                    UserName = user.UserName,
+                    UserEmail = user.UserEmail,
+                    UserMobile = user.UserMobile,
+                    UserRole =  user.Role,
+                    OrgId = (int)user.OrganizationID,
+                    OrgName = user.OrgName,
+                    AccountType = user.SolutionType
+                };
+                         
+
+
                 string ip = Utility.GetIP(Request);
                 string userAgent = Utility.GetUserAgent(Request);
                 long tick = DateTime.UtcNow.Ticks;
@@ -361,7 +365,7 @@ namespace GAS.Controllers
         public HttpResponseMessage PostExistingUser(User existing)
         {
             String resp = "{\"Response\":\"Undefine\"}";
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             try
             {
                 var user = (from u in ctx.Users
@@ -393,7 +397,7 @@ namespace GAS.Controllers
         public HttpResponseMessage PostEdit(User edit)
         {
             String resp = "{\"Response\":\"Undefine\"}";
-            ctx = new GASEntities();
+            ctx = new XPenEntities();
             try
             {
                 var user = (from u in ctx.Users

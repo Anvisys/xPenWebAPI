@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GASModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="AccID" />
+    </Key>
+    <Property Name="AccID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Number" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccountDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Activities">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+    </Key>
+    <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="ActivityDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="ApproverID" Type="int" />
+    <Property Name="ActivityStatus" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="ExpenseItems">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityID" Type="int" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseAmount" Type="int" Nullable="false" />
+    <Property Name="ReceiveAmount" Type="int" Nullable="false" />
+    <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="Action" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="OrganizationId" Type="int" Nullable="false" />
+    <Property Name="AccountId" Type="int" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Expenses">
+    <Key>
+      <PropertyRef Name="ExpenseID" />
+    </Key>
+    <Property Name="ExpenseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExpenseType" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ExpenseAmount" Type="int" Nullable="false" />
+    <Property Name="ExpenseDescription" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+    <Property Name="SelectedRow" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkCompletion" Type="int" />
+    <Property Name="Remarks" Type="varchar" MaxLength="200" />
+    <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TDS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgID" Type="int" Nullable="false" />
+    <Property Name="TDSDeducted" Type="int" Nullable="false" />
+    <Property Name="TDSPayable" Type="int" Nullable="false" />
+    <Property Name="PreviousTDS" Type="int" Nullable="false" />
+    <Property Name="Penalty" Type="float" Nullable="false" />
+    <Property Name="TaxMonth" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserLogin" Type="varchar" MaxLength="50" />
+    <Property Name="OrganizationID" Type="int" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Role" Type="varchar" MaxLength="20" />
+    <Property Name="UserName" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+    <Property Name="UserMobile" Type="varchar" MaxLength="20" />
+    <Property Name="Status" Type="varchar" MaxLength="20" />
+    <Property Name="RegisterDate" Type="datetime" Nullable="false" />
+    <Property Name="OrgName" Type="varchar" MaxLength="50" />
+    <Property Name="SolutionType" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityContainer Name="GASModelStoreContainer">
+    <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExpenseItems" EntityType="Self.ExpenseItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TDS" EntityType="Self.TDS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
